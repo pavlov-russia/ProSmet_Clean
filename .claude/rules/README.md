@@ -15,4 +15,3 @@
 - `ai-gateway.md`;
 - `db-rls.md`;
 - `pdf-legal.md`.
-

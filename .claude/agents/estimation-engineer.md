@@ -29,4 +29,3 @@ tools:
 - test cases;
 - список blocking rules;
 - предложения по audit trail.
-

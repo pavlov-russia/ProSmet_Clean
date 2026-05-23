@@ -16,4 +16,3 @@ YYYY-MM-DD_ROLE_TASK.md
 - проверки;
 - риски;
 - следующий handoff.
-

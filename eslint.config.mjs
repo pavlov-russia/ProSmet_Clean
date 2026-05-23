@@ -11,7 +11,7 @@ export default [
       "build/**",
       ".next/**",
       "coverage/**",
-      ".vscode-server/**"
+      ".vscode-server/**",
     ],
   },
 ];

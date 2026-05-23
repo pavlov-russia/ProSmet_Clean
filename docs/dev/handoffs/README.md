@@ -21,4 +21,3 @@ Handoff_XX_short-name.md
 - что осталось;
 - quality gates;
 - следующий исполнитель.
-
