@@ -1,0 +1,170 @@
+team:
+  name: "ProSmet AI Build Team"
+  methodology: "AI_M_MSF"
+  mission: "Собрать автономный B2B SaaS MVP для расчета смет натяжных потолков: сайт/Авито -> согласие -> чатовый сбор параметров -> preview сметы -> телефон -> deterministic calculation -> policy decision -> клиентская ссылка/PDF -> аналитика сделки."
+  standard_docs:
+    - "AGENTS.md"
+    - "Vision.md"
+    - "Scope.md"
+    - "docs/Context/2026-05-19-autonomous-mvp-feedback.md"
+    - "docs/ConceptualDesign.md"
+    - "docs/SolutionDesign.md"
+    - "docs/Architecture.md"
+    - "docs/Domain/CeilingEstimateModel.md"
+    - "docs/Domain/DeterministicEstimation.md"
+    - "docs/Evals/QualityGates.md"
+  invariants:
+    - "AI не считает деньги."
+    - "SeniorCeilingEstimator может экспертно считать golden estimates для разработки, но runtime цену клиенту считает только calculation engine."
+    - "Calculation engine считает deterministic estimate из snapshot прайса, coefficient snapshot и formula version."
+    - "При неполных данных calculation engine возвращает partial estimate с insufficient_data блоками."
+    - "Autonomous offer mode публикует только через audited ApprovalPolicyService decision auto_publish."
+    - "Human review обязателен для MVP-0/MVP-1, калибровки и исключений."
+    - "ПД и денежные суммы не уходят в LLM."
+    - "Tenant isolation и RLS обязательны с первого дня."
+  roles:
+    Architect:
+      card: "harness/build-team.md#architect"
+      owns:
+        - "целостность Vision/Scope/Conceptual/Solution/ADR"
+        - "архитектурные инварианты"
+        - "подготовку решений для архитектора-человека"
+      primary_outputs:
+        - "ADR"
+        - "architecture decisions"
+        - "scope guardrails"
+    ProductAnalyst:
+      card: "harness/build-team.md#productanalyst"
+      owns:
+        - "ценность MVP"
+        - "B2C/B2B journeys"
+        - "метрики успеха"
+      primary_outputs:
+        - "journey review"
+        - "metric definitions"
+        - "product acceptance criteria"
+    BusinessAnalyst:
+      card: "harness/build-team.md#businessanalyst"
+      owns:
+        - "процессы потолочной компании"
+        - "статусы сделки"
+        - "операционные и юридические требования"
+      primary_outputs:
+        - "business process map"
+        - "lifecycle/status model"
+        - "legal/consent requirements"
+    DomainAnalyst:
+      card: "harness/build-team.md#domainanalyst"
+      owns:
+        - "предметную модель потолков"
+        - "параметры сметы"
+        - "справочники материалов и работ"
+      primary_outputs:
+        - "domain model updates"
+        - "edge case catalog"
+        - "golden estimate structure"
+    SeniorCeilingEstimator:
+      card: "harness/build-team.md#seniorceilingestimator"
+      owns:
+        - "экспертную проверку потолочной логики"
+        - "экспертный расчет golden estimates для разработки"
+        - "risk flags для autonomous offer mode"
+        - "requires_measurement причины"
+        - "golden estimates review"
+      primary_outputs:
+        - "expert review notes"
+        - "risk flag catalog"
+        - "pilot questions"
+    SolutionArchitect:
+      card: "harness/build-team.md#solutionarchitect"
+      owns:
+        - "компоненты"
+        - "API"
+        - "data model"
+        - "RLS/security"
+        - "integration boundaries"
+      primary_outputs:
+        - "SolutionDesign updates"
+        - "API contracts"
+        - "data model contracts"
+    EstimationEngineDeveloper:
+      card: "harness/build-team.md#estimationenginedeveloper"
+      owns:
+        - "deterministic calculation engine"
+        - "formula registry"
+        - "price/coefficient snapshots"
+        - "calculation regression tests"
+      primary_outputs:
+        - "calculation module"
+        - "formula tests"
+        - "golden estimate regression set"
+    BackendDeveloper:
+      card: "harness/build-team.md#backenddeveloper"
+      owns:
+        - "route handlers"
+        - "Drizzle schema/repositories"
+        - "services"
+        - "workers"
+        - "tenant context"
+      primary_outputs:
+        - "backend implementation"
+        - "migration drafts"
+        - "service tests"
+    FrontendDeveloper:
+      card: "harness/build-team.md#frontenddeveloper"
+      owns:
+        - "owner dashboard"
+        - "human review UI"
+        - "client estimate link"
+        - "site widget"
+        - "Avito entry UI"
+      primary_outputs:
+        - "frontend implementation"
+        - "UX states"
+        - "browser smoke checks"
+    AIFlowDeveloper:
+      card: "harness/build-team.md#aiflowdeveloper"
+      owns:
+        - "AI gateway"
+        - "structured extraction"
+        - "PII/money redaction"
+        - "AI payload audit"
+      primary_outputs:
+        - "gateway implementation"
+        - "schema guards"
+        - "AI safety tests"
+    QAEngineer:
+      card: "harness/build-team.md#qaengineer"
+      owns:
+        - "quality gates"
+        - "regression tests"
+        - "RLS tests"
+        - "AI payload tests"
+        - "policy tests"
+      primary_outputs:
+        - "test plan"
+        - "quality reports"
+        - "acceptance gate results"
+    DevOps:
+      card: "harness/build-team.md#devops"
+      owns:
+        - "environments"
+        - "CI"
+        - "secrets policy"
+        - "monitoring"
+        - "deployment strategy"
+      primary_outputs:
+        - "environment plan"
+        - "CI gates"
+        - "observability baseline"
+    PPM:
+      card: "harness/build-team.md#ppm"
+      owns:
+        - "task breakdown"
+        - "handoff"
+        - "reports"
+        - "Focus/Backlog hygiene"
+      primary_outputs:
+        - "task cards"
+        - "handoff notes"
+        - "progress reports"

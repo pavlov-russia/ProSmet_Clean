@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "Read(./config/credentials.json)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Read(**/*secret*)",
+      "Read(**/*credentials*)",
+      "Read(**/id_rsa*)",
+      "Read(**/id_ed25519*)",
+      "Bash(rm -rf *)",
+      "Bash(sudo rm *)",
+      "Bash(curl * .env*)",
+      "Bash(wget * .env*)",
+      "Bash(* export * curl *)",
+      "Bash(* export * wget *)"
+    ],
+    "ask": [
+      "Bash(git push *)",
+      "Bash(git push --force *)",
+      "Bash(git reset --hard *)",
+      "Bash(git rebase *)",
+      "Bash(npm publish *)",
+      "Bash(pnpm publish *)",
+      "Bash(yarn publish *)",
+      "Bash(rm *)",
+      "Bash(docker push *)",
+      "Bash(vercel --prod *)",
+      "Bash(yc * deploy *)",
+      "Bash(terraform apply *)",
+      "Write(./.env)",
+      "Write(./.env.*)"
+    ],
+    "allow": [
+      "Read(./.env.example)",
+      "Bash(git status)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(rg *)",
+      "Bash(find *)",
+      "Bash(ls *)",
+      "Bash(pwd)",
+      "Bash(npm run *)",
+      "Bash(pnpm run *)",
+      "Bash(pnpm test *)",
+      "Bash(pnpm lint *)",
+      "Bash(pnpm typecheck *)"
+    ]
+  }
+}

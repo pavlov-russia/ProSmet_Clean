@@ -1,0 +1,18 @@
+task:
+  id: "TASK-000"
+  title: ""
+  role: ""
+  owner: ""
+  status: "draft"
+  source_docs:
+    - "AGENTS.md"
+    - "docs/Context/2026-05-19-autonomous-mvp-feedback.md"
+    - "Scope.md"
+  goal: ""
+  inputs: []
+  outputs: []
+  constraints: []
+  forbidden: []
+  quality_gates: []
+  dependencies: []
+  handoff_to: ""
