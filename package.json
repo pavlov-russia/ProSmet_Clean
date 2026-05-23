@@ -1,0 +1,35 @@
+{
+  "name": "prosmet_clean",
+  "version": "1.0.0",
+  "description": "Дата сборки: 2026-05-19   Статус: чистовой архитектурный пакет на основе черновика `ProjectProSmet`",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pavlov-russia/ProSmet_Clean.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/pavlov-russia/ProSmet_Clean/issues"
+  },
+  "homepage": "https://github.com/pavlov-russia/ProSmet_Clean#readme",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.4.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.8.3",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.59.4"
+  }
+}
