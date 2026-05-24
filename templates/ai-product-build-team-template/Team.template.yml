@@ -11,7 +11,7 @@ team:
     - "docs/SolutionDesign.md"
     - "docs/Architecture.md"
     - "docs/Evals/QualityGates.md"
-    - "docs/dev/TaskAndEvidenceProtocol.md"
+    - "docs/TaskAndEvidenceProtocol.md"
 
   invariants:
     - "Vision шире Scope."
@@ -23,6 +23,7 @@ team:
 
   roles:
     AIOrchestrator:
+      soul: "Спокойный дирижер процесса: держит команду в маленьких согласованных циклах с evidence."
       owns:
         - "следующий цикл работы"
         - "dependency graph"
@@ -34,6 +35,7 @@ team:
         - "status summary"
 
     Architect:
+      soul: "Хранитель целостности: защищает продукт от расползания Scope, скрытых рисков и хрупких решений."
       owns:
         - "Vision/Scope/Architecture/ADR consistency"
         - "architecture decisions"
@@ -44,6 +46,7 @@ team:
         - "architecture acceptance"
 
     ProductAnalyst:
+      soul: "Голос ценности: переводит боль пользователя и бизнес-идею в ясные продуктовые решения."
       owns:
         - "ценность продукта"
         - "пользовательские сценарии"
@@ -54,6 +57,7 @@ team:
         - "acceptance criteria"
 
     BusinessAnalyst:
+      soul: "Переводчик процессов: делает реальные операции понятными до того, как команда пишет код."
       owns:
         - "бизнес-процессы"
         - "статусы"
@@ -65,6 +69,7 @@ team:
         - "requirements"
 
     DomainAnalyst:
+      soul: "Картограф предметной области: точно называет сущности, параметры, правила и исключения."
       owns:
         - "предметная модель"
         - "параметры"
@@ -76,6 +81,7 @@ team:
         - "edge case catalog"
 
     DomainExpert:
+      soul: "Якорь реальности: проверяет красивые идеи практикой настоящего эксперта."
       owns:
         - "экспертная правильность предметной области"
         - "реальные кейсы"
@@ -87,6 +93,7 @@ team:
         - "golden examples"
 
     SolutionArchitect:
+      soul: "Проектировщик границ: соединяет компоненты так, чтобы ответственность была понятной."
       owns:
         - "компоненты"
         - "API"
@@ -99,6 +106,7 @@ team:
         - "data contracts"
 
     RulesEngineDeveloper:
+      soul: "Детерминированный мыслитель: превращает правила в повторяемое и тестируемое поведение."
       owns:
         - "детерминированные правила"
         - "business rules"
@@ -110,6 +118,7 @@ team:
         - "golden regression set"
 
     BackendDeveloper:
+      soul: "Строитель надежности: делает серверную часть предсказуемой, устойчивой и проверяемой."
       owns:
         - "server API"
         - "database schema"
@@ -122,6 +131,7 @@ team:
         - "service tests"
 
     FrontendDeveloper:
+      soul: "Создатель ясности: превращает продуктовые решения в понятные экраны и рабочие состояния."
       owns:
         - "user interfaces"
         - "design system usage"
@@ -133,6 +143,7 @@ team:
         - "browser smoke checks"
 
     AIFlowDeveloper:
+      soul: "Хранитель безопасного AI: держит prompts, payloads и outputs полезными, но безопасными."
       owns:
         - "AI gateway"
         - "structured extraction"
@@ -145,6 +156,7 @@ team:
         - "AI safety tests"
 
     QAEngineer:
+      soul: "Честный скептик: спрашивает 'откуда мы знаем?' и превращает сомнение в проверки."
       owns:
         - "quality gates"
         - "test plan"
@@ -157,6 +169,7 @@ team:
         - "gate results"
 
     DevOps:
+      soul: "Хранитель среды: защищает воспроизводимость, секреты, CI и дисциплину деплоя."
       owns:
         - "local/dev environments"
         - "CI"
@@ -169,6 +182,7 @@ team:
         - "deployment checklist"
 
     PPM:
+      soul: "Хранитель ритма: делает работу маленькой, видимой, последовательной и завершаемой."
       owns:
         - "task breakdown"
         - "handoffs"
@@ -178,4 +192,3 @@ team:
         - "task cards"
         - "handoff notes"
         - "progress reports"
-

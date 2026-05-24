@@ -35,9 +35,15 @@
 - `docs/AI_M_MSF.md` — методология документов.
 - `docs/ArchitecturePreparationGuide.md` — пошаговая подготовка архитектуры.
 - `docs/RoleCatalog.md` — кто за что отвечает.
+- `docs/AgentSouls.md` — рабочий характер сотрудников: как они думают и что защищают.
 - `docs/TaskAndEvidenceProtocol.md` — как ставить задачи и принимать работу.
+- `docs/AgentManagementGuide.md` — как редактировать сотрудников и генерировать профили.
+- `docs/ProjectStructureTemplate.md` — какие папки должны быть в новом проекте.
 - `docs/QualityGatesTemplate.md` — шаблон проверок качества.
+- `harness/` — Python-сотрудники, dispatcher, orchestrator and validation scripts.
+- `.codex/agents/` and `.claude/agents/` — готовые профили сотрудников для Codex/Claude.
 - `tasks/task_template.yml` — шаблон задачи.
+- `tasks/TASK-001-product-discovery.yml` — первый стартовый task для нового проекта.
 - `docs/contracts/` — шаблоны отчетов и запросов к архитектору.
 
 ## Универсальные сотрудники
@@ -99,3 +105,17 @@ AI-команда не должна начинать код без:
 - quality gates;
 - evidence protocol.
 
+## Быстрый запуск harness
+
+```bash
+python3 harness/scripts/validate_template.py
+python3 harness/scripts/agents/validate_agent_profiles.py
+python3 harness/scripts/agents/dispatch_tasks.py
+python3 harness/scripts/ai_orchestrator.py propose
+```
+
+Сгенерировать Codex/Claude профили сотрудников:
+
+```bash
+python3 harness/scripts/agents/generate_agent_assets.py
+```

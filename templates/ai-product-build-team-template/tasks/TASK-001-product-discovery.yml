@@ -1,0 +1,52 @@
+task:
+  id: "TASK-001"
+  title: "Product discovery and architecture intake"
+  role: "ProductAnalyst"
+  owner: "ProductAnalyst"
+  status: "ready"
+  slice: "architecture_prep"
+  work_package: "TASK-001"
+  source_docs:
+    - "AGENTS.md"
+    - "NEW_CHAT_PROMPT.md"
+    - "docs/ArchitecturePreparationGuide.md"
+    - "docs/RoleCatalog.md"
+  goal: >
+    Собрать первичные вводные нового продукта и подготовить черновики
+    Vision, Scope, open decisions and first architecture questions.
+  inputs:
+    - "Описание продукта от человека."
+    - "Ограничения по рынку, данным, legal/security and MVP."
+  outputs:
+    - "Vision draft."
+    - "Scope draft."
+    - "Open decisions list."
+    - "Recommended next roles."
+  constraints:
+    - "Не начинать implementation до Scope and architecture acceptance."
+    - "Не придумывать реальные данные, цены, legal/medical/financial promises."
+  forbidden:
+    - "Подключать внешние сервисы."
+    - "Работать с реальными ПД без approval."
+    - "Делать deploy/publish."
+  gate_ids:
+    - "ARCH.INTAKE.READY"
+  quality_gates:
+    - "Vision and Scope drafts exist."
+    - "Open decisions are explicit."
+  required_evidence:
+    - "Vision/Scope draft paths or not_run reason."
+    - "Open decisions list."
+  required_reports:
+    - "reports/task-evidence/TASK-001.json"
+  dependencies: []
+  handoff_to:
+    - "Architect"
+    - "BusinessAnalyst"
+    - "DomainAnalyst"
+    - "SolutionArchitect"
+    - "PPM"
+  acceptance:
+    - "Human can understand what the product is and what MVP excludes."
+    - "Next architecture tasks can be created without guessing product context."
+

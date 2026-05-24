@@ -32,6 +32,16 @@ Vision -> Scope -> Conceptual Design -> Solution Design -> Architecture -> ADR -
 человек -> AIOrchestrator -> command packets -> AI-сотрудники -> evidence -> следующий цикл
 ```
 
+В шаблоне теперь есть полный portable harness:
+
+- Python-сотрудники: `harness/scripts/agents/`;
+- dispatcher: `harness/scripts/agents/dispatch_tasks.py`;
+- orchestrator: `harness/scripts/ai_orchestrator.py`;
+- inbox viewer: `harness/scripts/architect_inbox.py`;
+- профили Codex/Claude генерируются через `harness/scripts/agents/generate_agent_assets.py`;
+- управление сотрудниками описано в `docs/AgentManagementGuide.md`.
+- рабочий характер сотрудников (`soul`) описан в `docs/AgentSouls.md` и хранится в `Team.template.yml` + `harness/scripts/agents/_agent_common.py`.
+
 ## Что сказать AI в новом чате
 
 Используй `NEW_CHAT_PROMPT.md`.
@@ -73,4 +83,3 @@ Vision -> Scope -> Conceptual Design -> Solution Design -> Architecture -> ADR -
 - legal/security constraints;
 - quality gates;
 - MVP Scope.
-

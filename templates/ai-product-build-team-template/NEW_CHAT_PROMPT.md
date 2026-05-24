@@ -38,6 +38,13 @@
 9. зафиксируй quality gates;
 10. скажи простыми словами, что делать дальше.
 
+Используй локальный harness:
+- Python-сотрудники лежат в `harness/scripts/agents/`;
+- управление сотрудниками описано в `docs/AgentManagementGuide.md`;
+- рабочий характер сотрудников описан в `docs/AgentSouls.md`;
+- структура проекта описана в `docs/ProjectStructureTemplate.md`;
+- task/evidence protocol описан в `docs/TaskAndEvidenceProtocol.md`.
+
 Правила:
 - не придумывай реальные цены, юридические обещания, медицинские/финансовые выводы или данные клиента;
 - если нужно решение человека, создай ArchitectInterventionRequest;
@@ -48,4 +55,3 @@
 Описание продукта:
 [ВСТАВЬ СЮДА ОПИСАНИЕ НОВОГО ПРОДУКТА]
 ```
-
