@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prosmet.local/contracts/seed-data-v1.schema.json",
+  "title": "ProSmet Seed Data v1",
+  "type": "object",
+  "required": [
+    "contractVersion",
+    "source",
+    "tenants",
+    "users",
+    "memberships",
+    "leads",
+    "calculationSnapshots",
+    "clientLinks",
+    "clientLinkEvents",
+    "piiAccessLog",
+    "auditEvents"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "contractVersion": { "const": "seed-data.v1" },
+    "source": { "const": "synthetic" },
+    "tenants": { "type": "array", "minItems": 2 },
+    "users": { "type": "array", "minItems": 2 },
+    "memberships": { "type": "array", "minItems": 2 },
+    "leads": { "type": "array", "minItems": 2 },
+    "calculationSnapshots": { "type": "array" },
+    "clientLinks": { "type": "array" },
+    "clientLinkEvents": { "type": "array" },
+    "piiAccessLog": { "type": "array" },
+    "auditEvents": { "type": "array" }
+  },
+  "additionalProperties": false
+}

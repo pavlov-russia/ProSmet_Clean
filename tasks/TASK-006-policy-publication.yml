@@ -1,0 +1,68 @@
+task:
+  id: "TASK-006"
+  title: "Deterministic policy and publication workflow"
+  role: "BackendDeveloper"
+  owner: "BackendDeveloper"
+  status: "epic"
+  slice: "mvp_2"
+  work_package: "TASK-006"
+  micro_tasks:
+    - "TASK-006A"
+    - "TASK-006B"
+  source_docs:
+    - "AGENTS.md"
+    - "Team.yml"
+    - "docs/SolutionDesign.md"
+    - "docs/Architecture.md"
+    - "docs/Evals/QualityGates.md"
+  goal: >
+    Реализовать deterministic ApprovalPolicyService и publication workflow
+    для MVP-2, чтобы `auto_publish` был возможен только после immutable
+    calculation snapshot, consent, phone/legal/readiness/confidence/risk gates
+    и audit log.
+  inputs:
+    - "Approval Policy Protocol из docs/SolutionDesign.md."
+    - "Publication Protocol из docs/SolutionDesign.md."
+    - "Autonomous Offer Gates из docs/Evals/QualityGates.md."
+    - "Calculation snapshot contract from TASK-004."
+    - "Client link/PDF artifact contract from TASK-009."
+  outputs:
+    - "packages/core/policy deterministic decision module."
+    - "approval_policy_decisions persistence and reason codes."
+    - "Publication service that accepts human approval or auto_publish decision."
+    - "Readiness checks for price book, pricing profile, formula, legal pack and notification channel."
+    - "Policy tests for auto_publish, requires_review, requires_measurement, reject_as_incomplete."
+  constraints:
+    - "Policy engine не вызывает LLM и не меняет расчетные суммы."
+    - "MVP-0/MVP-1 остаются human-review-first."
+    - "Policy fails closed to requires_review on error."
+    - "Partial auto_publish допустим только при tenant policy и явных missing blocks."
+    - "Каждое решение имеет input hash, policy version, reason codes и audit event."
+  forbidden:
+    - "Публиковать без immutable calculation snapshot."
+    - "Публиковать без consent или phone при включенном phone-gate."
+    - "Публиковать без human approval или audited auto_publish."
+    - "Использовать AI confidence как единственный publication gate."
+    - "Скрывать risk flags, contradictions или manual adjustments."
+  quality_gates:
+    - "auto_publish невозможен без immutable calculation snapshot."
+    - "Policy decision не меняет расчетные суммы."
+    - "Risky leads go to requires_review or requires_measurement."
+    - "auto_publish with partial stores publicationMode = partial."
+    - "Client link/PDF are generated only from approved or auto-published snapshot."
+  dependencies:
+    - "TASK-001"
+    - "TASK-003"
+    - "TASK-004"
+    - "TASK-005"
+    - "TASK-009"
+  dependency_notes:
+    TASK-009: >
+      Publication policy uses client link, PDF and analytics artifacts as an existing
+      publication substrate. TASK-006 decides when to use that substrate; it must not
+      invent a second link/PDF path.
+  handoff_to:
+    - "FrontendDeveloper"
+    - "QAEngineer"
+    - "DevOps"
+    - "PPM"

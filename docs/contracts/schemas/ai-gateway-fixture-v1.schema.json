@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prosmet.local/contracts/ai-gateway-fixture-v1.schema.json",
+  "title": "ProSmet AI Gateway Fixture v1",
+  "type": "object",
+  "required": ["contractVersion", "cases"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "contractVersion": { "const": "ai-gateway-fixture.v1" },
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "rawInput",
+          "expectedSanitized",
+          "forbiddenFieldsDetected",
+          "expectedStatus"
+        ],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "rawInput": { "type": "string" },
+          "expectedSanitized": { "type": "object" },
+          "forbiddenFieldsDetected": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "expectedStatus": {
+            "enum": ["safe_for_provider", "schema_rejected", "needs_clarification", "needs_human_review"]
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

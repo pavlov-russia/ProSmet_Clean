@@ -1,0 +1,50 @@
+task:
+  id: "TASK-005B"
+  title: "AI gateway boundary stub"
+  role: "AIFlowDeveloper"
+  owner: "AIFlowDeveloper"
+  status: "ready"
+  slice: "mvp_1"
+  work_package: "TASK-005"
+  source_docs:
+    - "AGENTS.md"
+    - "docs/contracts/AIGateway.md"
+    - "docs/Evals/GateMatrix.md"
+  goal: >
+    Implement the single gateway interface and fallback behavior without real
+    provider calls.
+  inputs:
+    - "Redaction and schema guards from TASK-005A."
+    - "AI gateway protocol."
+  outputs:
+    - "packages/core/ai/gateway boundary."
+    - "Provider adapter stub."
+    - "Fallback safe clarification behavior."
+    - "ai_payload_audit record path or stub."
+  constraints:
+    - "Real external provider requires separate architect approval."
+    - "All future model calls must pass through gateway."
+  forbidden:
+    - "Direct OpenAI/Anthropic/YandexGPT/Whisper/SpeechKit calls outside gateway."
+    - "Using AI confidence as sole auto_publish gate."
+  quality_gates:
+    - "Direct AI calls outside gateway are absent."
+  gate_ids:
+    - "AI.PAYLOAD.NO_PII_MONEY"
+    - "AI.OUTPUT.FORBIDDEN_FIELDS"
+    - "AGENT.EVIDENCE.REPORT"
+  required_evidence:
+    - "Gateway interface path."
+    - "Fallback test or not_run reason."
+    - "Direct AI call scan result."
+  required_reports:
+    - "reports/task-evidence/TASK-005B.json"
+  dependencies:
+    - "TASK-005A"
+  handoff_to:
+    - "BackendDeveloper"
+    - "FrontendDeveloper"
+    - "QAEngineer"
+  acceptance:
+    - "The codebase has one AI boundary and no real provider call."
+    - "Fallback is safe and audited."

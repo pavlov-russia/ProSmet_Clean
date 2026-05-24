@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prosmet.local/contracts/contract-manifest-v1.schema.json",
+  "title": "ProSmet Contract Manifest v1",
+  "type": "object",
+  "required": ["contractVersion", "updatedAt", "status", "contracts"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "contractVersion": { "const": "contract-manifest.v1" },
+    "updatedAt": { "type": "string" },
+    "status": { "enum": ["draft", "active", "deprecated"] },
+    "contracts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "doc", "schema"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "doc": { "type": "string", "minLength": 1 },
+          "schema": { "type": "string", "minLength": 1 },
+          "fixtures": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

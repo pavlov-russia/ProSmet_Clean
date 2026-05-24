@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prosmet.local/contracts/agent-task-evidence-v1.schema.json",
+  "title": "ProSmet Agent Task Evidence v1",
+  "type": "object",
+  "required": [
+    "contractVersion",
+    "taskId",
+    "role",
+    "status",
+    "changedFiles",
+    "checks",
+    "gateResults",
+    "blockers",
+    "nextExecutor",
+    "confirmations"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "contractVersion": { "const": "agent-task-evidence.v1" },
+    "taskId": { "type": "string", "pattern": "^TASK-[0-9A-Z]+$" },
+    "role": { "type": "string", "minLength": 1 },
+    "status": { "enum": ["passed", "blocked", "failed", "partial"] },
+    "changedFiles": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["command", "status"],
+        "properties": {
+          "command": { "type": "string", "minLength": 1 },
+          "status": { "enum": ["passed", "failed", "not_run"] },
+          "reason": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "gateResults": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["gateId", "status", "evidence"],
+        "properties": {
+          "gateId": { "type": "string", "minLength": 1 },
+          "status": { "enum": ["passed", "failed", "not_run", "not_applicable"] },
+          "evidence": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "reason": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "blockers": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "nextExecutor": { "type": "string" },
+    "confirmations": {
+      "type": "object",
+      "required": [
+        "scopeExpanded",
+        "readSecrets",
+        "revertedOthersChanges",
+        "weakenedTenantIsolation",
+        "sentPiiOrMoneyToLlm",
+        "usedLlmForPrice"
+      ],
+      "properties": {
+        "scopeExpanded": { "const": false },
+        "readSecrets": { "const": false },
+        "revertedOthersChanges": { "const": false },
+        "weakenedTenantIsolation": { "const": false },
+        "sentPiiOrMoneyToLlm": { "const": false },
+        "usedLlmForPrice": { "const": false }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

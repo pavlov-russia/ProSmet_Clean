@@ -1,0 +1,63 @@
+task:
+  id: "TASK-007"
+  title: "Widget intake flow"
+  role: "FrontendDeveloper"
+  owner: "FrontendDeveloper"
+  status: "epic"
+  slice: "mvp_1"
+  work_package: "TASK-007"
+  micro_tasks:
+    - "TASK-007A"
+    - "TASK-007B"
+  source_docs:
+    - "AGENTS.md"
+    - "Team.yml"
+    - "docs/SolutionDesign.md"
+    - "docs/Architecture.md"
+    - "docs/Evals/QualityGates.md"
+  goal: >
+    Реализовать public intake UI для сайта и Avito entry:
+    entry -> consent -> params/chat -> blurred/partial preview -> phone
+    -> immutable calculation snapshot, с дальнейшей передачей в human review
+    для MVP-1.
+  inputs:
+    - "Site Widget Protocol из docs/SolutionDesign.md."
+    - "Avito Entry Protocol из docs/SolutionDesign.md."
+    - "Public intake API surface."
+    - "AI gateway normalized params contract from TASK-005."
+    - "Calculation preview contract from TASK-004."
+  outputs:
+    - "apps/ceiling widget routes and UI states."
+    - "packages/widget-loader loader.js and iframe bootstrap contract."
+    - "Avito entry landing with signed public entry token resolution."
+    - "Consent, params/chat, preview, phone-gate and error states."
+    - "Client-side event calls for preview_shown and phone_submitted."
+    - "Browser smoke checks for desktop/mobile."
+  constraints:
+    - "Tenant определяется сервером по origin/domain/entry token."
+    - "postMessage используется только для height, close, progress and non-sensitive UI events."
+    - "Consent обязателен до ПД."
+    - "Full estimate/PDF не раскрываются до phone-gate and publication gates."
+    - "Preview до телефона замыливает итоговые/ценовые блоки по tenant policy."
+  forbidden:
+    - "Принимать tenantId из query, body, localStorage или postMessage как authority."
+    - "Показывать клиенту полную смету до human approval или auto_publish."
+    - "Собирать телефон, имя, email, адрес, голос или файлы до consent."
+    - "Передавать ПД или деньги в AI payload."
+  quality_gates:
+    - "Вход с сайта проверяет tenant domain and allowed origins."
+    - "Вход из Avito фиксирует source/channel."
+    - "Виджет собирает параметры как чат с быстрыми ответами и собственным вводом."
+    - "Preview до телефона замыливает итоговые/ценовые блоки."
+    - "Телефон записан до полного раскрытия сметы/PDF, если phone-gate включен."
+  dependencies:
+    - "TASK-001"
+    - "TASK-002"
+    - "TASK-003"
+    - "TASK-004"
+    - "TASK-005"
+  handoff_to:
+    - "BackendDeveloper"
+    - "QAEngineer"
+    - "ProductAnalyst"
+    - "BusinessAnalyst"

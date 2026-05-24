@@ -1,0 +1,126 @@
+{
+  "$schema": "../../docs/contracts/schemas/agent-task-evidence-v1.schema.json",
+  "contractVersion": "agent-task-evidence.v1",
+  "taskId": "TASK-011",
+  "role": "AIOrchestrator",
+  "status": "passed",
+  "changedFiles": [
+    "Team.yml",
+    "Focus.md",
+    "Backlogs.md",
+    "package.json",
+    "docs/contracts/AIOrchestrator.md",
+    "docs/contracts/ContractManifest.json",
+    "docs/contracts/README.md",
+    "docs/contracts/schemas/ai-orchestrator-cycle-v1.schema.json",
+    "docs/dev/PredictableAIWork.md",
+    "docs/dev/ImplementationPlan.md",
+    "docs/Evals/gates.json",
+    "docs/Evals/GateMatrix.md",
+    "docs/Evals/QualityGates.md",
+    "harness/agent-roles.md",
+    "harness/build-team.md",
+    "harness/scripts/README.md",
+    "harness/scripts/ai_orchestrator.py",
+    "harness/scripts/architect_inbox.py",
+    "harness/scripts/agents/_agent_common.py",
+    "harness/scripts/agents/ai_orchestrator_role.py",
+    "harness/scripts/agents/agent_registry.json",
+    "harness/scripts/agents/README.md",
+    "harness/scripts/agents/validate_agent_profiles.py",
+    "harness/scripts/validate_predictability.py",
+    ".claude/agents/ai-orchestrator.md",
+    ".codex/agents/roles/AIOrchestrator/profile.md",
+    "reports/orchestrator/README.md",
+    "reports/orchestrator/latest-cycle.json",
+    "reports/predictability-validation.json",
+    "reports/agent-profiles-validation.json",
+    "workspace/orchestrator/README.md",
+    "tasks/TASK-011-ai-orchestrator.yml"
+  ],
+  "checks": [
+    {
+      "command": "python3 -m py_compile harness/scripts/architect_inbox.py harness/scripts/ai_orchestrator.py harness/scripts/validate_predictability.py harness/scripts/agents/validate_agent_profiles.py harness/scripts/agents/_agent_common.py harness/scripts/agents/dispatch_tasks.py",
+      "status": "passed"
+    },
+    {
+      "command": "python3 harness/scripts/ai_orchestrator.py --help",
+      "status": "passed"
+    },
+    {
+      "command": "python3 harness/scripts/agents/ai_orchestrator_role.py --json",
+      "status": "passed"
+    },
+    {
+      "command": "python3 harness/scripts/ai_orchestrator.py propose",
+      "status": "passed"
+    },
+    {
+      "command": "python3 harness/scripts/validate_predictability.py",
+      "status": "passed"
+    },
+    {
+      "command": "python3 harness/scripts/agents/validate_agent_profiles.py",
+      "status": "passed"
+    },
+    {
+      "command": "python3 harness/scripts/ai_orchestrator.py status",
+      "status": "passed"
+    },
+    {
+      "command": "python3 harness/scripts/architect_inbox.py --json",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool reports/orchestrator/latest-cycle.json >/dev/null && python3 -m json.tool docs/contracts/schemas/ai-orchestrator-cycle-v1.schema.json >/dev/null",
+      "status": "passed"
+    },
+    {
+      "command": "python3 harness/scripts/agents/dispatch_tasks.py",
+      "status": "passed"
+    },
+    {
+      "command": "python3 harness/scripts/ai_orchestrator.py approve --cycle reports/orchestrator/latest-cycle.json --approved-by Architect",
+      "status": "not_run",
+      "reason": "Approval emits command packets and must be run only after explicit architect consent."
+    }
+  ],
+  "gateResults": [
+    {
+      "gateId": "AGENT.ORCHESTRATOR.CYCLE",
+      "status": "passed",
+      "evidence": [
+        "docs/contracts/AIOrchestrator.md",
+        "harness/scripts/ai_orchestrator.py",
+        "reports/orchestrator/latest-cycle.json",
+        "workspace/orchestrator/outbox/ remains approval-gated"
+      ]
+    },
+    {
+      "gateId": "CONTRACT.MANIFEST.SCHEMAS",
+      "status": "passed",
+      "evidence": [
+        "docs/contracts/ContractManifest.json",
+        "docs/contracts/schemas/ai-orchestrator-cycle-v1.schema.json",
+        "python3 harness/scripts/validate_predictability.py"
+      ]
+    },
+    {
+      "gateId": "AGENT.EVIDENCE.REPORT",
+      "status": "passed",
+      "evidence": [
+        "reports/task-evidence/TASK-011.json"
+      ]
+    }
+  ],
+  "blockers": [],
+  "nextExecutor": "Architect",
+  "confirmations": {
+    "scopeExpanded": false,
+    "readSecrets": false,
+    "revertedOthersChanges": false,
+    "weakenedTenantIsolation": false,
+    "sentPiiOrMoneyToLlm": false,
+    "usedLlmForPrice": false
+  }
+}

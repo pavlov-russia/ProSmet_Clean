@@ -1,0 +1,63 @@
+task:
+  id: "TASK-010"
+  title: "CI quality gates"
+  role: "QAEngineer"
+  owner: "QAEngineer"
+  status: "epic"
+  slice: "all"
+  work_package: "TASK-010"
+  micro_tasks:
+    - "TASK-010A"
+    - "TASK-010B"
+  source_docs:
+    - "AGENTS.md"
+    - "Team.yml"
+    - "docs/SolutionDesign.md"
+    - "docs/Architecture.md"
+    - "docs/Evals/QualityGates.md"
+  goal: >
+    Превратить quality gates MVP в локальные и CI-проверки, которые
+    блокируют регрессии в calculation, AI payload, tenant isolation,
+    publication, client link/PDF, autonomous offer mode and architecture rules.
+  inputs:
+    - "QualityGates.md."
+    - "Test scripts and project layout from TASK-002."
+    - "RLS/schema tests from TASK-003."
+    - "Calculation tests from TASK-004."
+    - "AI safety tests from TASK-005."
+    - "Policy/publication/link/UI tests from TASK-006..TASK-009."
+  outputs:
+    - "Test plan mapped to Calculation, AI, Security, PDF/Link, Autonomous, Channel and Architecture gates."
+    - "Local commands for typecheck, unit, integration, browser smoke and gate reports."
+    - "CI workflow draft without autodeploy."
+    - "Regression fixtures and report artifacts."
+    - "Release readiness checklist for MVP-0, MVP-1, MVP-2."
+  constraints:
+    - "Tests use synthetic/test data only."
+    - "CI does not require secrets for baseline checks."
+    - "Failures must be visible in reports with owning role."
+    - "Quality gates are added incrementally as implementation tasks land."
+    - "DevOps owns final CI wiring, QA owns gate coverage."
+  forbidden:
+    - "Marking gates passed without running them."
+    - "Reading .env, .env.* or credential files in tests."
+    - "Adding production deploy or package publish to CI."
+    - "Skipping tenant isolation, AI payload or calculation determinism checks."
+  quality_gates:
+    - "Calculation gates cover determinism, snapshots, partial estimates and edge cases."
+    - "AI gates prove no PII or money in model payloads."
+    - "Security gates prove server-side tenant and RLS isolation."
+    - "PDF/link gates prove legal phrase, versions and analytics events."
+    - "Autonomous gates prove auto_publish fails closed."
+    - "Architecture gates prove packages/core has no ceiling terms and direct AI calls are absent."
+  dependencies:
+    - "TASK-001"
+    - "TASK-002"
+  handoff_to:
+    - "DevOps"
+    - "Architect"
+    - "PPM"
+    - "BackendDeveloper"
+    - "FrontendDeveloper"
+    - "AIFlowDeveloper"
+    - "EstimationEngineDeveloper"

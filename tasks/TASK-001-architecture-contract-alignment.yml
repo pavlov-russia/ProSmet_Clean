@@ -1,0 +1,70 @@
+task:
+  id: "TASK-001"
+  title: "Architecture contract alignment"
+  role: "Architect"
+  owner: "Architect"
+  status: "ready"
+  slice: "architecture_prep"
+  work_package: "TASK-001"
+  source_docs:
+    - "AGENTS.md"
+    - "EntryPointForTask.md"
+    - "Focus.md"
+    - "Backlogs.md"
+    - "Team.yml"
+    - "harness/build-team.md"
+    - "docs/SolutionDesign.md"
+    - "docs/Architecture.md"
+    - "docs/Evals/QualityGates.md"
+  goal: >
+    Проверить, что implementation стартует из единого архитектурного контракта:
+    canonical flow, tenant isolation, deterministic calculation, AI gateway,
+    human review, approval policy, client link/PDF и analytics не конфликтуют
+    между документами и не расширяют Scope.
+  inputs:
+    - "Текущие архитектурные документы clean-пакета."
+    - "Роли и инварианты из Team.yml."
+    - "Quality gates для MVP-0, MVP-1, MVP-2."
+    - "Backlog items, которые могут стать blockers."
+  outputs:
+    - "Подтвержденная последовательность implementation slices."
+    - "Список контрактных blockers, если они есть."
+    - "ADR draft или handoff, если найдено архитектурное отклонение."
+    - "Обновление docs/dev/ImplementationPlan.md только при изменении контракта."
+  constraints:
+    - "Не менять Vision, Scope, Conceptual Design или Solution Design молча."
+    - "Любое отклонение от текущей архитектуры фиксировать через ADR до кода."
+    - "Считать MVP-0/MVP-1 human-review-first."
+    - "Считать MVP-2 autonomous только через deterministic audited policy."
+  forbidden:
+    - "Расширять Scope ради удобства реализации."
+    - "Разрешать LLM считать цену, скидку, коэффициент или строку сметы."
+    - "Ослаблять tenant isolation, RLS или phone-gate."
+    - "Создавать production deploy или подключать реальные внешние сервисы."
+  quality_gates:
+    - "Canonical flow покрывает entry -> consent -> params/chat -> blurred/partial preview -> phone -> immutable calculation snapshot -> policy/human review -> full link/PDF."
+    - "Architecture gates из docs/Evals/QualityGates.md не имеют известных противоречий."
+    - "Open decisions явно отделены от implementation blockers."
+    - "Все task cards используют роли из Team.yml."
+  gate_ids:
+    - "AGENT.TASK_CARD.READY"
+    - "CONTRACT.MANIFEST.SCHEMAS"
+    - "ARCHITECT.INTERVENTION.REQUEST_PROTOCOL"
+    - "FIXTURES.GOLDEN.SYNTHETIC"
+    - "PRICE.INPUT.REQUEST_PROTOCOL"
+  required_evidence:
+    - "Architecture prep acceptance summary."
+    - "Predictability validation report."
+    - "Dispatch plan shows micro-task waves after TASK-001."
+  required_reports:
+    - "reports/task-evidence/TASK-001.json"
+    - "reports/predictability-validation.json"
+  dependencies: []
+  handoff_to:
+    - "PPM"
+    - "SolutionArchitect"
+    - "DevOps"
+    - "QAEngineer"
+  acceptance:
+    - "Документные контракты, gates, fixtures and micro-task graph не конфликтуют со Scope."
+    - "Следующий slice не стартует без evidence по TASK-001."

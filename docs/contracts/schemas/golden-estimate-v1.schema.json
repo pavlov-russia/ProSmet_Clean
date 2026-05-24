@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prosmet.local/contracts/golden-estimate-v1.schema.json",
+  "title": "ProSmet Golden Estimate Fixture v1",
+  "type": "object",
+  "required": [
+    "contractVersion",
+    "id",
+    "title",
+    "source",
+    "approvalStatus",
+    "vertical",
+    "calculationDate",
+    "input",
+    "snapshots",
+    "expected",
+    "assertions"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "contractVersion": { "const": "golden-estimate.v1" },
+    "id": { "type": "string", "pattern": "^GE-[0-9]{3}$" },
+    "title": { "type": "string", "minLength": 1 },
+    "source": { "enum": ["synthetic_stub", "expert", "pilot"] },
+    "approvalStatus": {
+      "enum": ["engineering_fixture_not_pilot_price", "expert_reviewed", "pilot_approved"]
+    },
+    "vertical": { "const": "ceiling" },
+    "calculationDate": { "type": "string" },
+    "input": {
+      "type": "object",
+      "required": ["normalizedParams", "formulaVersion"],
+      "properties": {
+        "normalizedParams": { "type": "object" },
+        "formulaVersion": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "snapshots": {
+      "type": "object",
+      "required": [
+        "priceBookSnapshotRef",
+        "coefficientSnapshotRef",
+        "tenantPricingProfileSnapshotRef",
+        "markupPolicySnapshotRef"
+      ],
+      "properties": {
+        "priceBookSnapshotRef": { "type": "string" },
+        "coefficientSnapshotRef": { "type": "string" },
+        "tenantPricingProfileSnapshotRef": { "type": "string" },
+        "markupPolicySnapshotRef": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "expected": {
+      "type": "object",
+      "required": ["completenessStatus", "missingBlocks", "variants", "riskFlags", "requiredAuditRules"],
+      "properties": {
+        "completenessStatus": { "enum": ["complete", "partial", "unusable"] },
+        "missingBlocks": { "type": "array", "items": { "type": "string" } },
+        "variants": { "type": "object" },
+        "riskFlags": { "type": "array", "items": { "type": "string" } },
+        "requiredAuditRules": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "assertions": {
+      "type": "object",
+      "required": ["deterministicRuns", "moneyToleranceMinor", "noFloatMoney"],
+      "properties": {
+        "variantOrder": { "type": "string" },
+        "deterministicRuns": { "const": 100 },
+        "moneyToleranceMinor": { "const": "0" },
+        "noFloatMoney": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "notes": { "type": "string" }
+  },
+  "additionalProperties": false
+}

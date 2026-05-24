@@ -1,0 +1,49 @@
+task:
+  id: "TASK-003B"
+  title: "Tenant context and RLS"
+  role: "BackendDeveloper"
+  owner: "BackendDeveloper"
+  status: "ready"
+  slice: "mvp_0"
+  work_package: "TASK-003"
+  source_docs:
+    - "AGENTS.md"
+    - "docs/contracts/DataModelRLS.md"
+    - "docs/Evals/GateMatrix.md"
+  goal: >
+    Implement server-side tenant resolution, withTenant conventions and RLS
+    policies/tests for tenant A vs tenant B.
+  inputs:
+    - "Data model from TASK-003A."
+    - "Seed data fixtures/tenant-ab.json."
+  outputs:
+    - "withTenant helper or contract stub."
+    - "RLS policy draft/implementation."
+    - "Tenant A/B isolation test."
+  constraints:
+    - "Client tenantId from body/query/localStorage/postMessage is ignored."
+    - "App role must not have BYPASSRLS."
+  forbidden:
+    - "Trusting tenantId from client."
+    - "Direct DB access outside allowed layer."
+  quality_gates:
+    - "Tenant A cannot read or mutate tenant B."
+  gate_ids:
+    - "SECURITY.TENANT.RLS"
+    - "FIXTURES.SEED.TENANT_AB"
+    - "AGENT.EVIDENCE.REPORT"
+  required_evidence:
+    - "Tenant A/B test result or not_run reason."
+    - "withTenant entrypoint path."
+  required_reports:
+    - "reports/task-evidence/TASK-003B.json"
+  dependencies:
+    - "TASK-003A"
+  handoff_to:
+    - "BackendDeveloper"
+    - "QAEngineer"
+    - "AIFlowDeveloper"
+    - "FrontendDeveloper"
+  acceptance:
+    - "Tenant is resolved server-side."
+    - "RLS path is testable with synthetic tenant A/B data."

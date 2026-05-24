@@ -1,0 +1,24 @@
+{
+  "snapshotType": "tenant_pricing_profile",
+  "pricingProfileId": "pricing_profile_synthetic_default",
+  "tenantId": "tenant_synthetic_a",
+  "version": "default-v1",
+  "hash": "sha256:synthetic-pricing-profile-default-v1",
+  "priceBookId": "pb_synthetic_ceiling_basic",
+  "priceBookVersion": "ceiling-basic-v1",
+  "coefficientSetId": "coef_synthetic_ceiling_basic",
+  "coefficientSetVersion": "ceiling-basic-v1",
+  "markupPolicyId": "markup_synthetic_default",
+  "markupPolicyVersion": "default-v1",
+  "minimumOrderAmount": { "amountMinor": "1800000", "currency": "RUB" },
+  "roundingPolicy": {
+    "mode": "nearest_100_rub",
+    "direction": "up",
+    "applyAt": "variant_total"
+  },
+  "estimateValidityDays": 14,
+  "measurementFeePolicy": {
+    "mode": "free"
+  },
+  "capturedAt": "2026-05-23T00:00:00Z"
+}

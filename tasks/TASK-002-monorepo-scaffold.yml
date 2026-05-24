@@ -1,0 +1,55 @@
+task:
+  id: "TASK-002"
+  title: "Monorepo scaffold"
+  role: "DevOps"
+  owner: "DevOps"
+  status: "epic"
+  slice: "mvp_0"
+  work_package: "TASK-002"
+  micro_tasks:
+    - "TASK-002A"
+    - "TASK-002B"
+  source_docs:
+    - "AGENTS.md"
+    - "Team.yml"
+    - "docs/Architecture.md"
+    - "docs/SolutionDesign.md"
+    - "docs/Evals/QualityGates.md"
+  goal: >
+    Создать минимальный reproducible monorepo scaffold для ProSmet,
+    чтобы implementation roles могли работать в согласованных apps/packages
+    без секретов, production deploy и внешних runtime commitments.
+  inputs:
+    - "Монорепо layout из docs/Architecture.md."
+    - "Component overview из docs/SolutionDesign.md."
+    - "Список ролей и зон ответственности из Team.yml."
+  outputs:
+    - "apps/ceiling scaffold для Next.js App Router, domain и route handlers."
+    - "apps/workers scaffold для pdf, link events, imports, notifications, AI audit."
+    - "apps/owner-bot scaffold для будущих Telegram/Max adapters."
+    - "packages/core scaffold с calc, policy, db, ai, auth, pdf, links, legal, queues, telemetry."
+    - "packages/ui, packages/widget-loader, packages/config scaffold."
+    - "Базовые scripts для typecheck/test/lint/build без production deploy."
+  constraints:
+    - "Использовать существующие repo conventions, если они появятся в рабочем дереве."
+    - "Production dependency добавлять только после явного согласования, если без нее нельзя выполнить scaffold."
+    - "Не создавать и не читать .env, .env.* или credential-файлы."
+    - "Сразу отделить packages/core от apps/ceiling/domain."
+  forbidden:
+    - "Хардкодить потолочную предметку в packages/core."
+    - "Добавлять автодеплой, git push, публикацию пакета или реальные секреты."
+    - "Включать app DB role с BYPASSRLS."
+    - "Создавать внешние provider calls из scaffold."
+  quality_gates:
+    - "Структура совпадает с целевым monorepo layout из docs/Architecture.md."
+    - "packages/core не содержит потолочных терминов."
+    - "Базовые scripts запускаются локально на synthetic/test context."
+    - "CI-ready commands не требуют секретов."
+  dependencies:
+    - "TASK-001"
+  handoff_to:
+    - "BackendDeveloper"
+    - "EstimationEngineDeveloper"
+    - "AIFlowDeveloper"
+    - "FrontendDeveloper"
+    - "QAEngineer"

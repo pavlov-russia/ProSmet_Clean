@@ -1,23 +1,24 @@
 # .claude/agents
 
-Здесь размещаются project subagents Claude Code.
+Project subagents Claude Code для ProSmet.
 
-Созданы базовые агенты:
+<!-- Generated from harness/scripts/agents/_agent_common.py. Edit registry, then rerun generator. -->
 
-- `architect.md`;
-- `domain-analyst.md`;
-- `senior-ceiling-estimator.md`;
-- `solution-architect.md`;
-- `estimation-engineer.md`;
-- `ai-flow-engineer.md`;
-- `qa-evaluator.md`.
+## Canonical Roles
 
-Дополнительные агенты позже:
+- `ai-orchestrator` -> `AIOrchestrator`
+- `architect` -> `Architect`
+- `product-analyst` -> `ProductAnalyst`
+- `business-analyst` -> `BusinessAnalyst`
+- `domain-analyst` -> `DomainAnalyst`
+- `senior-ceiling-estimator` -> `SeniorCeilingEstimator`
+- `solution-architect` -> `SolutionArchitect`
+- `estimation-engineer` -> `EstimationEngineDeveloper`
+- `backend-developer` -> `BackendDeveloper`
+- `frontend-developer` -> `FrontendDeveloper`
+- `ai-flow-engineer` -> `AIFlowDeveloper`
+- `qa-engineer` -> `QAEngineer`
+- `devops` -> `DevOps`
+- `ppm` -> `PPM`
 
-- `product-architect.md`;
-- `frontend-product-engineer.md`;
-- `backend-developer.md`;
-- `devops.md`;
-- `ppm.md`.
-
-Каждый агент должен иметь YAML frontmatter, короткое назначение, список инструментов и жесткие запреты.
+Regenerate with `python3 harness/scripts/agents/generate_agent_assets.py`.

@@ -1,0 +1,41 @@
+{
+  "snapshotType": "coefficient_set",
+  "coefficientSetId": "coef_synthetic_ceiling_basic",
+  "tenantId": "tenant_synthetic_a",
+  "vertical": "ceiling",
+  "version": "ceiling-basic-v1",
+  "hash": "sha256:synthetic-coefficients-ceiling-basic-v1",
+  "capturedAt": "2026-05-23T00:00:00Z",
+  "coefficients": [
+    {
+      "coefficientId": "coef_corner_extra",
+      "code": "corner_extra_after_4",
+      "label": "Synthetic +0.03 work multiplier per corner above 4",
+      "value": "0.03",
+      "appliesTo": "work",
+      "ruleId": "ceiling.v1.work.complexity.corners",
+      "source": "expert_rule",
+      "metadata": { "fixtureOnly": true }
+    },
+    {
+      "coefficientId": "coef_height_above_3m",
+      "code": "height_above_3m",
+      "label": "Synthetic +0.12 work multiplier for height above 3m",
+      "value": "0.12",
+      "appliesTo": "work",
+      "ruleId": "ceiling.v1.work.complexity.height",
+      "source": "expert_rule",
+      "metadata": { "fixtureOnly": true }
+    },
+    {
+      "coefficientId": "coef_urgent",
+      "code": "urgent_install",
+      "label": "Synthetic +0.20 work multiplier for urgent installation",
+      "value": "0.20",
+      "appliesTo": "work",
+      "ruleId": "ceiling.v1.work.complexity.urgency",
+      "source": "expert_rule",
+      "metadata": { "fixtureOnly": true }
+    }
+  ]
+}

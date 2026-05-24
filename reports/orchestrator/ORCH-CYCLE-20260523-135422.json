@@ -1,0 +1,283 @@
+{
+  "$schema": "../../docs/contracts/schemas/ai-orchestrator-cycle-v1.schema.json",
+  "contractVersion": "ai-orchestrator-cycle.v1",
+  "cycleId": "ORCH-CYCLE-20260523-135422",
+  "generatedAt": "2026-05-23T13:54:22Z",
+  "mode": "proposed",
+  "status": "ready_for_architect_approval",
+  "dryRun": true,
+  "canonicalFlow": "entry -> consent -> params/chat -> blurred/partial preview -> phone -> immutable calculation snapshot -> policy/human review -> full link/PDF",
+  "safety": {
+    "development_time_only": true,
+    "no_runtime_product_agent": true,
+    "does_not_read_env_or_credentials": true,
+    "does_not_call_network": true,
+    "does_not_mutate_task_cards": true,
+    "does_not_spawn_agents": true,
+    "requires_architect_approval_before_command_packets": true,
+    "does_not_calculate_prices": true,
+    "does_not_handle_real_pii_or_real_price": true
+  },
+  "consent": {
+    "state": "pending",
+    "requiredBeforeCommandPackets": true,
+    "approvedBy": "",
+    "decisionNote": ""
+  },
+  "sourceReports": {
+    "dispatchPlan": "reports/agent-dispatch-plan.json",
+    "predictabilityReport": "reports/predictability-validation.json",
+    "architectInbox": "workspace/architect-inbox/requests/"
+  },
+  "contextDocs": [
+    {
+      "path": "AGENTS.md",
+      "exists": true
+    },
+    {
+      "path": "EntryPointForTask.md",
+      "exists": true
+    },
+    {
+      "path": "Focus.md",
+      "exists": true
+    },
+    {
+      "path": "Team.yml",
+      "exists": true
+    },
+    {
+      "path": "Scope.md",
+      "exists": true
+    },
+    {
+      "path": "docs/dev/ImplementationPlan.md",
+      "exists": true
+    },
+    {
+      "path": "docs/dev/PredictableAIWork.md",
+      "exists": true
+    },
+    {
+      "path": "docs/contracts/AIOrchestrator.md",
+      "exists": true
+    },
+    {
+      "path": "docs/Evals/gates.json",
+      "exists": true
+    },
+    {
+      "path": "docs/contracts/ContractManifest.json",
+      "exists": true
+    }
+  ],
+  "developmentState": {
+    "dispatchStatus": "ready",
+    "tasksTotal": 31,
+    "rolesTotal": 14,
+    "availableNow": [
+      "TASK-001"
+    ],
+    "executionWaveCount": 13,
+    "completedTasks": [
+      "TASK-011"
+    ],
+    "evidenceReportCount": 1,
+    "blockedByDependencies": {
+      "TASK-002A": [
+        "TASK-001"
+      ],
+      "TASK-002B": [
+        "TASK-002A"
+      ],
+      "TASK-003A": [
+        "TASK-002B"
+      ],
+      "TASK-003B": [
+        "TASK-003A"
+      ],
+      "TASK-003C": [
+        "TASK-003B"
+      ],
+      "TASK-004A": [
+        "TASK-002B"
+      ],
+      "TASK-004B": [
+        "TASK-004A"
+      ],
+      "TASK-004C": [
+        "TASK-004B",
+        "TASK-010A"
+      ],
+      "TASK-005A": [
+        "TASK-003B",
+        "TASK-004A"
+      ],
+      "TASK-005B": [
+        "TASK-005A"
+      ],
+      "TASK-006A": [
+        "TASK-004C",
+        "TASK-005B",
+        "TASK-009B"
+      ],
+      "TASK-006B": [
+        "TASK-006A",
+        "TASK-003C"
+      ],
+      "TASK-007A": [
+        "TASK-003B",
+        "TASK-002B"
+      ],
+      "TASK-007B": [
+        "TASK-007A",
+        "TASK-004C",
+        "TASK-005B"
+      ],
+      "TASK-008A": [
+        "TASK-003B",
+        "TASK-004C"
+      ],
+      "TASK-008B": [
+        "TASK-008A",
+        "TASK-003C"
+      ],
+      "TASK-009A": [
+        "TASK-008B",
+        "TASK-004C",
+        "TASK-003B"
+      ],
+      "TASK-009B": [
+        "TASK-009A"
+      ],
+      "TASK-010A": [
+        "TASK-001"
+      ],
+      "TASK-010B": [
+        "TASK-010A",
+        "TASK-003C",
+        "TASK-004C",
+        "TASK-005B",
+        "TASK-006B",
+        "TASK-009B"
+      ]
+    },
+    "blockedByStatus": {},
+    "missingDependencies": {}
+  },
+  "validations": [
+    {
+      "command": "/usr/bin/python3 harness/scripts/validate_predictability.py",
+      "status": "passed",
+      "exitCode": 0,
+      "outputSummary": [
+        "Predictability validation: pass",
+        "Gates: 23",
+        "Tasks: 31",
+        "Micro-tasks: 22",
+        "Golden estimates: 5",
+        "Price requests: 0",
+        "Architect requests: 0",
+        "Orchestrator reports: 3",
+        "Report: reports/predictability-validation.json"
+      ]
+    },
+    {
+      "command": "/usr/bin/python3 harness/scripts/architect_inbox.py",
+      "status": "passed",
+      "exitCode": 0,
+      "outputSummary": [
+        "Architect inbox: 0 open request(s)",
+        "- no open requests"
+      ]
+    }
+  ],
+  "architectInbox": {
+    "status": "empty",
+    "requestCount": 0,
+    "requests": [],
+    "issues": []
+  },
+  "selectedTasks": [
+    {
+      "taskId": "TASK-001",
+      "title": "Architecture contract alignment",
+      "owner": "Architect",
+      "role": "Architect",
+      "slice": "architecture_prep",
+      "workPackage": "TASK-001",
+      "taskPath": "tasks/TASK-001-architecture-contract-alignment.yml",
+      "selectionReason": "Architecture prep is still available; keep the cycle focused on prep acceptance.",
+      "helper": "harness/scripts/agents/architect.py",
+      "claudeProfile": ".claude/agents/architect.md",
+      "codexProfile": ".codex/agents/roles/Architect/profile.md",
+      "gateIds": [
+        "AGENT.TASK_CARD.READY",
+        "CONTRACT.MANIFEST.SCHEMAS",
+        "ARCHITECT.INTERVENTION.REQUEST_PROTOCOL",
+        "FIXTURES.GOLDEN.SYNTHETIC",
+        "PRICE.INPUT.REQUEST_PROTOCOL"
+      ],
+      "mustRead": [
+        "AGENTS.md",
+        "EntryPointForTask.md",
+        "docs/AI_M_MSF.md",
+        "Focus.md",
+        "Team.yml",
+        "docs/Context/2026-05-19-autonomous-mvp-feedback.md",
+        "Scope.md",
+        "docs/dev/ImplementationPlan.md",
+        "docs/dev/PredictableAIWork.md",
+        "Vision.md",
+        "docs/ConceptualDesign.md",
+        "docs/SolutionDesign.md",
+        "docs/Architecture.md",
+        "docs/ADR/",
+        "Backlogs.md",
+        "harness/build-team.md",
+        "docs/Evals/QualityGates.md",
+        "docs/contracts/README.md",
+        "docs/contracts/ContractManifest.json",
+        "docs/contracts/AgentTaskEvidence.md",
+        "docs/contracts/ArchitectInterventionRequest.md",
+        "docs/contracts/PriceInputRequest.md",
+        "docs/Evals/GateMatrix.md",
+        "docs/contracts/API.md",
+        "docs/contracts/DataModelRLS.md",
+        "docs/contracts/PublicationPolicy.md"
+      ],
+      "dispatchPrompt": "Ты Architect AI Build Team ProSmet. Возьми TASK-001 (Architecture contract alignment). Slice: architecture_prep; work package: TASK-001. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, Vision.md, docs/ConceptualDesign.md, docs/SolutionDesign.md, docs/Architecture.md, docs/ADR/, Backlogs.md, harness/build-team.md, docs/Evals/QualityGates.md, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/GateMatrix.md, docs/contracts/API.md, docs/contracts/DataModelRLS.md, docs/contracts/PublicationPolicy.md. Task card: tasks/TASK-001-architecture-contract-alignment.yml. Запусти helper `harness/scripts/agents/architect.py` для контекста роли. Gate ids: AGENT.TASK_CARD.READY, CONTRACT.MANIFEST.SCHEMAS, ARCHITECT.INTERVENTION.REQUEST_PROTOCOL, FIXTURES.GOLDEN.SYNTHETIC, PRICE.INPUT.REQUEST_PROTOCOL. Required reports: reports/task-evidence/TASK-001.json, reports/predictability-validation.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor.",
+      "expectedEvidenceReports": [
+        "reports/task-evidence/TASK-001.json"
+      ],
+      "evidenceAlreadyExists": false,
+      "handoffTo": [
+        "PPM",
+        "SolutionArchitect",
+        "DevOps",
+        "QAEngineer"
+      ]
+    }
+  ],
+  "orchestratorPreferences": [
+    "Сначала закрывать contract/evidence gates, потом расширять функциональность.",
+    "До приемки architecture prep держать параллелизм низким: один главный task за цикл.",
+    "После baseline scaffold и QA harness параллелить только независимые роли и write scopes.",
+    "Каждый dispatch packet должен требовать конкретный evidence report.",
+    "Любой real price, real PII, deploy, Scope или legal blocker превращать в inbox request, а не в устную договоренность.",
+    "План менять маленькими корректировками, чтобы dependency graph оставался машинно проверяемым."
+  ],
+  "feedback": {
+    "whatIsGoingWell": [
+      "Dependency graph готов к управляемому запуску следующего цикла.",
+      "Следующий управляемый запуск можно ограничить задачами: TASK-001."
+    ],
+    "watchPoints": [
+      "Команды должны завершиться evidence report; без него задача не считается done."
+    ],
+    "planCorrections": [
+      "Не начинать MVP-0 код широкой волной до acceptance по TASK-001 или explicit override."
+    ]
+  },
+  "nextActionForArchitect": "Проверь cycle report и утверди командные пакеты: python3 harness/scripts/ai_orchestrator.py approve --cycle reports/orchestrator/ORCH-CYCLE-20260523-135422.json --approved-by Architect --decision-note \"approved next AI employee cycle\""
+}

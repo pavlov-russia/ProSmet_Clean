@@ -1,0 +1,54 @@
+task:
+  id: "TASK-004B"
+  title: "Ceiling formula adapter v1"
+  role: "EstimationEngineDeveloper"
+  owner: "EstimationEngineDeveloper"
+  status: "ready"
+  slice: "mvp_0"
+  work_package: "TASK-004"
+  source_docs:
+    - "AGENTS.md"
+    - "docs/Domain/GoldenEstimates.md"
+    - "docs/Domain/CeilingEstimateModel.md"
+    - "fixtures/price-books/ceiling-basic-v1.json"
+  goal: >
+    Implement ceiling-specific formula adapter under apps/ceiling/domain using
+    the synthetic stub formula and snapshots.
+  inputs:
+    - "Calculation contracts from TASK-004A."
+    - "Synthetic price/coefficient/pricing fixtures."
+  outputs:
+    - "Formula registry manifest for ceiling.v1."
+    - "Ceiling adapter for complete fixtures."
+    - "Determinism test for at least GE-001."
+  constraints:
+    - "Ceiling-specific terms stay out of packages/core."
+    - "Expected amounts come from fixtures, not AI."
+    - "If real pilot price is needed, create PriceInputRequest and stop price-dependent work."
+  forbidden:
+    - "Hardcoding tenant-specific real prices."
+    - "Putting ceiling domain logic into packages/core."
+    - "Inventing real price book, coefficients or expert-approved totals."
+  quality_gates:
+    - "GE-001 result is stable 100 times."
+  gate_ids:
+    - "CALC.DETERMINISM"
+    - "ARCH.CORE.NO_CEILING_TERMS"
+    - "FIXTURES.GOLDEN.SYNTHETIC"
+    - "PRICE.INPUT.REQUEST_PROTOCOL"
+    - "AGENT.EVIDENCE.REPORT"
+  required_evidence:
+    - "GE-001 test result or not_run reason."
+    - "Path proving ceiling adapter is outside packages/core."
+    - "PriceInputRequest path if real price becomes necessary."
+  required_reports:
+    - "reports/task-evidence/TASK-004B.json"
+  dependencies:
+    - "TASK-004A"
+  handoff_to:
+    - "EstimationEngineDeveloper"
+    - "QAEngineer"
+    - "BackendDeveloper"
+  acceptance:
+    - "At least one complete synthetic estimate matches oracle exactly."
+    - "Formula registry has versioned rule ids."

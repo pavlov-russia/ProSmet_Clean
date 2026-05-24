@@ -1,0 +1,52 @@
+task:
+  id: "TASK-006A"
+  title: "Pure ApprovalPolicyService"
+  role: "BackendDeveloper"
+  owner: "BackendDeveloper"
+  status: "ready"
+  slice: "mvp_2"
+  work_package: "TASK-006"
+  source_docs:
+    - "AGENTS.md"
+    - "docs/contracts/PublicationPolicy.md"
+    - "docs/Domain/DeterministicEstimation.md"
+  goal: >
+    Implement deterministic approval policy as a pure module with fail-closed
+    decisions and no LLM dependency.
+  inputs:
+    - "Calculation snapshot from TASK-004C."
+    - "AI confidence/risk fields from TASK-005B."
+    - "Publication substrate from TASK-009B."
+  outputs:
+    - "Policy input and decision module."
+    - "Decision matrix tests for auto_publish, requires_review, requires_measurement and reject_as_incomplete."
+  constraints:
+    - "MVP-0/MVP-1 remain human-review-first."
+    - "Policy does not change calculation sums."
+    - "Pilot-ready publication requires real price/legal readiness from Architect."
+  forbidden:
+    - "Calling LLM from policy."
+    - "Publishing on AI confidence alone."
+  quality_gates:
+    - "Policy is deterministic and fails closed."
+  gate_ids:
+    - "POLICY.DETERMINISTIC"
+    - "PUBLICATION.GATED"
+    - "PRICE.INPUT.REQUEST_PROTOCOL"
+    - "AGENT.EVIDENCE.REPORT"
+  required_evidence:
+    - "Policy matrix test result."
+    - "No LLM/direct provider call scan result."
+  required_reports:
+    - "reports/task-evidence/TASK-006A.json"
+  dependencies:
+    - "TASK-004C"
+    - "TASK-005B"
+    - "TASK-009B"
+  handoff_to:
+    - "BackendDeveloper"
+    - "QAEngineer"
+    - "SolutionArchitect"
+  acceptance:
+    - "Policy returns deterministic reason-coded decisions."
+    - "Errors result in requires_review."

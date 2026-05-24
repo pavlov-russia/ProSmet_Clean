@@ -1,0 +1,54 @@
+task:
+  id: "TASK-006B"
+  title: "Policy persistence and publication hook"
+  role: "BackendDeveloper"
+  owner: "BackendDeveloper"
+  status: "ready"
+  slice: "mvp_2"
+  work_package: "TASK-006"
+  source_docs:
+    - "AGENTS.md"
+    - "docs/contracts/PublicationPolicy.md"
+    - "docs/contracts/DataModelRLS.md"
+  goal: >
+    Persist policy decisions with input hash, policy version, reason codes and
+    audit event, then connect audited auto_publish to the existing publication substrate.
+  inputs:
+    - "Pure policy from TASK-006A."
+    - "Link/PDF substrate from TASK-009B."
+    - "Tenant/RLS from TASK-003C."
+  outputs:
+    - "approval_policy_decisions persistence."
+    - "Publication hook accepting human approval or audited auto_publish."
+    - "Audit event for each decision."
+  constraints:
+    - "Publication service must not invent a second link/PDF path."
+    - "Partial auto_publish stores publicationMode = partial."
+    - "If publication readiness depends on real price, create PriceInputRequest."
+  forbidden:
+    - "Publishing without immutable snapshot, consent or required phone-gate."
+    - "Changing calculation amounts during publication."
+  quality_gates:
+    - "Client link/PDF are generated only from approved or auto-published snapshot."
+  gate_ids:
+    - "POLICY.DETERMINISTIC"
+    - "PUBLICATION.GATED"
+    - "SECURITY.TENANT.RLS"
+    - "PRICE.INPUT.REQUEST_PROTOCOL"
+    - "AGENT.EVIDENCE.REPORT"
+  required_evidence:
+    - "Policy persistence test result."
+    - "Publication hook test result."
+  required_reports:
+    - "reports/task-evidence/TASK-006B.json"
+  dependencies:
+    - "TASK-006A"
+    - "TASK-003C"
+  handoff_to:
+    - "FrontendDeveloper"
+    - "QAEngineer"
+    - "DevOps"
+    - "PPM"
+  acceptance:
+    - "Policy decision is auditable and linked to immutable calculation snapshot."
+    - "Publication path remains single and gated."

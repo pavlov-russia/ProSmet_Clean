@@ -1,0 +1,58 @@
+task:
+  id: "TASK-011"
+  title: "Development-time AI Orchestrator"
+  role: "AIOrchestrator"
+  owner: "AIOrchestrator"
+  status: "done"
+  slice: "architecture_prep"
+  work_package: "TASK-011"
+  source_docs:
+    - "AGENTS.md"
+    - "Focus.md"
+    - "Team.yml"
+    - "docs/dev/PredictableAIWork.md"
+    - "docs/dev/ImplementationPlan.md"
+    - "docs/contracts/AIOrchestrator.md"
+    - "docs/Evals/gates.json"
+  goal: >
+    Add a competent development-time AI orchestrator with Soul and a Python brain
+    that proposes AI employee cycles, waits for architect approval and emits
+    command packets for AI employees.
+  outputs:
+    - "harness/scripts/ai_orchestrator.py"
+    - "docs/contracts/AIOrchestrator.md"
+    - "docs/contracts/schemas/ai-orchestrator-cycle-v1.schema.json"
+    - "reports/orchestrator/latest-cycle.json"
+    - "workspace/orchestrator/outbox/ command packets after approval"
+  constraints:
+    - "Development-time only; not a runtime product agent."
+    - "No network, no .env, no credentials, no real PII, no real pilot price."
+    - "Command packets only after explicit Architect approval."
+    - "Use existing dispatch_tasks.py and role registry instead of replacing them."
+  forbidden:
+    - "Do not change Scope.md."
+    - "Do not spawn AI employees from Python."
+    - "Do not mutate task cards as orchestration side effect."
+    - "Do not calculate price, discount, coefficient or estimate line amount."
+  gate_ids:
+    - "AGENT.ORCHESTRATOR.CYCLE"
+    - "CONTRACT.MANIFEST.SCHEMAS"
+    - "AGENT.EVIDENCE.REPORT"
+  required_evidence:
+    - "AI orchestrator cycle proposal can be generated locally."
+    - "Contract manifest references AIOrchestrator schema."
+    - "Command packet protocol requires architect approval."
+  required_reports:
+    - "reports/task-evidence/TASK-011.json"
+    - "reports/orchestrator/latest-cycle.json"
+  dependencies: []
+  handoff_to:
+    - "Architect"
+    - "PPM"
+    - "QAEngineer"
+  acceptance:
+    - "AIOrchestrator role exists in Team.yml and generated Claude/Codex profiles."
+    - "Python orchestrator supports propose, approve, reject and status."
+    - "Proposal is dry-run and includes safety, selected tasks, feedback and next action."
+    - "Approval emits command packets only after explicit Architect consent."
+    - "Predictability validation includes orchestrator report checks."

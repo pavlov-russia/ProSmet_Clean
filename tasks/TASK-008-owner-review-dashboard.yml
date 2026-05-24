@@ -1,0 +1,61 @@
+task:
+  id: "TASK-008"
+  title: "Owner review dashboard"
+  role: "FrontendDeveloper"
+  owner: "FrontendDeveloper"
+  status: "epic"
+  slice: "mvp_0"
+  work_package: "TASK-008"
+  micro_tasks:
+    - "TASK-008A"
+    - "TASK-008B"
+  source_docs:
+    - "AGENTS.md"
+    - "Team.yml"
+    - "docs/SolutionDesign.md"
+    - "docs/Architecture.md"
+    - "docs/Evals/QualityGates.md"
+  goal: >
+    Реализовать owner web dashboard и human review UI, где владелец видит
+    лиды, параметры, calculation snapshot, warnings, missing blocks, risk flags,
+    версии, audit context и принимает human decision для MVP-0/MVP-1.
+  inputs:
+    - "Owner dashboard API surface."
+    - "Human review flow from MVP-0 sequence."
+    - "CalculationResult from TASK-004."
+    - "RLS and role-based access from TASK-003."
+    - "Product acceptance criteria from ProductAnalyst."
+  outputs:
+    - "Lead list and lead card UI."
+    - "Calculation review screen with variants, items, versions, warnings, assumptions and risk flags."
+    - "Actions: approve, request clarification, requires_measurement, status update."
+    - "Readiness/status indicators for price/legal/policy/autonomous mode."
+    - "Owner-visible client event timeline after TASK-009."
+    - "Browser smoke checks."
+  constraints:
+    - "Owner session resolves tenant through membership."
+    - "Role-based permissions sit on top of RLS."
+    - "Access to original PII is minimized and audited."
+    - "Warnings, missing data and risk flags are visible in review."
+    - "Human approval creates auditable human_reviews record."
+  forbidden:
+    - "Скрывать risk flags, contradictions, assumptions или insufficient_data."
+    - "Давать клиенту full estimate из dashboard без publication gate."
+    - "Обходить withTenant/RLS через прямой DB access."
+    - "Одобрять смету из bot quick action без signed owner auth and full review context."
+  quality_gates:
+    - "Human review обязателен для MVP-0/MVP-1."
+    - "Ошибки, допущения и confidence видны человеку в review mode."
+    - "PDF/link создаются только после approval или audited auto_publish."
+    - "Доступ к original PII пишет pii_access_log."
+    - "Владелец видит новый лид, статус, open/download/CTA events."
+  dependencies:
+    - "TASK-001"
+    - "TASK-002"
+    - "TASK-003"
+    - "TASK-004"
+  handoff_to:
+    - "BackendDeveloper"
+    - "QAEngineer"
+    - "ProductAnalyst"
+    - "BusinessAnalyst"

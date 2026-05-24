@@ -1,0 +1,49 @@
+task:
+  id: "TASK-009B"
+  title: "PDF and analytics substrate"
+  role: "BackendDeveloper"
+  owner: "BackendDeveloper"
+  status: "ready"
+  slice: "mvp_1"
+  work_package: "TASK-009"
+  source_docs:
+    - "AGENTS.md"
+    - "docs/contracts/PublicationPolicy.md"
+    - "docs/Evals/QualityGates.md"
+  goal: >
+    Implement PDF job contract, legal/version fields and client link events
+    with idempotency.
+  inputs:
+    - "Signed link from TASK-009A."
+    - "Calculation snapshot from TASK-004C."
+  outputs:
+    - "PDF enqueue/status/download contract or worker stub."
+    - "PDF template contract with legal phrase and versions."
+    - "client_link_events endpoint and owner aggregate."
+  constraints:
+    - "PDF respects phone-gate."
+    - "Events hash IP/user-agent and avoid raw PII metadata."
+  forbidden:
+    - "Publishing partial estimate as full total."
+    - "Creating PDF without human approval or audited auto_publish."
+  quality_gates:
+    - "opened/reopened/pdf_downloaded/cta_clicked are idempotent."
+  gate_ids:
+    - "PUBLICATION.GATED"
+    - "LINK.PDF.ANALYTICS"
+    - "AGENT.EVIDENCE.REPORT"
+  required_evidence:
+    - "PDF contract test or not_run reason."
+    - "Event idempotency test or not_run reason."
+  required_reports:
+    - "reports/task-evidence/TASK-009B.json"
+  dependencies:
+    - "TASK-009A"
+  handoff_to:
+    - "FrontendDeveloper"
+    - "QAEngineer"
+    - "BackendDeveloper"
+    - "SolutionArchitect"
+  acceptance:
+    - "PDF/link substrate is ready for human-approved publication and later auto_publish."
+    - "Analytics events are auditable and idempotent."

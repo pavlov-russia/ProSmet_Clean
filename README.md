@@ -10,12 +10,15 @@
 Здесь зафиксированы:
 
 - harness для AI-агентов: `AGENTS.md`, `CLAUDE.md`, `.claude/settings.json`, `Team.yml`;
+- реальные профили AI-сотрудников для Claude Code и Codex: `.claude/agents/`, `.codex/agents/`;
 - единое продуктовое видение без MVP-ограничений: `Vision.md`;
 - жесткие рамки реализации MVP: `Scope.md`;
 - методологический слой AI_M_MSF: `docs/AI_M_MSF.md`;
 - концептуальное решение: `docs/ConceptualDesign.md`;
 - техническое решение: `docs/SolutionDesign.md`;
 - архитектурные детали: `docs/Architecture.md`;
+- исполняемые контракты реализации: `docs/contracts/`;
+- стартовый план разработки AI-сотрудниками: `docs/dev/ImplementationPlan.md`;
 - методология формирования harness: `docs/HarnessMethodology.md`;
 - предметная модель и детерминированный расчет: `docs/Domain/`;
 - проверки качества и рисков: `docs/Evals/QualityGates.md`;
@@ -24,7 +27,7 @@
 ## Канон проекта
 
 1. Стартовая вертикаль: натяжные потолки.
-2. Первый доказуемый путь: сайт/Авито -> согласие -> чатовый сбор параметров -> preview сметы -> телефон -> детерминированный расчет -> уникальная клиентская ссылка и PDF -> метрики -> статус сделки.
+2. Первый доказуемый путь: сайт/Авито -> согласие -> чатовый сбор параметров -> blurred/partial preview -> телефон -> immutable deterministic calculation snapshot -> human review или audited `auto_publish` -> уникальная клиентская ссылка и PDF -> метрики -> статус сделки.
 3. AI собирает, нормализует, проверяет пропуски и объясняет. Деньги считает расчетное ядро.
 4. Персональные данные и денежные суммы не отправляются в LLM.
 5. Мультитенантность и RLS проектируются с первого дня.
@@ -50,6 +53,8 @@ ProSmet_Clean/
     ConceptualDesign.md      # Концептуальное представление решения
     SolutionDesign.md        # Логическая схема компонентов и протоколов
     Architecture.md          # Техническая архитектура и инварианты
+    contracts/               # API, RLS, calculation, AI gateway, publication contracts
+    dev/                     # Implementation plan и handoffs AI-сотрудников
     HarnessMethodology.md    # Как создавать AGENTS.md / CLAUDE.md / Scope / Vision
     Sources.md               # Что было изучено и как использовано
     ADR/                     # Архитектурные решения
@@ -59,20 +64,22 @@ ProSmet_Clean/
   harness/
     build-team.md            # AI-сотрудники, которые собирают проект
     agent-roles.md           # Рабочие роли AI-команды и минимальные runtime AI-функции MVP
-    scripts/README.md        # Место для проектных проверочных скриптов
+    scripts/README.md        # Проектные проверочные скрипты
+    scripts/agents/           # Registry, генератор, диспетчер, валидатор и Python entrypoints AI-сотрудников
     skills/README.md         # Место для проектных skills
   tasks/
     task_template.yml        # Шаблон handoff-задачи для AI-сотрудника
+    TASK-*.yml               # Исполняемые task cards по ролям Team.yml
   reports/
     README.md                # Отчеты сотрудников
   workspace/
     README.md                # Рабочая зона временных артефактов
   .claude/
     settings.json            # Реальные разрешения/запреты Claude Code
-    agents/README.md         # Место для subagents
+    agents/README.md         # 13 Claude Code subagents по ролям Team.yml
     rules/README.md          # Место для path-scoped rules
   .codex/
-    agents/README.md         # Место для agent profiles
+    agents/README.md         # 13 Codex agent profiles по ролям Team.yml
 ```
 
 ## Порядок работы
@@ -81,6 +88,7 @@ ProSmet_Clean/
 2. Для текущей итерации дополнительно читается `docs/Context/2026-05-19-autonomous-mvp-feedback.md`.
 3. Любая концептуальная задача сверяется с `docs/ConceptualDesign.md`.
 4. Любая техническая задача сверяется с `docs/SolutionDesign.md` и `docs/Architecture.md`.
-5. Любой расчетный или AI-контур обязан пройти проверки из `docs/Evals/QualityGates.md`.
-6. Новое архитектурное решение фиксируется в `docs/ADR/`.
-7. Если задача расширяет MVP, сначала обновляется `Scope.md`, потом код.
+5. Любая реализационная задача сверяется с `docs/dev/ImplementationPlan.md`, своей карточкой в `tasks/` и релевантным contract-file из `docs/contracts/`.
+6. Любой расчетный или AI-контур обязан пройти проверки из `docs/Evals/QualityGates.md`.
+7. Новое архитектурное решение фиксируется в `docs/ADR/`.
+8. Если задача расширяет MVP, сначала обновляется `Scope.md`, потом код.

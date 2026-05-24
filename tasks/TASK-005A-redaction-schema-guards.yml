@@ -1,0 +1,51 @@
+task:
+  id: "TASK-005A"
+  title: "AI redaction and schema guards"
+  role: "AIFlowDeveloper"
+  owner: "AIFlowDeveloper"
+  status: "ready"
+  slice: "mvp_1"
+  work_package: "TASK-005"
+  source_docs:
+    - "AGENTS.md"
+    - "docs/contracts/AIGateway.md"
+    - "docs/Evals/AIPayloadSafetyCorpus.md"
+    - "fixtures/ai-gateway/ai-payload-safety-cases.json"
+  goal: >
+    Implement PII/money redaction and output schema rejection using the
+    synthetic AI payload safety corpus.
+  inputs:
+    - "AI gateway contract."
+    - "AI payload safety fixture corpus."
+  outputs:
+    - "Redaction pipeline."
+    - "Forbidden output field validator."
+    - "Safety tests for corpus cases."
+  constraints:
+    - "Original and sanitized content are separated."
+    - "Provider payload contains no PII, money, price book or PDF."
+  forbidden:
+    - "Sending phone, email, address, name, money or price fields to LLM."
+    - "Accepting AI price, discount, coefficientValue or total."
+  quality_gates:
+    - "AI payload fixtures pass redaction and rejection checks."
+  gate_ids:
+    - "AI.PAYLOAD.NO_PII_MONEY"
+    - "AI.OUTPUT.FORBIDDEN_FIELDS"
+    - "FIXTURES.AI_PAYLOAD.CORPUS"
+    - "AGENT.EVIDENCE.REPORT"
+  required_evidence:
+    - "AI payload corpus test result."
+    - "List of rejected forbidden fields."
+  required_reports:
+    - "reports/task-evidence/TASK-005A.json"
+  dependencies:
+    - "TASK-003B"
+    - "TASK-004A"
+  handoff_to:
+    - "AIFlowDeveloper"
+    - "BackendDeveloper"
+    - "QAEngineer"
+  acceptance:
+    - "Provider payload is sanitized before any model boundary."
+    - "Forbidden monetary output fields are rejected."

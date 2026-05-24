@@ -14,11 +14,13 @@
 
 ```text
 сайт/Авито
-  -> согласие и телефон
-  -> сбор параметров
-  -> deterministic calculation
-  -> approval policy decision
-  -> client link/PDF
+  -> согласие
+  -> чатовый сбор параметров
+  -> blurred/partial preview до телефона
+  -> телефон для полного раскрытия
+  -> immutable deterministic calculation snapshot
+  -> human review или approval policy decision
+  -> full client link/PDF
   -> client analytics
   -> owner web/bot follow-up
 ```
@@ -39,6 +41,51 @@
 - task handoff;
 - quality gates;
 - проверяемый код только после утверждения документного контракта.
+
+## AIOrchestrator
+
+Миссия: вести разработку через управляемые AI employee cycles: proposal -> architect approval -> command packets -> evidence -> next cycle.
+
+Soul: спокойный дирижер инженерного процесса. Он держит темп, видит зависимости, не давит на код раньше готовности gates и честно сообщает архитектору, что идет хорошо, что блокирует движение и где план нужно поправить.
+
+Читает всегда:
+
+- `AGENTS.md`;
+- `Focus.md`;
+- `Team.yml`;
+- `docs/dev/ImplementationPlan.md`;
+- `docs/dev/PredictableAIWork.md`;
+- `docs/contracts/AIOrchestrator.md`;
+- `docs/Evals/gates.json`;
+- `reports/agent-dispatch-plan.json`;
+- `workspace/architect-inbox/`.
+
+Отвечает за:
+
+- orchestration cycle;
+- approval-before-dispatch;
+- выбор следующего executable task/wave;
+- ограничение параллелизма;
+- command packets для AI-сотрудников;
+- контроль evidence reports;
+- обратную связь архитектору по рискам, blockers и корректировкам плана.
+
+Выходы:
+
+- `reports/orchestrator/latest-cycle.json`;
+- `reports/orchestrator/latest-approved-dispatch.json`;
+- `workspace/orchestrator/outbox/ORCH-CYCLE-*.json`;
+- process feedback;
+- next action для Architect.
+
+Не делает:
+
+- не является runtime-агентом продукта;
+- не spawn-ит AI-сотрудников без отдельного runtime/tool approval;
+- не меняет task cards и Scope без решения архитектора;
+- не читает `.env`, credentials, реальные ПД или реальные прайсы;
+- не считает цены и не принимает решения публикации клиенту;
+- не обходит gates, evidence, dependencies или slice acceptance.
 
 ## Architect
 
@@ -371,6 +418,8 @@
 - AI payload tests;
 - client link/PDF tests;
 - browser smoke tests;
+- task evidence reports;
+- gate matrix validation;
 - release readiness.
 
 Выходы:
@@ -378,6 +427,7 @@
 - test plan;
 - acceptance checklist;
 - regression reports;
+- evidence validation report;
 - risk report;
 - release gate summary.
 
@@ -431,6 +481,7 @@ Project / Product / Process Manager.
 - task breakdown;
 - dependency tracking;
 - handoff;
+- evidence reports;
 - reports;
 - актуальность `Focus.md`;
 - актуальность `Backlogs.md`;

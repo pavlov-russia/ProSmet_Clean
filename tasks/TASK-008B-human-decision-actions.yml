@@ -1,0 +1,50 @@
+task:
+  id: "TASK-008B"
+  title: "Human decision actions"
+  role: "FrontendDeveloper"
+  owner: "FrontendDeveloper"
+  status: "ready"
+  slice: "mvp_0"
+  work_package: "TASK-008"
+  source_docs:
+    - "AGENTS.md"
+    - "docs/contracts/PublicationPolicy.md"
+    - "docs/contracts/API.md"
+  goal: >
+    Implement auditable human review actions: approve, request clarification,
+    requires_measurement and status update.
+  inputs:
+    - "Read-only review UI from TASK-008A."
+    - "PII audit from TASK-003C."
+  outputs:
+    - "Human review action handlers or UI stubs."
+    - "human_reviews audit record."
+    - "No direct link/PDF creation from UI."
+  constraints:
+    - "Human approval is required for MVP-0/MVP-1 publication."
+    - "Bot quick action is out of scope unless signed owner auth exists."
+  forbidden:
+    - "Creating full client link/PDF directly from dashboard action without publication service."
+    - "Approving hidden risk context."
+  quality_gates:
+    - "Human review record is auditable."
+  gate_ids:
+    - "UI.OWNER.REVIEW"
+    - "PUBLICATION.GATED"
+    - "SECURITY.PII.AUDIT"
+    - "AGENT.EVIDENCE.REPORT"
+  required_evidence:
+    - "Human review action test or not_run reason."
+    - "Audit record shape."
+  required_reports:
+    - "reports/task-evidence/TASK-008B.json"
+  dependencies:
+    - "TASK-008A"
+    - "TASK-003C"
+  handoff_to:
+    - "BackendDeveloper"
+    - "QAEngineer"
+    - "ProductAnalyst"
+  acceptance:
+    - "Human decision is recorded before publication."
+    - "UI action does not bypass publication service."

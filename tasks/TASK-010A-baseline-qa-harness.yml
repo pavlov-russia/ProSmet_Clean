@@ -1,0 +1,51 @@
+task:
+  id: "TASK-010A"
+  title: "Baseline QA harness"
+  role: "QAEngineer"
+  owner: "QAEngineer"
+  status: "ready"
+  slice: "all"
+  work_package: "TASK-010"
+  source_docs:
+    - "AGENTS.md"
+    - "docs/Evals/QualityGates.md"
+    - "docs/Evals/GateMatrix.md"
+    - "docs/contracts/AgentTaskEvidence.md"
+  goal: >
+    Map quality gates to owners, reports and baseline commands without CI
+    deploy or secrets.
+  inputs:
+    - "QualityGates.md."
+    - "gates.json."
+    - "Predictability protocol."
+  outputs:
+    - "Gate coverage report or test plan."
+    - "CI draft constraints: no deploy, no secrets."
+    - "Evidence validation path."
+  constraints:
+    - "Cannot mark gates passed without run evidence."
+    - "Baseline checks use synthetic/test data only."
+  forbidden:
+    - "Reading .env or credential files."
+    - "Adding production deploy or package publish to CI."
+  quality_gates:
+    - "Gate matrix is mapped to owners and reports."
+  gate_ids:
+    - "AGENT.TASK_CARD.READY"
+    - "AGENT.EVIDENCE.REPORT"
+    - "ARCHITECT.INTERVENTION.REQUEST_PROTOCOL"
+    - "CI.NO_SECRETS_DEPLOY"
+  required_evidence:
+    - "Gate coverage plan."
+    - "CI no-deploy/no-secret confirmation."
+  required_reports:
+    - "reports/task-evidence/TASK-010A.json"
+  dependencies:
+    - "TASK-001"
+  handoff_to:
+    - "DevOps"
+    - "Architect"
+    - "PPM"
+  acceptance:
+    - "QA can report gate status as passed/failed/not_run with reasons."
+    - "No baseline check requires secrets."

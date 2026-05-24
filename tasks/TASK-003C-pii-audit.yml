@@ -1,0 +1,45 @@
+task:
+  id: "TASK-003C"
+  title: "PII access audit"
+  role: "BackendDeveloper"
+  owner: "BackendDeveloper"
+  status: "ready"
+  slice: "mvp_0"
+  work_package: "TASK-003"
+  source_docs:
+    - "AGENTS.md"
+    - "docs/contracts/DataModelRLS.md"
+    - "docs/contracts/SeedData.md"
+  goal: >
+    Implement or draft pii_access_log behavior for original PII reads.
+  inputs:
+    - "PII access requirements from DataModelRLS."
+    - "Synthetic tenant A/B seed."
+  outputs:
+    - "PII read path with audit append."
+    - "Test or test plan proving audit row creation."
+  constraints:
+    - "Synthetic PII placeholders only."
+    - "Sanitized views remain default."
+  forbidden:
+    - "Logging raw PII to console, reports or prompts."
+    - "Allowing original PII read without audit reason."
+  quality_gates:
+    - "Original PII access writes pii_access_log."
+  gate_ids:
+    - "SECURITY.PII.AUDIT"
+    - "FIXTURES.SEED.TENANT_AB"
+    - "AGENT.EVIDENCE.REPORT"
+  required_evidence:
+    - "PII access audit test result or not_run reason."
+    - "List of fields treated as original PII."
+  required_reports:
+    - "reports/task-evidence/TASK-003C.json"
+  dependencies:
+    - "TASK-003B"
+  handoff_to:
+    - "BackendDeveloper"
+    - "QAEngineer"
+  acceptance:
+    - "Original PII reads are auditable and minimized."
+    - "No real PII is introduced."

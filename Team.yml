@@ -13,6 +13,8 @@ team:
     - "docs/Domain/CeilingEstimateModel.md"
     - "docs/Domain/DeterministicEstimation.md"
     - "docs/Evals/QualityGates.md"
+    - "docs/dev/PredictableAIWork.md"
+    - "docs/Evals/GateMatrix.md"
   invariants:
     - "AI не считает деньги."
     - "SeniorCeilingEstimator может экспертно считать golden estimates для разработки, но runtime цену клиенту считает только calculation engine."
@@ -22,7 +24,20 @@ team:
     - "Human review обязателен для MVP-0/MVP-1, калибровки и исключений."
     - "ПД и денежные суммы не уходят в LLM."
     - "Tenant isolation и RLS обязательны с первого дня."
+    - "AI-сотрудник выполняет micro-task with gate_ids and evidence report, not wide work package."
   roles:
+    AIOrchestrator:
+      card: "harness/build-team.md#aiorchestrator"
+      owns:
+        - "orchestration cycle"
+        - "approval-before-dispatch"
+        - "AI employee command packets"
+        - "process feedback"
+        - "plan correction recommendations"
+      primary_outputs:
+        - "orchestration cycle report"
+        - "approved command packets"
+        - "process feedback"
     Architect:
       card: "harness/build-team.md#architect"
       owns:

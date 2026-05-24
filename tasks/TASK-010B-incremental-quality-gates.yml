@@ -1,0 +1,62 @@
+task:
+  id: "TASK-010B"
+  title: "Incremental quality gates"
+  role: "QAEngineer"
+  owner: "QAEngineer"
+  status: "ready"
+  slice: "all"
+  work_package: "TASK-010"
+  source_docs:
+    - "AGENTS.md"
+    - "docs/Evals/QualityGates.md"
+    - "docs/Evals/GateMatrix.md"
+  goal: >
+    Wire incremental commands/reports for calculation, AI payload, RLS,
+    link/PDF, policy and browser smoke as implementation tasks land.
+  inputs:
+    - "Baseline QA harness from TASK-010A."
+    - "Implementation outputs from TASK-003..TASK-009."
+  outputs:
+    - "Local gate commands."
+    - "CI workflow draft without deploy."
+    - "Release readiness checklist for MVP-0, MVP-1 and MVP-2."
+  constraints:
+    - "Commands may be not_run until implementation exists, but reason is required."
+    - "Failures name owning role."
+  forbidden:
+    - "Skipping tenant isolation, AI payload or calculation determinism checks."
+    - "Marking future gates passed."
+  quality_gates:
+    - "All critical gates have commands or explicit not_run reasons."
+  gate_ids:
+    - "CALC.DETERMINISM"
+    - "CALC.PARTIAL"
+    - "AI.PAYLOAD.NO_PII_MONEY"
+    - "SECURITY.TENANT.RLS"
+    - "PUBLICATION.GATED"
+    - "POLICY.DETERMINISTIC"
+    - "CI.NO_SECRETS_DEPLOY"
+    - "AGENT.EVIDENCE.REPORT"
+  required_evidence:
+    - "Gate command matrix."
+    - "Readiness checklist."
+  required_reports:
+    - "reports/task-evidence/TASK-010B.json"
+  dependencies:
+    - "TASK-010A"
+    - "TASK-003C"
+    - "TASK-004C"
+    - "TASK-005B"
+    - "TASK-006B"
+    - "TASK-009B"
+  handoff_to:
+    - "DevOps"
+    - "Architect"
+    - "PPM"
+    - "BackendDeveloper"
+    - "FrontendDeveloper"
+    - "AIFlowDeveloper"
+    - "EstimationEngineDeveloper"
+  acceptance:
+    - "CI/gate reports can block release by slice."
+    - "Every unrun gate has a concrete reason and owner."

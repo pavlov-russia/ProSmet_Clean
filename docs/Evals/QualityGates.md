@@ -38,7 +38,6 @@
 - Tenant A не читает данные tenant B.
 - Доступ к оригиналу ПД пишет запись в `pii_access_log`.
 - Согласие записано до сбора ПД.
-- Согласие записано до сбора ПД.
 - Preview до телефона замыливает итоговые/ценовые блоки по tenant policy.
 - Телефон записан до полного раскрытия уникальной клиентской сметы/PDF, если tenant включает phone-gate.
 
@@ -91,7 +90,20 @@
 - Новое архитектурное решение имеет ADR.
 - Детерминированный расчет соответствует `docs/Domain/DeterministicEstimation.md`.
 
-## 8. Edge Cases
+## 8. AI Build Team Gates
+
+- Исполняемая task card содержит `slice`, `work_package`, `gate_ids`, `required_evidence`, `required_reports` и `acceptance`.
+- Все `gate_ids` существуют в `docs/Evals/gates.json`.
+- Wide work packages `TASK-002`...`TASK-010` не dispatch'ятся напрямую; работу выполняют micro-tasks.
+- Каждая завершенная task имеет evidence report в `reports/task-evidence/`.
+- Gate нельзя отметить как passed без запущенной проверки или explicit evidence.
+- Межslice переход требует QA/Architect acceptance checkpoint.
+- Synthetic fixtures не подменяют реальный пилотный прайс или legal approval.
+- AIOrchestrator выпускает command packets только после явного approval архитектора.
+- Orchestrator proposal блокируется на failed validations, blocking inbox requests and missing process gates.
+- Orchestrator approval повторно проверяет Architect Inbox, чтобы новый blocker не обошел старым proposal.
+
+## 9. Edge Cases
 
 - площадь 0 или отрицательная;
 - углов меньше 4;

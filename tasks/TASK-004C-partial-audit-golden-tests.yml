@@ -1,0 +1,57 @@
+task:
+  id: "TASK-004C"
+  title: "Partial, audit and golden regression tests"
+  role: "EstimationEngineDeveloper"
+  owner: "EstimationEngineDeveloper"
+  status: "ready"
+  slice: "mvp_0"
+  work_package: "TASK-004"
+  source_docs:
+    - "AGENTS.md"
+    - "docs/contracts/CalculationEngineV1.md"
+    - "docs/Domain/GoldenEstimates.md"
+    - "fixtures/golden-estimates/GE-004-complex-shape-missing-perimeter-partial.json"
+  goal: >
+    Extend calculation tests to all synthetic golden fixtures, partial semantics
+    and audit trail references.
+  inputs:
+    - "Ceiling adapter from TASK-004B."
+    - "Synthetic golden fixtures GE-001..GE-005."
+  outputs:
+    - "Golden regression test suite."
+    - "Partial estimate assertions."
+    - "Audit trail assertions referencing snapshot hashes."
+  constraints:
+    - "Partial finalTotal remains null."
+    - "Old snapshot result does not change after newer price fixture."
+    - "Synthetic golden fixtures do not equal pilot-approved golden estimates."
+  forbidden:
+    - "Showing knownSubtotal as full total."
+    - "Mutating old calculation snapshot after price update."
+    - "Claiming pilot-ready golden estimates without real price input from Architect."
+  quality_gates:
+    - "Golden estimates pass with zero money tolerance."
+    - "Partial result emits insufficient_data."
+  gate_ids:
+    - "CALC.DETERMINISM"
+    - "CALC.PARTIAL"
+    - "FIXTURES.GOLDEN.SYNTHETIC"
+    - "PRICE.INPUT.REQUEST_PROTOCOL"
+    - "AGENT.EVIDENCE.REPORT"
+  required_evidence:
+    - "Golden regression command and result."
+    - "Partial fixture assertion result."
+    - "PriceInputRequest path if expert-approved/pilot-ready totals are required."
+  required_reports:
+    - "reports/task-evidence/TASK-004C.json"
+  dependencies:
+    - "TASK-004B"
+    - "TASK-010A"
+  handoff_to:
+    - "BackendDeveloper"
+    - "FrontendDeveloper"
+    - "QAEngineer"
+    - "SolutionArchitect"
+  acceptance:
+    - "All synthetic golden fixtures have deterministic expected behavior."
+    - "Audit trail covers amount-bearing lines."

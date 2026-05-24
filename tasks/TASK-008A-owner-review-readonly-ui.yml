@@ -1,0 +1,49 @@
+task:
+  id: "TASK-008A"
+  title: "Owner review read-only UI"
+  role: "FrontendDeveloper"
+  owner: "FrontendDeveloper"
+  status: "ready"
+  slice: "mvp_0"
+  work_package: "TASK-008"
+  source_docs:
+    - "AGENTS.md"
+    - "docs/contracts/API.md"
+    - "docs/contracts/CalculationEngineV1.md"
+  goal: >
+    Implement owner lead/review read-only screens showing calculation snapshot,
+    versions, warnings, missing blocks, assumptions and risk flags.
+  inputs:
+    - "Tenant context from TASK-003B."
+    - "Calculation result from TASK-004C."
+  outputs:
+    - "Lead list/card read-only UI."
+    - "Calculation review view with snapshot versions and risk context."
+  constraints:
+    - "Owner session resolves tenant through membership."
+    - "Original PII is minimized and audited."
+  forbidden:
+    - "Hiding risk flags, missing data or assumptions."
+    - "Bypassing withTenant/RLS in UI data loaders."
+  quality_gates:
+    - "Owner sees warnings and risk flags."
+  gate_ids:
+    - "UI.OWNER.REVIEW"
+    - "SECURITY.TENANT.RLS"
+    - "CALC.PARTIAL"
+    - "AGENT.EVIDENCE.REPORT"
+  required_evidence:
+    - "Review UI path."
+    - "Desktop/mobile smoke result or not_run reason."
+  required_reports:
+    - "reports/task-evidence/TASK-008A.json"
+  dependencies:
+    - "TASK-003B"
+    - "TASK-004C"
+  handoff_to:
+    - "FrontendDeveloper"
+    - "BackendDeveloper"
+    - "QAEngineer"
+  acceptance:
+    - "Review screen exposes all calculation risk context to owner."
+    - "Read-only view does not publish link/PDF."

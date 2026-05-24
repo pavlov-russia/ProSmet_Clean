@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prosmet.local/contracts/gate-matrix-v1.schema.json",
+  "title": "ProSmet Gate Matrix v1",
+  "type": "object",
+  "required": ["contractVersion", "updatedAt", "gates"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "contractVersion": { "const": "gate-matrix.v1" },
+    "updatedAt": { "type": "string" },
+    "gates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "slice", "owner", "command", "requiredEvidence"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Z0-9_.-]+$" },
+          "title": { "type": "string", "minLength": 1 },
+          "slice": { "type": "string", "minLength": 1 },
+          "owner": { "type": "string", "minLength": 1 },
+          "command": { "type": "string", "minLength": 1 },
+          "requiredEvidence": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

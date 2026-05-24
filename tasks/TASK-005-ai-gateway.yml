@@ -1,0 +1,63 @@
+task:
+  id: "TASK-005"
+  title: "AI gateway and safe parameter extraction"
+  role: "AIFlowDeveloper"
+  owner: "AIFlowDeveloper"
+  status: "epic"
+  slice: "mvp_1"
+  work_package: "TASK-005"
+  micro_tasks:
+    - "TASK-005A"
+    - "TASK-005B"
+  source_docs:
+    - "AGENTS.md"
+    - "Team.yml"
+    - "docs/SolutionDesign.md"
+    - "docs/Architecture.md"
+    - "docs/Evals/QualityGates.md"
+  goal: >
+    Реализовать единственный AI gateway для безопасного сбора и
+    нормализации параметров, где LLM получает только sanitized payload
+    без ПД, денег, прайсов, PDF и forbidden output fields.
+  inputs:
+    - "AI Gateway Protocol из docs/SolutionDesign.md."
+    - "AI payload and money rules из docs/Architecture.md."
+    - "Consent requirements от BusinessAnalyst."
+    - "Ceiling prompts без prices от DomainAnalyst."
+    - "Normalized params schema от EstimationEngineDeveloper."
+  outputs:
+    - "packages/core/ai/gateway protocol and provider adapter boundary."
+    - "PII redaction and money redaction pipeline."
+    - "Structured output schema validation."
+    - "Forbidden field rejection for price, discount, coefficient and totals."
+    - "ai_payload_audit records."
+    - "Fallback behavior for AI unavailable."
+    - "AI safety tests and fixtures."
+  constraints:
+    - "Все model calls проходят только через packages/core/ai/gateway."
+    - "Реальный внешний provider и отправка данных во внешний сервис требуют отдельного согласования."
+    - "AI confidence не является единственным gate для auto_publish."
+    - "Original content and sanitized content хранятся раздельно."
+    - "Gateway может вернуть params, missing fields, clarification questions, contradictions, risk flags, confidence."
+  forbidden:
+    - "Отправлять в LLM телефон, имя, email, адрес, голос, файлы или денежные суммы."
+    - "Просить LLM посчитать цену или выбрать коэффициент."
+    - "Позволять AI output содержать price, discount, coefficientValue, estimateLineAmount или total."
+    - "Делать прямые вызовы OpenAI, Anthropic, YandexGPT, Whisper, SpeechKit или embeddings вне gateway."
+  quality_gates:
+    - "В payload к LLM нет телефона, имени, email, адреса."
+    - "В payload к LLM нет денежных сумм и price-полей."
+    - "При недостающих данных AI задает вопрос."
+    - "При противоречии AI просит уточнение."
+    - "Все AI-вызовы проходят через gateway."
+    - "AI-ответ не обещает окончательную цену до замера."
+  dependencies:
+    - "TASK-001"
+    - "TASK-002"
+    - "TASK-003"
+    - "TASK-004"
+  handoff_to:
+    - "BackendDeveloper"
+    - "FrontendDeveloper"
+    - "QAEngineer"
+    - "SolutionArchitect"

@@ -1,0 +1,58 @@
+{
+  "$schema": "../../docs/contracts/schemas/ai-gateway-fixture-v1.schema.json",
+  "contractVersion": "ai-gateway-fixture.v1",
+  "cases": [
+    {
+      "id": "AI-001-redact-phone-email-address-money",
+      "rawInput": "Меня зовут Тестовый Клиент, телефон +7 999 000-00-00, email test@example.invalid. Адрес: тестовая улица, 1. Нужно примерно за 45000 руб потолок 18 м2.",
+      "expectedSanitized": {
+        "text": "Нужно примерно [MONEY] потолок 18 м2.",
+        "removed": ["phone", "email", "name", "address", "money"],
+        "providerPayloadAllowed": true
+      },
+      "forbiddenFieldsDetected": [],
+      "expectedStatus": "safe_for_provider"
+    },
+    {
+      "id": "AI-002-reject-price-fields-in-output",
+      "rawInput": "Комната 12 м2, 4 угла, ПВХ, без света. Скажи итоговую цену.",
+      "expectedSanitized": {
+        "normalizedParams": {
+          "areaSqm": "12.0",
+          "cornersCount": 4,
+          "fabricType": "pvc",
+          "spotLightsCount": 0
+        },
+        "rejectedOutputFields": ["price", "finalPrice", "discount", "coefficientValue", "estimateLineAmount", "total"]
+      },
+      "forbiddenFieldsDetected": ["price", "finalPrice", "discount", "coefficientValue", "estimateLineAmount", "total"],
+      "expectedStatus": "schema_rejected"
+    },
+    {
+      "id": "AI-003-missing-area-asks-clarification",
+      "rawInput": "Хочу потолок в спальню, ПВХ, обычный белый, без светильников.",
+      "expectedSanitized": {
+        "normalizedParams": {
+          "roomType": "bedroom",
+          "fabricType": "pvc",
+          "spotLightsCount": 0
+        },
+        "missingFields": ["areaSqm", "cornersCount", "heightM"],
+        "clarificationQuestion": "Какая площадь комнаты, количество углов и высота потолка?"
+      },
+      "forbiddenFieldsDetected": [],
+      "expectedStatus": "needs_clarification"
+    },
+    {
+      "id": "AI-004-contradiction-needs-human-review",
+      "rawInput": "Площадь 0 м2, но комната большая, 30 квадратов. Углов то ли 4, то ли 9.",
+      "expectedSanitized": {
+        "contradictions": ["area_conflict", "corners_conflict"],
+        "riskFlags": ["contradictory_input"],
+        "providerPayloadAllowed": true
+      },
+      "forbiddenFieldsDetected": [],
+      "expectedStatus": "needs_human_review"
+    }
+  ]
+}

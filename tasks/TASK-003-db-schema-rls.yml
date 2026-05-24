@@ -1,0 +1,59 @@
+task:
+  id: "TASK-003"
+  title: "DB schema, RLS and tenant context"
+  role: "BackendDeveloper"
+  owner: "BackendDeveloper"
+  status: "epic"
+  slice: "mvp_0"
+  work_package: "TASK-003"
+  micro_tasks:
+    - "TASK-003A"
+    - "TASK-003B"
+    - "TASK-003C"
+  source_docs:
+    - "AGENTS.md"
+    - "Team.yml"
+    - "docs/SolutionDesign.md"
+    - "docs/Architecture.md"
+    - "docs/Evals/QualityGates.md"
+  goal: >
+    Реализовать минимальную схему данных MVP, Drizzle migrations,
+    RLS policies и серверный tenant context так, чтобы tenant isolation
+    был обязательным с первого дня.
+  inputs:
+    - "Data model из docs/SolutionDesign.md."
+    - "RLS rules из docs/Architecture.md."
+    - "Runtime contexts: public client, owner dashboard, worker."
+    - "Quality gates по security, consent, PII и tenant isolation."
+  outputs:
+    - "Drizzle schema и миграции для минимальных таблиц MVP."
+    - "RLS policies и FORCE ROW LEVEL SECURITY для чувствительных таблиц."
+    - "withTenant helper и repository conventions."
+    - "Server-side tenant resolution для session, signed link и entry token."
+    - "Tests для tenant A vs tenant B access."
+  constraints:
+    - "Каждая чувствительная таблица имеет прямой tenant_id."
+    - "App role не имеет BYPASSRLS и не владеет пользовательскими таблицами."
+    - "Client tenantId из body/query/localStorage/postMessage игнорируется."
+    - "Доступ к original PII пишет pii_access_log."
+    - "Деструктивная миграция требует отдельного вопроса архитектору."
+  forbidden:
+    - "Доверять tenantId из клиента."
+    - "Обходить withTenant, RLS или server-side tenant resolution."
+    - "Сохранять ПД до consent."
+    - "Писать секреты, токены или приватные ключи в repo/logs."
+  quality_gates:
+    - "Tenant A не читает и не изменяет данные tenant B."
+    - "RLS включен на чувствительных таблицах."
+    - "Согласие записано до сбора ПД."
+    - "Доступ к оригиналу ПД пишет pii_access_log."
+    - "Signed tokens resolve to server-side rows and do not expose tenant/private identifiers."
+  dependencies:
+    - "TASK-001"
+    - "TASK-002"
+  handoff_to:
+    - "BackendDeveloper"
+    - "EstimationEngineDeveloper"
+    - "AIFlowDeveloper"
+    - "FrontendDeveloper"
+    - "QAEngineer"

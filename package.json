@@ -11,7 +11,11 @@
     "lint": "eslint .",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
-    "check": "npm run format:check && npm run lint"
+    "validate:agents": "python3 harness/scripts/agents/validate_agent_profiles.py",
+    "validate:predictability": "python3 harness/scripts/validate_predictability.py",
+    "orchestrator:propose": "python3 harness/scripts/ai_orchestrator.py propose",
+    "orchestrator:status": "python3 harness/scripts/ai_orchestrator.py status",
+    "check": "npm run format:check && npm run lint && npm run validate:agents && npm run validate:predictability"
   },
   "repository": {
     "type": "git",

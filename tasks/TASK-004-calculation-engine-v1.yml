@@ -1,0 +1,63 @@
+task:
+  id: "TASK-004"
+  title: "Deterministic calculation engine v1"
+  role: "EstimationEngineDeveloper"
+  owner: "EstimationEngineDeveloper"
+  status: "epic"
+  slice: "mvp_0"
+  work_package: "TASK-004"
+  micro_tasks:
+    - "TASK-004A"
+    - "TASK-004B"
+    - "TASK-004C"
+  source_docs:
+    - "AGENTS.md"
+    - "Team.yml"
+    - "docs/SolutionDesign.md"
+    - "docs/Architecture.md"
+    - "docs/Domain/CeilingEstimateModel.md"
+    - "docs/Domain/DeterministicEstimation.md"
+    - "docs/Evals/QualityGates.md"
+  goal: >
+    Реализовать первую версию pure deterministic calculation engine,
+    который считает смету из нормализованных параметров, formula version,
+    price snapshot, coefficient snapshot, pricing profile и explicit
+    calculation date, возвращая audit trail и partial estimate semantics.
+  inputs:
+    - "Calculation Engine Protocol из docs/SolutionDesign.md."
+    - "Ceiling domain model и deterministic estimation docs."
+    - "Golden estimate structure от DomainAnalyst и SeniorCeilingEstimator."
+    - "Synthetic/test price book and coefficient fixtures."
+  outputs:
+    - "packages/core/calc interfaces без потолочной предметки."
+    - "apps/ceiling/domain formula adapters and ceiling-specific rules."
+    - "Formula version registry."
+    - "Money representation без float."
+    - "CalculationResult с variants, line items, completeness, missing blocks, warnings, assumptions, risk flags и audit trail."
+    - "Golden/regression tests."
+  constraints:
+    - "Engine не читает БД, сеть, LLM, current time или random."
+    - "Дата расчета передается явно."
+    - "Деньги хранятся как integer minor units или decimal-safe representation."
+    - "Старый immutable snapshot не меняется после обновления прайса."
+    - "Partial estimate не показывает неполный итог как финальную стоимость."
+  forbidden:
+    - "Использовать LLM как источник цены, скидки, коэффициента или строки сметы."
+    - "Использовать float для денег."
+    - "Хардкодить потолочную предметку в packages/core."
+    - "Подменять production engine экспертным расчетом SeniorCeilingEstimator."
+  quality_gates:
+    - "Один и тот же ввод дает один и тот же результат 100 раз подряд."
+    - "Изменение версии прайса не меняет старую сохраненную смету."
+    - "Фиксированные строки не умножаются на коэффициенты сложности."
+    - "Нестандартный случай помечается как требующий замера."
+    - "Отсутствующие обязательные параметры создают partial estimate с insufficient_data."
+  dependencies:
+    - "TASK-001"
+    - "TASK-002"
+    - "TASK-003"
+  handoff_to:
+    - "BackendDeveloper"
+    - "FrontendDeveloper"
+    - "QAEngineer"
+    - "SolutionArchitect"

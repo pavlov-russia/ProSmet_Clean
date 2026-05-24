@@ -1,0 +1,49 @@
+task:
+  id: "TASK-002A"
+  title: "Workspace baseline"
+  role: "DevOps"
+  owner: "DevOps"
+  status: "ready"
+  slice: "mvp_0"
+  work_package: "TASK-002"
+  source_docs:
+    - "AGENTS.md"
+    - "docs/dev/PredictableAIWork.md"
+    - "docs/Architecture.md"
+    - "docs/Evals/GateMatrix.md"
+  goal: >
+    Создать минимальный workspace baseline and local scripts без production
+    deploy, secrets and external provider calls.
+  inputs:
+    - "Target monorepo layout from docs/Architecture.md."
+    - "Predictability protocol and gate matrix."
+  outputs:
+    - "Workspace config and package scripts for local typecheck/test/lint/check."
+    - "No-secret development command notes."
+  constraints:
+    - "Не добавлять production dependency без отдельного решения."
+    - "Команды baseline не требуют .env."
+  forbidden:
+    - "Читать или создавать .env/.env.*."
+    - "Добавлять deploy, publish or git push automation."
+  quality_gates:
+    - "Baseline commands are present and do not require secrets."
+  gate_ids:
+    - "DEV.SCAFFOLD.BASELINE"
+    - "CI.NO_SECRETS_DEPLOY"
+    - "AGENT.EVIDENCE.REPORT"
+  required_evidence:
+    - "List of local commands and result/not_run status."
+    - "Confirmation that no .env or credentials are required."
+  required_reports:
+    - "reports/task-evidence/TASK-002A.json"
+  dependencies:
+    - "TASK-001"
+  handoff_to:
+    - "DevOps"
+    - "BackendDeveloper"
+    - "EstimationEngineDeveloper"
+    - "QAEngineer"
+  acceptance:
+    - "Local baseline exists and can be extended by implementation roles."
+    - "Evidence report states exactly which commands were run."

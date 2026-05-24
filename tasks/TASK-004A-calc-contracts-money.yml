@@ -1,0 +1,49 @@
+task:
+  id: "TASK-004A"
+  title: "Calculation contracts and money model"
+  role: "EstimationEngineDeveloper"
+  owner: "EstimationEngineDeveloper"
+  status: "ready"
+  slice: "mvp_0"
+  work_package: "TASK-004"
+  source_docs:
+    - "AGENTS.md"
+    - "docs/contracts/CalculationEngineV1.md"
+    - "docs/Domain/GoldenEstimates.md"
+    - "fixtures/golden-estimates/GE-001-simple-room-12sqm-no-light.json"
+  goal: >
+    Implement pure calculation interfaces and money primitives without float,
+    Date.now, random, DB, network or LLM dependency.
+  inputs:
+    - "CalculationEngineV1 contract."
+    - "Synthetic golden fixture schema."
+  outputs:
+    - "Calculation input/result interfaces."
+    - "Money minor-unit helpers."
+    - "Purity guard test plan or tests."
+  constraints:
+    - "Calculation date is explicit input."
+    - "Money uses integer minor units or decimal-safe strings."
+  forbidden:
+    - "Using float for money."
+    - "Calling LLM, DB, network, current time or random inside engine."
+  quality_gates:
+    - "No float money and no hidden nondeterminism."
+  gate_ids:
+    - "CALC.DETERMINISM"
+    - "FIXTURES.GOLDEN.SYNTHETIC"
+    - "AGENT.EVIDENCE.REPORT"
+  required_evidence:
+    - "Path to interfaces and money helpers."
+    - "Purity check result or not_run reason."
+  required_reports:
+    - "reports/task-evidence/TASK-004A.json"
+  dependencies:
+    - "TASK-002B"
+  handoff_to:
+    - "EstimationEngineDeveloper"
+    - "BackendDeveloper"
+    - "QAEngineer"
+  acceptance:
+    - "Engine contract can be used without live DB or current time."
+    - "Money representation cannot silently become JS float."

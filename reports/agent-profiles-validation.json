@@ -1,0 +1,627 @@
+{
+  "status": "pass",
+  "roles_from_team": [
+    "AIOrchestrator",
+    "Architect",
+    "ProductAnalyst",
+    "BusinessAnalyst",
+    "DomainAnalyst",
+    "SeniorCeilingEstimator",
+    "SolutionArchitect",
+    "EstimationEngineDeveloper",
+    "BackendDeveloper",
+    "FrontendDeveloper",
+    "AIFlowDeveloper",
+    "QAEngineer",
+    "DevOps",
+    "PPM"
+  ],
+  "roles_in_registry": [
+    "AIFlowDeveloper",
+    "AIOrchestrator",
+    "Architect",
+    "BackendDeveloper",
+    "BusinessAnalyst",
+    "DevOps",
+    "DomainAnalyst",
+    "EstimationEngineDeveloper",
+    "FrontendDeveloper",
+    "PPM",
+    "ProductAnalyst",
+    "QAEngineer",
+    "SeniorCeilingEstimator",
+    "SolutionArchitect"
+  ],
+  "checks": [
+    "roles_match_team",
+    "claude_profiles_exist",
+    "codex_profiles_exist",
+    "helpers_support_help",
+    "task_cards_roles_and_dependencies",
+    "task_dependency_graph_acyclic",
+    "context_doc_in_all_profiles",
+    "no_qa_evaluator_duplicate",
+    "dispatch_plan_generated",
+    "predictability_validation_generated",
+    "ai_orchestrator_help"
+  ],
+  "issues": [],
+  "dispatch_report": "reports/agent-dispatch-plan.json",
+  "predictability_report": "reports/predictability-validation.json",
+  "task_cards": {
+    "TASK-001": {
+      "path": "tasks/TASK-001-architecture-contract-alignment.yml",
+      "id": "TASK-001",
+      "title": "Architecture contract alignment",
+      "role": "Architect",
+      "owner": "Architect",
+      "status": "ready",
+      "dependencies": [],
+      "micro_tasks": [],
+      "gate_ids": [
+        "AGENT.TASK_CARD.READY",
+        "CONTRACT.MANIFEST.SCHEMAS",
+        "ARCHITECT.INTERVENTION.REQUEST_PROTOCOL",
+        "FIXTURES.GOLDEN.SYNTHETIC",
+        "PRICE.INPUT.REQUEST_PROTOCOL"
+      ]
+    },
+    "TASK-002": {
+      "path": "tasks/TASK-002-monorepo-scaffold.yml",
+      "id": "TASK-002",
+      "title": "Monorepo scaffold",
+      "role": "DevOps",
+      "owner": "DevOps",
+      "status": "epic",
+      "dependencies": [
+        "TASK-001"
+      ],
+      "micro_tasks": [
+        "TASK-002A",
+        "TASK-002B"
+      ],
+      "gate_ids": []
+    },
+    "TASK-002A": {
+      "path": "tasks/TASK-002A-workspace-baseline.yml",
+      "id": "TASK-002A",
+      "title": "Workspace baseline",
+      "role": "DevOps",
+      "owner": "DevOps",
+      "status": "ready",
+      "dependencies": [
+        "TASK-001"
+      ],
+      "micro_tasks": [],
+      "gate_ids": [
+        "DEV.SCAFFOLD.BASELINE",
+        "CI.NO_SECRETS_DEPLOY",
+        "AGENT.EVIDENCE.REPORT"
+      ]
+    },
+    "TASK-002B": {
+      "path": "tasks/TASK-002B-app-package-placeholders.yml",
+      "id": "TASK-002B",
+      "title": "App and package placeholders",
+      "role": "DevOps",
+      "owner": "DevOps",
+      "status": "ready",
+      "dependencies": [
+        "TASK-002A"
+      ],
+      "micro_tasks": [],
+      "gate_ids": [
+        "ARCH.CORE.NO_CEILING_TERMS",
+        "DEV.SCAFFOLD.BASELINE",
+        "AGENT.EVIDENCE.REPORT"
+      ]
+    },
+    "TASK-003": {
+      "path": "tasks/TASK-003-db-schema-rls.yml",
+      "id": "TASK-003",
+      "title": "DB schema, RLS and tenant context",
+      "role": "BackendDeveloper",
+      "owner": "BackendDeveloper",
+      "status": "epic",
+      "dependencies": [
+        "TASK-001",
+        "TASK-002"
+      ],
+      "micro_tasks": [
+        "TASK-003A",
+        "TASK-003B",
+        "TASK-003C"
+      ],
+      "gate_ids": []
+    },
+    "TASK-003A": {
+      "path": "tasks/TASK-003A-mvp-data-model.yml",
+      "id": "TASK-003A",
+      "title": "MVP data model",
+      "role": "BackendDeveloper",
+      "owner": "BackendDeveloper",
+      "status": "ready",
+      "dependencies": [
+        "TASK-002B"
+      ],
+      "micro_tasks": [],
+      "gate_ids": [
+        "FIXTURES.SEED.TENANT_AB",
+        "SECURITY.TENANT.RLS",
+        "AGENT.EVIDENCE.REPORT"
+      ]
+    },
+    "TASK-003B": {
+      "path": "tasks/TASK-003B-tenant-context-rls.yml",
+      "id": "TASK-003B",
+      "title": "Tenant context and RLS",
+      "role": "BackendDeveloper",
+      "owner": "BackendDeveloper",
+      "status": "ready",
+      "dependencies": [
+        "TASK-003A"
+      ],
+      "micro_tasks": [],
+      "gate_ids": [
+        "SECURITY.TENANT.RLS",
+        "FIXTURES.SEED.TENANT_AB",
+        "AGENT.EVIDENCE.REPORT"
+      ]
+    },
+    "TASK-003C": {
+      "path": "tasks/TASK-003C-pii-audit.yml",
+      "id": "TASK-003C",
+      "title": "PII access audit",
+      "role": "BackendDeveloper",
+      "owner": "BackendDeveloper",
+      "status": "ready",
+      "dependencies": [
+        "TASK-003B"
+      ],
+      "micro_tasks": [],
+      "gate_ids": [
+        "SECURITY.PII.AUDIT",
+        "FIXTURES.SEED.TENANT_AB",
+        "AGENT.EVIDENCE.REPORT"
+      ]
+    },
+    "TASK-004": {
+      "path": "tasks/TASK-004-calculation-engine-v1.yml",
+      "id": "TASK-004",
+      "title": "Deterministic calculation engine v1",
+      "role": "EstimationEngineDeveloper",
+      "owner": "EstimationEngineDeveloper",
+      "status": "epic",
+      "dependencies": [
+        "TASK-001",
+        "TASK-002",
+        "TASK-003"
+      ],
+      "micro_tasks": [
+        "TASK-004A",
+        "TASK-004B",
+        "TASK-004C"
+      ],
+      "gate_ids": []
+    },
+    "TASK-004A": {
+      "path": "tasks/TASK-004A-calc-contracts-money.yml",
+      "id": "TASK-004A",
+      "title": "Calculation contracts and money model",
+      "role": "EstimationEngineDeveloper",
+      "owner": "EstimationEngineDeveloper",
+      "status": "ready",
+      "dependencies": [
+        "TASK-002B"
+      ],
+      "micro_tasks": [],
+      "gate_ids": [
+        "CALC.DETERMINISM",
+        "FIXTURES.GOLDEN.SYNTHETIC",
+        "AGENT.EVIDENCE.REPORT"
+      ]
+    },
+    "TASK-004B": {
+      "path": "tasks/TASK-004B-ceiling-formula-adapter.yml",
+      "id": "TASK-004B",
+      "title": "Ceiling formula adapter v1",
+      "role": "EstimationEngineDeveloper",
+      "owner": "EstimationEngineDeveloper",
+      "status": "ready",
+      "dependencies": [
+        "TASK-004A"
+      ],
+      "micro_tasks": [],
+      "gate_ids": [
+        "CALC.DETERMINISM",
+        "ARCH.CORE.NO_CEILING_TERMS",
+        "FIXTURES.GOLDEN.SYNTHETIC",
+        "PRICE.INPUT.REQUEST_PROTOCOL",
+        "AGENT.EVIDENCE.REPORT"
+      ]
+    },
+    "TASK-004C": {
+      "path": "tasks/TASK-004C-partial-audit-golden-tests.yml",
+      "id": "TASK-004C",
+      "title": "Partial, audit and golden regression tests",
+      "role": "EstimationEngineDeveloper",
+      "owner": "EstimationEngineDeveloper",
+      "status": "ready",
+      "dependencies": [
+        "TASK-004B",
+        "TASK-010A"
+      ],
+      "micro_tasks": [],
+      "gate_ids": [
+        "CALC.DETERMINISM",
+        "CALC.PARTIAL",
+        "FIXTURES.GOLDEN.SYNTHETIC",
+        "PRICE.INPUT.REQUEST_PROTOCOL",
+        "AGENT.EVIDENCE.REPORT"
+      ]
+    },
+    "TASK-005": {
+      "path": "tasks/TASK-005-ai-gateway.yml",
+      "id": "TASK-005",
+      "title": "AI gateway and safe parameter extraction",
+      "role": "AIFlowDeveloper",
+      "owner": "AIFlowDeveloper",
+      "status": "epic",
+      "dependencies": [
+        "TASK-001",
+        "TASK-002",
+        "TASK-003",
+        "TASK-004"
+      ],
+      "micro_tasks": [
+        "TASK-005A",
+        "TASK-005B"
+      ],
+      "gate_ids": []
+    },
+    "TASK-005A": {
+      "path": "tasks/TASK-005A-redaction-schema-guards.yml",
+      "id": "TASK-005A",
+      "title": "AI redaction and schema guards",
+      "role": "AIFlowDeveloper",
+      "owner": "AIFlowDeveloper",
+      "status": "ready",
+      "dependencies": [
+        "TASK-003B",
+        "TASK-004A"
+      ],
+      "micro_tasks": [],
+      "gate_ids": [
+        "AI.PAYLOAD.NO_PII_MONEY",
+        "AI.OUTPUT.FORBIDDEN_FIELDS",
+        "FIXTURES.AI_PAYLOAD.CORPUS",
+        "AGENT.EVIDENCE.REPORT"
+      ]
+    },
+    "TASK-005B": {
+      "path": "tasks/TASK-005B-gateway-boundary-stub.yml",
+      "id": "TASK-005B",
+      "title": "AI gateway boundary stub",
+      "role": "AIFlowDeveloper",
+      "owner": "AIFlowDeveloper",
+      "status": "ready",
+      "dependencies": [
+        "TASK-005A"
+      ],
+      "micro_tasks": [],
+      "gate_ids": [
+        "AI.PAYLOAD.NO_PII_MONEY",
+        "AI.OUTPUT.FORBIDDEN_FIELDS",
+        "AGENT.EVIDENCE.REPORT"
+      ]
+    },
+    "TASK-006": {
+      "path": "tasks/TASK-006-policy-publication.yml",
+      "id": "TASK-006",
+      "title": "Deterministic policy and publication workflow",
+      "role": "BackendDeveloper",
+      "owner": "BackendDeveloper",
+      "status": "epic",
+      "dependencies": [
+        "TASK-001",
+        "TASK-003",
+        "TASK-004",
+        "TASK-005",
+        "TASK-009"
+      ],
+      "micro_tasks": [
+        "TASK-006A",
+        "TASK-006B"
+      ],
+      "gate_ids": []
+    },
+    "TASK-006A": {
+      "path": "tasks/TASK-006A-pure-approval-policy.yml",
+      "id": "TASK-006A",
+      "title": "Pure ApprovalPolicyService",
+      "role": "BackendDeveloper",
+      "owner": "BackendDeveloper",
+      "status": "ready",
+      "dependencies": [
+        "TASK-004C",
+        "TASK-005B",
+        "TASK-009B"
+      ],
+      "micro_tasks": [],
+      "gate_ids": [
+        "POLICY.DETERMINISTIC",
+        "PUBLICATION.GATED",
+        "PRICE.INPUT.REQUEST_PROTOCOL",
+        "AGENT.EVIDENCE.REPORT"
+      ]
+    },
+    "TASK-006B": {
+      "path": "tasks/TASK-006B-policy-persistence-hook.yml",
+      "id": "TASK-006B",
+      "title": "Policy persistence and publication hook",
+      "role": "BackendDeveloper",
+      "owner": "BackendDeveloper",
+      "status": "ready",
+      "dependencies": [
+        "TASK-006A",
+        "TASK-003C"
+      ],
+      "micro_tasks": [],
+      "gate_ids": [
+        "POLICY.DETERMINISTIC",
+        "PUBLICATION.GATED",
+        "SECURITY.TENANT.RLS",
+        "PRICE.INPUT.REQUEST_PROTOCOL",
+        "AGENT.EVIDENCE.REPORT"
+      ]
+    },
+    "TASK-007": {
+      "path": "tasks/TASK-007-widget-intake-flow.yml",
+      "id": "TASK-007",
+      "title": "Widget intake flow",
+      "role": "FrontendDeveloper",
+      "owner": "FrontendDeveloper",
+      "status": "epic",
+      "dependencies": [
+        "TASK-001",
+        "TASK-002",
+        "TASK-003",
+        "TASK-004",
+        "TASK-005"
+      ],
+      "micro_tasks": [
+        "TASK-007A",
+        "TASK-007B"
+      ],
+      "gate_ids": []
+    },
+    "TASK-007A": {
+      "path": "tasks/TASK-007A-public-entry-consent.yml",
+      "id": "TASK-007A",
+      "title": "Public entry and consent",
+      "role": "FrontendDeveloper",
+      "owner": "FrontendDeveloper",
+      "status": "ready",
+      "dependencies": [
+        "TASK-003B",
+        "TASK-002B"
+      ],
+      "micro_tasks": [],
+      "gate_ids": [
+        "UI.WIDGET.FLOW",
+        "SECURITY.TENANT.RLS",
+        "AGENT.EVIDENCE.REPORT"
+      ]
+    },
+    "TASK-007B": {
+      "path": "tasks/TASK-007B-params-preview-phone.yml",
+      "id": "TASK-007B",
+      "title": "Params, preview and phone gate",
+      "role": "FrontendDeveloper",
+      "owner": "FrontendDeveloper",
+      "status": "ready",
+      "dependencies": [
+        "TASK-007A",
+        "TASK-004C",
+        "TASK-005B"
+      ],
+      "micro_tasks": [],
+      "gate_ids": [
+        "UI.WIDGET.FLOW",
+        "AI.PAYLOAD.NO_PII_MONEY",
+        "PUBLICATION.GATED",
+        "AGENT.EVIDENCE.REPORT"
+      ]
+    },
+    "TASK-008": {
+      "path": "tasks/TASK-008-owner-review-dashboard.yml",
+      "id": "TASK-008",
+      "title": "Owner review dashboard",
+      "role": "FrontendDeveloper",
+      "owner": "FrontendDeveloper",
+      "status": "epic",
+      "dependencies": [
+        "TASK-001",
+        "TASK-002",
+        "TASK-003",
+        "TASK-004"
+      ],
+      "micro_tasks": [
+        "TASK-008A",
+        "TASK-008B"
+      ],
+      "gate_ids": []
+    },
+    "TASK-008A": {
+      "path": "tasks/TASK-008A-owner-review-readonly-ui.yml",
+      "id": "TASK-008A",
+      "title": "Owner review read-only UI",
+      "role": "FrontendDeveloper",
+      "owner": "FrontendDeveloper",
+      "status": "ready",
+      "dependencies": [
+        "TASK-003B",
+        "TASK-004C"
+      ],
+      "micro_tasks": [],
+      "gate_ids": [
+        "UI.OWNER.REVIEW",
+        "SECURITY.TENANT.RLS",
+        "CALC.PARTIAL",
+        "AGENT.EVIDENCE.REPORT"
+      ]
+    },
+    "TASK-008B": {
+      "path": "tasks/TASK-008B-human-decision-actions.yml",
+      "id": "TASK-008B",
+      "title": "Human decision actions",
+      "role": "FrontendDeveloper",
+      "owner": "FrontendDeveloper",
+      "status": "ready",
+      "dependencies": [
+        "TASK-008A",
+        "TASK-003C"
+      ],
+      "micro_tasks": [],
+      "gate_ids": [
+        "UI.OWNER.REVIEW",
+        "PUBLICATION.GATED",
+        "SECURITY.PII.AUDIT",
+        "AGENT.EVIDENCE.REPORT"
+      ]
+    },
+    "TASK-009": {
+      "path": "tasks/TASK-009-client-link-pdf-analytics.yml",
+      "id": "TASK-009",
+      "title": "Client link, PDF and analytics",
+      "role": "BackendDeveloper",
+      "owner": "BackendDeveloper",
+      "status": "epic",
+      "dependencies": [
+        "TASK-001",
+        "TASK-003",
+        "TASK-004",
+        "TASK-008"
+      ],
+      "micro_tasks": [
+        "TASK-009A",
+        "TASK-009B"
+      ],
+      "gate_ids": []
+    },
+    "TASK-009A": {
+      "path": "tasks/TASK-009A-signed-client-link.yml",
+      "id": "TASK-009A",
+      "title": "Signed client link",
+      "role": "BackendDeveloper",
+      "owner": "BackendDeveloper",
+      "status": "ready",
+      "dependencies": [
+        "TASK-008B",
+        "TASK-004C",
+        "TASK-003B"
+      ],
+      "micro_tasks": [],
+      "gate_ids": [
+        "PUBLICATION.GATED",
+        "LINK.PDF.ANALYTICS",
+        "SECURITY.TENANT.RLS",
+        "AGENT.EVIDENCE.REPORT"
+      ]
+    },
+    "TASK-009B": {
+      "path": "tasks/TASK-009B-pdf-analytics-substrate.yml",
+      "id": "TASK-009B",
+      "title": "PDF and analytics substrate",
+      "role": "BackendDeveloper",
+      "owner": "BackendDeveloper",
+      "status": "ready",
+      "dependencies": [
+        "TASK-009A"
+      ],
+      "micro_tasks": [],
+      "gate_ids": [
+        "PUBLICATION.GATED",
+        "LINK.PDF.ANALYTICS",
+        "AGENT.EVIDENCE.REPORT"
+      ]
+    },
+    "TASK-010": {
+      "path": "tasks/TASK-010-ci-quality-gates.yml",
+      "id": "TASK-010",
+      "title": "CI quality gates",
+      "role": "QAEngineer",
+      "owner": "QAEngineer",
+      "status": "epic",
+      "dependencies": [
+        "TASK-001",
+        "TASK-002"
+      ],
+      "micro_tasks": [
+        "TASK-010A",
+        "TASK-010B"
+      ],
+      "gate_ids": []
+    },
+    "TASK-010A": {
+      "path": "tasks/TASK-010A-baseline-qa-harness.yml",
+      "id": "TASK-010A",
+      "title": "Baseline QA harness",
+      "role": "QAEngineer",
+      "owner": "QAEngineer",
+      "status": "ready",
+      "dependencies": [
+        "TASK-001"
+      ],
+      "micro_tasks": [],
+      "gate_ids": [
+        "AGENT.TASK_CARD.READY",
+        "AGENT.EVIDENCE.REPORT",
+        "ARCHITECT.INTERVENTION.REQUEST_PROTOCOL",
+        "CI.NO_SECRETS_DEPLOY"
+      ]
+    },
+    "TASK-010B": {
+      "path": "tasks/TASK-010B-incremental-quality-gates.yml",
+      "id": "TASK-010B",
+      "title": "Incremental quality gates",
+      "role": "QAEngineer",
+      "owner": "QAEngineer",
+      "status": "ready",
+      "dependencies": [
+        "TASK-010A",
+        "TASK-003C",
+        "TASK-004C",
+        "TASK-005B",
+        "TASK-006B",
+        "TASK-009B"
+      ],
+      "micro_tasks": [],
+      "gate_ids": [
+        "CALC.DETERMINISM",
+        "CALC.PARTIAL",
+        "AI.PAYLOAD.NO_PII_MONEY",
+        "SECURITY.TENANT.RLS",
+        "PUBLICATION.GATED",
+        "POLICY.DETERMINISTIC",
+        "CI.NO_SECRETS_DEPLOY",
+        "AGENT.EVIDENCE.REPORT"
+      ]
+    },
+    "TASK-011": {
+      "path": "tasks/TASK-011-ai-orchestrator.yml",
+      "id": "TASK-011",
+      "title": "Development-time AI Orchestrator",
+      "role": "AIOrchestrator",
+      "owner": "AIOrchestrator",
+      "status": "done",
+      "dependencies": [],
+      "micro_tasks": [],
+      "gate_ids": [
+        "AGENT.ORCHESTRATOR.CYCLE",
+        "CONTRACT.MANIFEST.SCHEMAS",
+        "AGENT.EVIDENCE.REPORT"
+      ]
+    }
+  }
+}

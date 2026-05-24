@@ -1,0 +1,25 @@
+{
+  "status": "pass",
+  "checks": [
+    "contract_manifest",
+    "gate_matrix",
+    "task_micro_metadata",
+    "task_dependencies",
+    "fixtures",
+    "evidence_reports_if_present",
+    "price_requests_if_present",
+    "architect_requests_if_present",
+    "orchestrator_reports_if_present"
+  ],
+  "issues": [],
+  "gate_count": 23,
+  "task_count": 31,
+  "epic_count": 9,
+  "micro_task_count": 22,
+  "golden_estimates_count": 5,
+  "ai_payload_case_count": 4,
+  "evidence_report_count": 1,
+  "price_request_count": 0,
+  "architect_request_count": 0,
+  "orchestrator_report_count": 6
+}

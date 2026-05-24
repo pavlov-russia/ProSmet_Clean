@@ -28,10 +28,14 @@
 - Техническое решение: `docs/SolutionDesign.md`.
 - Архитектурные детали: `docs/Architecture.md`.
 - Принятая контекстная правка: `docs/Context/2026-05-19-autonomous-mvp-feedback.md`.
+- Контекст архитектуры AI-команды реализации: `docs/Context/2026-05-23-ai-team-implementation-architecture.md`.
 - Команда AI-сотрудников разработки: `Team.yml`, `harness/build-team.md`.
 - Предметка потолков: `docs/Domain/CeilingEstimateModel.md`.
 - Детерминированный расчет: `docs/Domain/DeterministicEstimation.md`.
 - Проверки: `docs/Evals/QualityGates.md`.
+- Machine-readable gates: `docs/Evals/GateMatrix.md`, `docs/Evals/gates.json`.
+- Прогнозируемая работа AI-сотрудников: `docs/dev/PredictableAIWork.md`.
+- Machine-readable contracts: `docs/contracts/ContractManifest.json`, `docs/contracts/schemas/`.
 - Текущий фокус: `Focus.md`.
 - Вход в задачу: `EntryPointForTask.md`.
 - Бэклог: `Backlogs.md`.
@@ -43,12 +47,15 @@
 - Сначала документный контракт, потом код.
 - Детерминированный расчет сильнее LLM-ответа.
 - Формула, прайс и версия правил являются источником истины по цене.
+- Если реальный прайс нужен для продолжения, AI-сотрудник создает `PriceInputRequest` и просит архитектора внести прайс; не придумывает значения.
+- Если нужно вмешательство архитектора, AI-сотрудник создает `ArchitectInterventionRequest` в `workspace/architect-inbox/requests/` и явно просит ответ.
 - LLM не считает сметы и не создает цены.
 - LLM не видит персональные данные и денежные суммы.
 - Human review обязателен для MVP-0, калибровки и исключений.
 - Product-ready MVP требует autonomous offer mode: типовая заявка может получить клиентскую ссылку/PDF после deterministic policy decision `auto_publish`.
 - Мультитенантная изоляция данных обязательна с первого дня.
 - Любая критичная логика имеет тест, eval или explicit quality gate.
+- Любая implementation-задача AI-сотрудника имеет `gate_ids` и machine-readable evidence report.
 - Любое архитектурное отклонение фиксируется в ADR.
 
 ## Deterministic Estimate Rules
@@ -91,7 +98,8 @@ AI не может:
 - создавать документы в `docs/`, `harness/`, `tasks/`, `reports/`, `workspace/`;
 - создавать ADR для новых архитектурных решений;
 - запускать локальные проверки, если они уже описаны проектом;
-- использовать `rg`, `find`, `git status`, `git diff`, `npm run`, `pnpm run`, `tsx`, `vitest`, `playwright` в рамках проекта;
+- использовать `rg`, `find`, `git status`, `git diff`, `npm run`, `pnpm run`, `tsx`, `vitest`, `playwright`, `python3 harness/scripts/validate_predictability.py` в рамках проекта;
+- использовать `python3 harness/scripts/architect_inbox.py` для просмотра запросов архитектору;
 - предлагать узкие изменения в архитектуре, если они не расширяют Scope.
 
 ## Ask First
@@ -106,6 +114,8 @@ AI не может:
 - включить автодеплой, production deploy, `git push`, публикацию пакета;
 - отправлять данные во внешние сервисы;
 - работать с реальными персональными данными, прайсами пилота или секретами;
+- продолжить задачу с реальным прайсом без `PriceInputRequest` и явного ввода архитектора;
+- продолжить работу, требующую Ask First решения, без `ArchitectInterventionRequest` или явного ответа архитектора;
 - использовать источник за пределами clean-пакета как текущую архитектурную опору.
 
 ## Forbidden Actions
@@ -138,6 +148,9 @@ AI не может:
 - клиентские события opening/download/CTA пишутся в аналитику;
 - отсутствующие обязательные параметры создают partial estimate с явным "недостаточно данных" или требуют уточнения, если расчет полностью непригоден;
 - ошибки, допущения и confidence видны человеку в review-режиме и сохраняются в audit для auto_publish.
+- task evidence report создан по `docs/contracts/AgentTaskEvidence.md`, если task card содержит `required_reports`.
+- при блокере real price создан `reports/price-requests/PRICE-REQUEST-*.json` по `docs/contracts/PriceInputRequest.md`.
+- при блокере architect intervention создан `workspace/architect-inbox/requests/ARCH-REQUEST-*.json` по `docs/contracts/ArchitectInterventionRequest.md`.
 
 ## Communication
 

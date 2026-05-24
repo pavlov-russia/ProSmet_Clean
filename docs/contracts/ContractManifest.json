@@ -1,0 +1,62 @@
+{
+  "$schema": "schemas/contract-manifest-v1.schema.json",
+  "contractVersion": "contract-manifest.v1",
+  "updatedAt": "2026-05-23",
+  "status": "active",
+  "contracts": [
+    {
+      "id": "agent-task-evidence.v1",
+      "doc": "AgentTaskEvidence.md",
+      "schema": "schemas/agent-task-evidence-v1.schema.json",
+      "fixtures": ["../../reports/task-evidence/README.md"]
+    },
+    {
+      "id": "gate-matrix.v1",
+      "doc": "../Evals/GateMatrix.md",
+      "schema": "schemas/gate-matrix-v1.schema.json",
+      "fixtures": ["../Evals/gates.json"]
+    },
+    {
+      "id": "golden-estimate.v1",
+      "doc": "../Domain/GoldenEstimates.md",
+      "schema": "schemas/golden-estimate-v1.schema.json",
+      "fixtures": ["../../fixtures/golden-estimates"]
+    },
+    {
+      "id": "ai-gateway-fixture.v1",
+      "doc": "../Evals/AIPayloadSafetyCorpus.md",
+      "schema": "schemas/ai-gateway-fixture-v1.schema.json",
+      "fixtures": ["../../fixtures/ai-gateway"]
+    },
+    {
+      "id": "seed-data.v1",
+      "doc": "SeedData.md",
+      "schema": "schemas/seed-data-v1.schema.json",
+      "fixtures": ["../../fixtures/seeds/tenant-ab.json"]
+    },
+    {
+      "id": "task-card.v1",
+      "doc": "../dev/PredictableAIWork.md",
+      "schema": "schemas/task-card-v1.schema.json",
+      "fixtures": ["../../tasks/task_template.yml"]
+    },
+    {
+      "id": "price-input-request.v1",
+      "doc": "PriceInputRequest.md",
+      "schema": "schemas/price-input-request-v1.schema.json",
+      "fixtures": ["../../reports/price-requests/README.md"]
+    },
+    {
+      "id": "architect-intervention-request.v1",
+      "doc": "ArchitectInterventionRequest.md",
+      "schema": "schemas/architect-intervention-request-v1.schema.json",
+      "fixtures": ["../../workspace/architect-inbox/README.md"]
+    },
+    {
+      "id": "ai-orchestrator-cycle.v1",
+      "doc": "AIOrchestrator.md",
+      "schema": "schemas/ai-orchestrator-cycle-v1.schema.json",
+      "fixtures": ["../../reports/orchestrator/README.md", "../../workspace/orchestrator/README.md"]
+    }
+  ]
+}

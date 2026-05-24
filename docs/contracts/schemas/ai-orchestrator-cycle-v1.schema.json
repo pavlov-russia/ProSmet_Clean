@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prosmet.local/contracts/ai-orchestrator-cycle-v1.schema.json",
+  "title": "ProSmet AI Orchestrator Cycle v1",
+  "type": "object",
+  "required": [
+    "contractVersion",
+    "cycleId",
+    "generatedAt",
+    "mode",
+    "status",
+    "dryRun",
+    "canonicalFlow",
+    "safety",
+    "consent",
+    "sourceReports",
+    "contextDocs",
+    "developmentState",
+    "validations",
+    "architectInbox",
+    "selectedTasks",
+    "orchestratorPreferences",
+    "feedback",
+    "nextActionForArchitect"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "contractVersion": { "const": "ai-orchestrator-cycle.v1" },
+    "cycleId": {
+      "type": "string",
+      "pattern": "^ORCH-CYCLE-[0-9]{8}-[0-9]{6}$"
+    },
+    "generatedAt": { "type": "string", "minLength": 1 },
+    "approvedAt": { "type": "string" },
+    "rejectedAt": { "type": "string" },
+    "mode": { "enum": ["proposed", "approved", "rejected"] },
+    "status": {
+      "enum": [
+        "ready_for_architect_approval",
+        "blocked_by_validation",
+        "blocked_by_inbox",
+        "needs_attention",
+        "no_work_available",
+        "approved_dispatch_ready",
+        "rejected_by_architect"
+      ]
+    },
+    "dryRun": { "type": "boolean" },
+    "canonicalFlow": { "type": "string", "minLength": 1 },
+    "safety": {
+      "type": "object",
+      "required": [
+        "development_time_only",
+        "no_runtime_product_agent",
+        "does_not_read_env_or_credentials",
+        "does_not_call_network",
+        "does_not_mutate_task_cards",
+        "does_not_spawn_agents",
+        "requires_architect_approval_before_command_packets",
+        "does_not_calculate_prices",
+        "does_not_handle_real_pii_or_real_price"
+      ],
+      "properties": {
+        "development_time_only": { "const": true },
+        "no_runtime_product_agent": { "const": true },
+        "does_not_read_env_or_credentials": { "const": true },
+        "does_not_call_network": { "const": true },
+        "does_not_mutate_task_cards": { "const": true },
+        "does_not_spawn_agents": { "const": true },
+        "requires_architect_approval_before_command_packets": { "const": true },
+        "does_not_calculate_prices": { "const": true },
+        "does_not_handle_real_pii_or_real_price": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "consent": {
+      "type": "object",
+      "required": ["state", "requiredBeforeCommandPackets", "approvedBy", "decisionNote"],
+      "properties": {
+        "state": { "enum": ["pending", "approved", "rejected", "not_requested"] },
+        "requiredBeforeCommandPackets": { "const": true },
+        "approvedBy": { "type": "string" },
+        "decisionNote": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "sourceReports": { "type": "object" },
+    "contextDocs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "exists"],
+        "properties": {
+          "path": { "type": "string" },
+          "exists": { "type": "boolean" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "developmentState": { "type": "object" },
+    "validations": { "type": "array" },
+    "architectInbox": { "type": "object" },
+    "selectedTasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "taskId",
+          "title",
+          "owner",
+          "role",
+          "slice",
+          "workPackage",
+          "taskPath",
+          "selectionReason",
+          "gateIds",
+          "mustRead",
+          "dispatchPrompt",
+          "expectedEvidenceReports",
+          "evidenceAlreadyExists"
+        ],
+        "properties": {
+          "taskId": { "type": "string", "pattern": "^TASK-[0-9A-Z]+$" },
+          "title": { "type": "string" },
+          "owner": { "type": "string" },
+          "role": { "type": "string" },
+          "slice": { "type": "string" },
+          "workPackage": { "type": "string" },
+          "taskPath": { "type": "string" },
+          "selectionReason": { "type": "string" },
+          "helper": { "type": "string" },
+          "claudeProfile": { "type": "string" },
+          "codexProfile": { "type": "string" },
+          "gateIds": { "type": "array", "items": { "type": "string" } },
+          "mustRead": { "type": "array", "items": { "type": "string" } },
+          "dispatchPrompt": { "type": "string" },
+          "expectedEvidenceReports": { "type": "array", "items": { "type": "string" } },
+          "evidenceAlreadyExists": { "type": "boolean" },
+          "handoffTo": { "type": "array", "items": { "type": "string" } },
+          "commandPacketPaths": { "type": "object" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "orchestratorPreferences": { "type": "array", "items": { "type": "string" } },
+    "feedback": {
+      "type": "object",
+      "required": ["whatIsGoingWell", "watchPoints", "planCorrections"],
+      "properties": {
+        "whatIsGoingWell": { "type": "array", "items": { "type": "string" } },
+        "watchPoints": { "type": "array", "items": { "type": "string" } },
+        "planCorrections": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "commandPackets": { "type": "array" },
+    "approvalInboxCheck": {
+      "type": "object",
+      "properties": {
+        "status": { "type": "string" },
+        "requestCount": { "type": "integer" },
+        "blockingRequestCount": { "type": "integer" },
+        "issues": { "type": "array", "items": { "type": "string" } },
+        "forced": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "nextActionForArchitect": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,54 @@
+task:
+  id: "TASK-007B"
+  title: "Params, preview and phone gate"
+  role: "FrontendDeveloper"
+  owner: "FrontendDeveloper"
+  status: "ready"
+  slice: "mvp_1"
+  work_package: "TASK-007"
+  source_docs:
+    - "AGENTS.md"
+    - "docs/contracts/API.md"
+    - "docs/contracts/PublicationPolicy.md"
+    - "docs/contracts/AIGateway.md"
+  goal: >
+    Implement params/chat UI, blurred/partial preview and phone gate before
+    full reveal.
+  inputs:
+    - "Consent flow from TASK-007A."
+    - "Calculation preview from TASK-004C."
+    - "AI gateway boundary from TASK-005B."
+  outputs:
+    - "Params/chat states with quick answers and own input."
+    - "Blurred/partial preview state."
+    - "Phone gate state and preview_shown/phone_submitted event calls."
+  constraints:
+    - "Full estimate/PDF remain blocked before publication gates."
+    - "Partial estimate shows insufficient_data."
+  forbidden:
+    - "Showing full total before approval or audited auto_publish."
+    - "Passing PII or money to AI payload."
+  quality_gates:
+    - "Phone is required before full reveal when tenant policy enables phone-gate."
+  gate_ids:
+    - "UI.WIDGET.FLOW"
+    - "AI.PAYLOAD.NO_PII_MONEY"
+    - "PUBLICATION.GATED"
+    - "AGENT.EVIDENCE.REPORT"
+  required_evidence:
+    - "Widget smoke result or not_run reason."
+    - "Phone-gate state screenshot/path or test note."
+  required_reports:
+    - "reports/task-evidence/TASK-007B.json"
+  dependencies:
+    - "TASK-007A"
+    - "TASK-004C"
+    - "TASK-005B"
+  handoff_to:
+    - "BackendDeveloper"
+    - "QAEngineer"
+    - "ProductAnalyst"
+    - "BusinessAnalyst"
+  acceptance:
+    - "Preview is not a full published estimate."
+    - "Phone-gate blocks full reveal according to tenant policy."

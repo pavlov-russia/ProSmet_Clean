@@ -1,0 +1,48 @@
+task:
+  id: "TASK-003A"
+  title: "MVP data model"
+  role: "BackendDeveloper"
+  owner: "BackendDeveloper"
+  status: "ready"
+  slice: "mvp_0"
+  work_package: "TASK-003"
+  source_docs:
+    - "AGENTS.md"
+    - "docs/contracts/DataModelRLS.md"
+    - "docs/contracts/SeedData.md"
+    - "fixtures/seeds/tenant-ab.json"
+  goal: >
+    Implement or draft minimal MVP tables needed for tenants, users,
+    memberships, consent, leads, rooms, calculations, reviews, links,
+    events and audit.
+  inputs:
+    - "Data model contract."
+    - "Tenant A/B synthetic seed contract."
+  outputs:
+    - "Drizzle schema or migration draft for minimal MVP tables."
+    - "Explicit tenant_id coverage note for sensitive tables."
+  constraints:
+    - "Every sensitive table has direct tenant_id."
+    - "Migrations are non-destructive."
+  forbidden:
+    - "Destructive migration without architect approval."
+    - "Storing PII before consent."
+  quality_gates:
+    - "Sensitive tables have tenant_id."
+  gate_ids:
+    - "FIXTURES.SEED.TENANT_AB"
+    - "SECURITY.TENANT.RLS"
+    - "AGENT.EVIDENCE.REPORT"
+  required_evidence:
+    - "Table list and tenant_id matrix."
+    - "Migration destructive/non-destructive note."
+  required_reports:
+    - "reports/task-evidence/TASK-003A.json"
+  dependencies:
+    - "TASK-002B"
+  handoff_to:
+    - "BackendDeveloper"
+    - "QAEngineer"
+  acceptance:
+    - "MVP tables cover seed contract entities."
+    - "No sensitive table is left without tenant_id."

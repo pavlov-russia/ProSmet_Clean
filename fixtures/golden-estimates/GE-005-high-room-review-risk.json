@@ -1,0 +1,51 @@
+{
+  "$schema": "../../docs/contracts/schemas/golden-estimate-v1.schema.json",
+  "contractVersion": "golden-estimate.v1",
+  "id": "GE-005",
+  "title": "high-room-review-risk",
+  "source": "synthetic_stub",
+  "approvalStatus": "engineering_fixture_not_pilot_price",
+  "vertical": "ceiling",
+  "calculationDate": "2026-05-23",
+  "input": {
+    "normalizedParams": {
+      "region": "synthetic_region",
+      "city": "synthetic_city",
+      "roomType": "bedroom",
+      "areaSqm": "16.0",
+      "perimeterM": "16.0",
+      "shape": "rectangle",
+      "fabricType": "pvc",
+      "fabricBrand": "synthetic_standard",
+      "cornersCount": 4,
+      "heightM": "3.40",
+      "spotLightsCount": 0,
+      "chandelierCount": 0
+    },
+    "formulaVersion": "ceiling.v1"
+  },
+  "snapshots": {
+    "priceBookSnapshotRef": "fixtures/price-books/ceiling-basic-v1.json",
+    "coefficientSnapshotRef": "fixtures/coefficients/ceiling-basic-v1.json",
+    "tenantPricingProfileSnapshotRef": "fixtures/pricing-profiles/default-v1.json",
+    "markupPolicySnapshotRef": "fixtures/markup-policies/default-v1.json"
+  },
+  "expected": {
+    "completenessStatus": "complete",
+    "missingBlocks": [],
+    "variants": {
+      "economy": { "status": "complete", "finalTotal": { "amountMinor": "2260000", "currency": "RUB" } },
+      "standard": { "status": "complete", "finalTotal": { "amountMinor": "2850000", "currency": "RUB" } },
+      "premium": { "status": "complete", "finalTotal": { "amountMinor": "4050000", "currency": "RUB" } }
+    },
+    "riskFlags": ["height_above_3m_requires_review"],
+    "requiredAuditRules": ["ceiling.v1.area", "ceiling.v1.materials", "ceiling.v1.work", "ceiling.v1.variants", "ceiling.v1.rounding"]
+  },
+  "assertions": {
+    "variantOrder": "economy_lt_standard_lt_premium",
+    "deterministicRuns": 100,
+    "moneyToleranceMinor": "0",
+    "noFloatMoney": true
+  },
+  "notes": "Complete calculation can still require review because of risk flags."
+}

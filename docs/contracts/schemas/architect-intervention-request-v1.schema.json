@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prosmet.local/contracts/architect-intervention-request-v1.schema.json",
+  "title": "ProSmet Architect Intervention Request v1",
+  "type": "object",
+  "required": [
+    "contractVersion",
+    "requestId",
+    "taskId",
+    "requestedByRole",
+    "status",
+    "priority",
+    "requestType",
+    "title",
+    "reason",
+    "blockedWork",
+    "canContinueWithoutAnswer",
+    "options",
+    "neededBy",
+    "safety",
+    "nextActionForArchitect"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "contractVersion": { "const": "architect-intervention-request.v1" },
+    "requestId": {
+      "type": "string",
+      "pattern": "^ARCH-REQUEST-[0-9]{8}-TASK-[0-9A-Z]+-[a-z0-9-]+$"
+    },
+    "taskId": { "type": "string", "pattern": "^TASK-[0-9A-Z]+$" },
+    "requestedByRole": { "type": "string", "minLength": 1 },
+    "status": { "enum": ["open", "answered", "cancelled"] },
+    "priority": { "enum": ["low", "normal", "high", "blocking"] },
+    "requestType": {
+      "enum": [
+        "scope_decision",
+        "architecture_decision",
+        "product_decision",
+        "business_decision",
+        "legal_decision",
+        "dependency_approval",
+        "migration_approval",
+        "deploy_or_publish_approval",
+        "external_service_approval",
+        "real_pii_or_secret_approval",
+        "pilot_data_approval",
+        "policy_threshold_decision",
+        "risk_flags_decision",
+        "slice_acceptance_override",
+        "other"
+      ]
+    },
+    "title": { "type": "string", "minLength": 1 },
+    "reason": { "type": "string", "minLength": 1 },
+    "blockedWork": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "canContinueWithoutAnswer": { "type": "boolean" },
+    "options": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "tradeoff"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "label": { "type": "string", "minLength": 1 },
+          "tradeoff": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "recommendedOptionId": { "type": "string" },
+    "neededBy": { "type": "string", "minLength": 1 },
+    "safety": {
+      "type": "object",
+      "required": ["containsRealPii", "containsSecrets", "requiresScopeChange", "requiresAdr"],
+      "properties": {
+        "containsRealPii": { "const": false },
+        "containsSecrets": { "const": false },
+        "requiresScopeChange": { "type": "boolean" },
+        "requiresAdr": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "nextActionForArchitect": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,69 @@
+task:
+  id: "TASK-009"
+  title: "Client link, PDF and analytics"
+  role: "BackendDeveloper"
+  owner: "BackendDeveloper"
+  status: "epic"
+  slice: "mvp_1"
+  work_package: "TASK-009"
+  micro_tasks:
+    - "TASK-009A"
+    - "TASK-009B"
+  source_docs:
+    - "AGENTS.md"
+    - "Team.yml"
+    - "docs/SolutionDesign.md"
+    - "docs/Architecture.md"
+    - "docs/Evals/QualityGates.md"
+  goal: >
+    Реализовать publication artifacts для клиента: unique signed link,
+    PDF job contract and analytics events, создаваемые только после human
+    approval в MVP-1 и совместимые с audited auto_publish из TASK-006.
+  inputs:
+    - "Client Link and PDF Analytics contract из docs/SolutionDesign.md."
+    - "Publication Protocol из docs/SolutionDesign.md."
+    - "PDF and Client Link Gates из docs/Evals/QualityGates.md."
+    - "Human review records from TASK-008."
+    - "Calculation snapshot from TASK-004."
+  outputs:
+    - "client_estimate_links service with token hash storage."
+    - "Client estimate page/API for signed token access."
+    - "PDF enqueue/status/download contract and worker stub."
+    - "PDF template contract with legal phrase and version fields."
+    - "client_link_events endpoint with idempotency keys."
+    - "Owner analytics aggregate for preview/open/reopen/pdf/CTA."
+  constraints:
+    - "Raw link token is never stored, only token hash."
+    - "Link/PDF contain formula version, price book version, date and legal phrase."
+    - "Full PDF/download respects phone-gate."
+    - "Events hash IP/user-agent and do not store raw PII in metadata."
+    - "PDF worker failure fails according to tenant pdf_required_for_publish policy."
+  forbidden:
+    - "Создавать link/PDF без human approval или audited auto_publish."
+    - "Раскрывать tenant_id, price snapshot internals or private identifiers in token or URL."
+    - "Выдавать expired/revoked link details."
+    - "Публиковать partial estimate как full total."
+  quality_gates:
+    - "PDF contains calculation version, price version and legal phrase."
+    - "Client link is unique and does not expose private identifiers."
+    - "Opening writes opened event."
+    - "Repeat opening writes reopened or audited repeat count."
+    - "PDF download writes pdf_downloaded."
+    - "CTA writes cta_clicked."
+    - "Document is created after human review or audited auto_publish."
+  dependencies:
+    - "TASK-001"
+    - "TASK-003"
+    - "TASK-004"
+    - "TASK-008"
+  dependency_notes:
+    TASK-006: >
+      TASK-009 intentionally does not depend on TASK-006. It must provide the
+      single client link/PDF/analytics substrate and explicit hooks that TASK-006
+      later uses for audited auto_publish, without creating policy logic here.
+  handoff_to:
+    - "FrontendDeveloper"
+    - "QAEngineer"
+    - "BackendDeveloper"
+    - "SolutionArchitect"
+    - "ProductAnalyst"

@@ -1,0 +1,81 @@
+{
+  "contractVersion": "ai-orchestrator-command-packet.v1",
+  "cycleId": "ORCH-CYCLE-20260524-122641",
+  "approvedBy": "Architect",
+  "createdAt": "2026-05-24T12:29:15Z",
+  "taskId": "TASK-001",
+  "title": "Architecture contract alignment",
+  "owner": "Architect",
+  "role": "Architect",
+  "taskPath": "tasks/TASK-001-architecture-contract-alignment.yml",
+  "helper": "harness/scripts/agents/architect.py",
+  "claudeProfile": ".claude/agents/architect.md",
+  "codexProfile": ".codex/agents/roles/Architect/profile.md",
+  "gateIds": [
+    "AGENT.TASK_CARD.READY",
+    "CONTRACT.MANIFEST.SCHEMAS",
+    "ARCHITECT.INTERVENTION.REQUEST_PROTOCOL",
+    "FIXTURES.GOLDEN.SYNTHETIC",
+    "PRICE.INPUT.REQUEST_PROTOCOL"
+  ],
+  "mustRead": [
+    "AGENTS.md",
+    "EntryPointForTask.md",
+    "docs/AI_M_MSF.md",
+    "Focus.md",
+    "Team.yml",
+    "docs/Context/2026-05-19-autonomous-mvp-feedback.md",
+    "Scope.md",
+    "docs/dev/ImplementationPlan.md",
+    "docs/dev/PredictableAIWork.md",
+    "Vision.md",
+    "docs/ConceptualDesign.md",
+    "docs/SolutionDesign.md",
+    "docs/Architecture.md",
+    "docs/ADR/",
+    "Backlogs.md",
+    "harness/build-team.md",
+    "docs/Evals/QualityGates.md",
+    "docs/contracts/README.md",
+    "docs/contracts/ContractManifest.json",
+    "docs/contracts/AgentTaskEvidence.md",
+    "docs/contracts/ArchitectInterventionRequest.md",
+    "docs/contracts/PriceInputRequest.md",
+    "docs/Evals/GateMatrix.md",
+    "docs/contracts/API.md",
+    "docs/contracts/DataModelRLS.md",
+    "docs/contracts/PublicationPolicy.md"
+  ],
+  "expectedEvidenceReports": [
+    "reports/task-evidence/TASK-001.json"
+  ],
+  "dispatchPrompt": "Ты Architect AI Build Team ProSmet. Возьми TASK-001 (Architecture contract alignment). Slice: architecture_prep; work package: TASK-001. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, Vision.md, docs/ConceptualDesign.md, docs/SolutionDesign.md, docs/Architecture.md, docs/ADR/, Backlogs.md, harness/build-team.md, docs/Evals/QualityGates.md, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/GateMatrix.md, docs/contracts/API.md, docs/contracts/DataModelRLS.md, docs/contracts/PublicationPolicy.md. Task card: tasks/TASK-001-architecture-contract-alignment.yml. Запусти helper `harness/scripts/agents/architect.py` для контекста роли. Gate ids: AGENT.TASK_CARD.READY, CONTRACT.MANIFEST.SCHEMAS, ARCHITECT.INTERVENTION.REQUEST_PROTOCOL, FIXTURES.GOLDEN.SYNTHETIC, PRICE.INPUT.REQUEST_PROTOCOL. Required reports: reports/task-evidence/TASK-001.json, reports/predictability-validation.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor.",
+  "architectInterventionProtocol": {
+    "inboxCommand": "python3 harness/scripts/architect_inbox.py",
+    "architectRequestContract": "docs/contracts/ArchitectInterventionRequest.md",
+    "architectRequestPathPattern": "workspace/architect-inbox/requests/ARCH-REQUEST-YYYYMMDD-TASK-ID-short-slug.json",
+    "priceInputContract": "docs/contracts/PriceInputRequest.md",
+    "priceRequestPathPattern": "reports/price-requests/PRICE-REQUEST-YYYYMMDD-TASK-ID.json",
+    "requiredFinalNotice": [
+      "Нужен ввод архитектора: architect intervention request создан",
+      "Нужен ввод архитектора: real price input request создан"
+    ]
+  },
+  "stopRules": [
+    "Если нужен Ask First decision, создай ArchitectInterventionRequest и останови зависимую часть.",
+    "Если нужен реальный прайс, создай PriceInputRequest и не придумывай значения.",
+    "Не продолжай price-dependent, PII, deploy, Scope, legal или external-service работу без явного ответа архитектора."
+  ],
+  "safety": {
+    "development_time_only": true,
+    "no_runtime_product_agent": true,
+    "does_not_read_env_or_credentials": true,
+    "does_not_call_network": true,
+    "does_not_mutate_task_cards": true,
+    "does_not_spawn_agents": true,
+    "requires_architect_approval_before_command_packets": true,
+    "does_not_calculate_prices": true,
+    "does_not_handle_real_pii_or_real_price": true
+  },
+  "handoffRequired": true
+}

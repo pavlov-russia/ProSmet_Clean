@@ -1,0 +1,165 @@
+{
+  "$schema": "../../docs/contracts/schemas/seed-data-v1.schema.json",
+  "contractVersion": "seed-data.v1",
+  "source": "synthetic",
+  "tenants": [
+    {
+      "tenantId": "tenant_synthetic_a",
+      "slug": "synthetic-a",
+      "displayName": "Synthetic Tenant A",
+      "phoneGateEnabled": true,
+      "autonomousOfferMode": false
+    },
+    {
+      "tenantId": "tenant_synthetic_b",
+      "slug": "synthetic-b",
+      "displayName": "Synthetic Tenant B",
+      "phoneGateEnabled": true,
+      "autonomousOfferMode": false
+    }
+  ],
+  "users": [
+    {
+      "userId": "user_owner_a",
+      "emailPlaceholder": "owner-a@example.invalid",
+      "synthetic": true
+    },
+    {
+      "userId": "user_owner_b",
+      "emailPlaceholder": "owner-b@example.invalid",
+      "synthetic": true
+    }
+  ],
+  "memberships": [
+    {
+      "tenantId": "tenant_synthetic_a",
+      "userId": "user_owner_a",
+      "role": "owner"
+    },
+    {
+      "tenantId": "tenant_synthetic_b",
+      "userId": "user_owner_b",
+      "role": "owner"
+    }
+  ],
+  "leads": [
+    {
+      "leadId": "lead_a_001",
+      "tenantId": "tenant_synthetic_a",
+      "source": "widget",
+      "status": "calculation_snapshotted",
+      "consent": {
+        "consentId": "consent_a_001",
+        "legalVersion": "synthetic-legal-v1",
+        "acceptedAt": "2026-05-23T10:00:00Z"
+      },
+      "contact": {
+        "phonePlaceholderEncrypted": "synthetic_encrypted_phone_a",
+        "piiSynthetic": true
+      },
+      "rooms": [
+        {
+          "roomId": "room_a_001",
+          "roomType": "bedroom",
+          "areaSqm": "12.0"
+        }
+      ]
+    },
+    {
+      "leadId": "lead_b_001",
+      "tenantId": "tenant_synthetic_b",
+      "source": "avito_entry",
+      "status": "new",
+      "consent": {
+        "consentId": "consent_b_001",
+        "legalVersion": "synthetic-legal-v1",
+        "acceptedAt": "2026-05-23T10:05:00Z"
+      },
+      "contact": {
+        "phonePlaceholderEncrypted": "synthetic_encrypted_phone_b",
+        "piiSynthetic": true
+      },
+      "rooms": [
+        {
+          "roomId": "room_b_001",
+          "roomType": "bathroom",
+          "areaSqm": "4.0"
+        }
+      ]
+    }
+  ],
+  "calculationSnapshots": [
+    {
+      "calculationId": "calc_a_001",
+      "tenantId": "tenant_synthetic_a",
+      "leadId": "lead_a_001",
+      "fixtureRef": "fixtures/golden-estimates/GE-001-simple-room-12sqm-no-light.json",
+      "immutable": true,
+      "priceBookVersion": "ceiling-basic-v1",
+      "formulaVersion": "ceiling.v1"
+    },
+    {
+      "calculationId": "calc_b_001",
+      "tenantId": "tenant_synthetic_b",
+      "leadId": "lead_b_001",
+      "fixtureRef": "fixtures/golden-estimates/GE-003-small-bathroom-minimum-order.json",
+      "immutable": true,
+      "priceBookVersion": "ceiling-basic-v1",
+      "formulaVersion": "ceiling.v1"
+    }
+  ],
+  "clientLinks": [
+    {
+      "clientLinkId": "link_a_001",
+      "tenantId": "tenant_synthetic_a",
+      "leadId": "lead_a_001",
+      "calculationId": "calc_a_001",
+      "tokenHash": "sha256:synthetic-link-token-a",
+      "status": "active",
+      "createdFrom": "human_review"
+    },
+    {
+      "clientLinkId": "link_b_001",
+      "tenantId": "tenant_synthetic_b",
+      "leadId": "lead_b_001",
+      "calculationId": "calc_b_001",
+      "tokenHash": "sha256:synthetic-link-token-b",
+      "status": "revoked",
+      "createdFrom": "human_review"
+    }
+  ],
+  "clientLinkEvents": [
+    {
+      "eventId": "event_a_opened_001",
+      "tenantId": "tenant_synthetic_a",
+      "clientLinkId": "link_a_001",
+      "eventType": "opened",
+      "idempotencyKey": "synthetic-open-a-001"
+    }
+  ],
+  "piiAccessLog": [
+    {
+      "piiAccessLogId": "pii_log_a_001",
+      "tenantId": "tenant_synthetic_a",
+      "actorUserId": "user_owner_a",
+      "leadId": "lead_a_001",
+      "field": "phone",
+      "reason": "owner_review",
+      "createdAt": "2026-05-23T10:10:00Z"
+    }
+  ],
+  "auditEvents": [
+    {
+      "auditEventId": "audit_a_calc_001",
+      "tenantId": "tenant_synthetic_a",
+      "eventType": "calculation_snapshot.created",
+      "entityId": "calc_a_001"
+    },
+    {
+      "auditEventId": "audit_a_link_001",
+      "tenantId": "tenant_synthetic_a",
+      "eventType": "client_link.created",
+      "entityId": "link_a_001"
+    }
+  ]
+}

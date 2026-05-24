@@ -1,0 +1,49 @@
+task:
+  id: "TASK-007A"
+  title: "Public entry and consent"
+  role: "FrontendDeveloper"
+  owner: "FrontendDeveloper"
+  status: "ready"
+  slice: "mvp_1"
+  work_package: "TASK-007"
+  source_docs:
+    - "AGENTS.md"
+    - "docs/contracts/API.md"
+    - "docs/SolutionDesign.md"
+  goal: >
+    Implement public widget/Avito entry session and consent flow with
+    server-side tenant resolution.
+  inputs:
+    - "API entry contracts."
+    - "Tenant context from TASK-003B."
+  outputs:
+    - "Public entry UI/routes."
+    - "Consent state before PII collection."
+    - "Avito/source tracking stub."
+  constraints:
+    - "Tenant is resolved by server origin/domain/signed token."
+    - "Consent happens before phone, email, address, voice, files or free PII text."
+  forbidden:
+    - "Trusting tenantId from query/body/localStorage/postMessage."
+    - "Collecting PII before consent."
+  quality_gates:
+    - "Consent before PII."
+  gate_ids:
+    - "UI.WIDGET.FLOW"
+    - "SECURITY.TENANT.RLS"
+    - "AGENT.EVIDENCE.REPORT"
+  required_evidence:
+    - "Entry/consent paths."
+    - "Tenant authority rejection test or not_run reason."
+  required_reports:
+    - "reports/task-evidence/TASK-007A.json"
+  dependencies:
+    - "TASK-003B"
+    - "TASK-002B"
+  handoff_to:
+    - "FrontendDeveloper"
+    - "BackendDeveloper"
+    - "QAEngineer"
+  acceptance:
+    - "Public session cannot choose tenant authority from client payload."
+    - "No PII field is collected before consent."

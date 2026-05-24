@@ -1,0 +1,52 @@
+task:
+  id: "TASK-009A"
+  title: "Signed client link"
+  role: "BackendDeveloper"
+  owner: "BackendDeveloper"
+  status: "ready"
+  slice: "mvp_1"
+  work_package: "TASK-009"
+  source_docs:
+    - "AGENTS.md"
+    - "docs/contracts/PublicationPolicy.md"
+    - "docs/contracts/API.md"
+  goal: >
+    Implement unique signed client link substrate with token hash storage and
+    signed-token access.
+  inputs:
+    - "Human review records from TASK-008B."
+    - "Calculation snapshot from TASK-004C."
+    - "Tenant context from TASK-003B."
+  outputs:
+    - "client_estimate_links service."
+    - "Token hash storage and signed access contract."
+    - "Expired/revoked behavior."
+  constraints:
+    - "Raw token is never stored."
+    - "URL does not expose tenant or private identifiers."
+  forbidden:
+    - "Creating link without human approval or audited auto_publish."
+    - "Revealing expired/revoked link details."
+  quality_gates:
+    - "Client link is unique and private identifiers are not exposed."
+  gate_ids:
+    - "PUBLICATION.GATED"
+    - "LINK.PDF.ANALYTICS"
+    - "SECURITY.TENANT.RLS"
+    - "AGENT.EVIDENCE.REPORT"
+  required_evidence:
+    - "Signed link test or not_run reason."
+    - "Token storage note proves hash-only storage."
+  required_reports:
+    - "reports/task-evidence/TASK-009A.json"
+  dependencies:
+    - "TASK-008B"
+    - "TASK-004C"
+    - "TASK-003B"
+  handoff_to:
+    - "BackendDeveloper"
+    - "FrontendDeveloper"
+    - "QAEngineer"
+  acceptance:
+    - "Signed link substrate exists without policy logic."
+    - "Link access cannot leak tenant/private identifiers."

@@ -1,0 +1,191 @@
+{
+  "$schema": "../contracts/schemas/gate-matrix-v1.schema.json",
+  "contractVersion": "gate-matrix.v1",
+  "updatedAt": "2026-05-23",
+  "gates": [
+    {
+      "id": "AGENT.TASK_CARD.READY",
+      "title": "Task card has micro-task metadata",
+      "slice": "all",
+      "owner": "PPM",
+      "command": "python3 harness/scripts/validate_predictability.py",
+      "requiredEvidence": ["task card has slice, work_package, gate_ids, required_evidence, required_reports, acceptance"]
+    },
+    {
+      "id": "AGENT.EVIDENCE.REPORT",
+      "title": "Task produces machine-readable evidence",
+      "slice": "all",
+      "owner": "QAEngineer",
+      "command": "python3 harness/scripts/validate_predictability.py",
+      "requiredEvidence": ["reports/task-evidence/TASK-ID.json follows agent-task-evidence-v1 schema"]
+    },
+    {
+      "id": "CONTRACT.MANIFEST.SCHEMAS",
+      "title": "Contract manifest references existing schemas",
+      "slice": "architecture_prep",
+      "owner": "SolutionArchitect",
+      "command": "python3 harness/scripts/validate_predictability.py",
+      "requiredEvidence": ["docs/contracts/ContractManifest.json", "docs/contracts/schemas/*.schema.json"]
+    },
+    {
+      "id": "FIXTURES.GOLDEN.SYNTHETIC",
+      "title": "Synthetic golden estimates exist before engine work",
+      "slice": "architecture_prep",
+      "owner": "DomainAnalyst",
+      "command": "python3 harness/scripts/validate_predictability.py",
+      "requiredEvidence": ["at least 5 fixtures/golden-estimates/*.json", "stub price/coefficient/pricing snapshots"]
+    },
+    {
+      "id": "PRICE.INPUT.REQUEST_PROTOCOL",
+      "title": "AI employee asks architect for real price when synthetic fixtures are insufficient",
+      "slice": "all",
+      "owner": "Architect",
+      "command": "python3 harness/scripts/validate_predictability.py",
+      "requiredEvidence": ["docs/contracts/PriceInputRequest.md", "reports/price-requests/PRICE-REQUEST-*.json when real price blocks a task"]
+    },
+    {
+      "id": "ARCHITECT.INTERVENTION.REQUEST_PROTOCOL",
+      "title": "AI employee creates an Architect Inbox request when human decision is required",
+      "slice": "all",
+      "owner": "Architect",
+      "command": "python3 harness/scripts/architect_inbox.py",
+      "requiredEvidence": ["docs/contracts/ArchitectInterventionRequest.md", "workspace/architect-inbox/requests/ARCH-REQUEST-*.json when architect intervention blocks a task"]
+    },
+    {
+      "id": "AGENT.ORCHESTRATOR.CYCLE",
+      "title": "AI Orchestrator proposes cycles and emits command packets only after architect approval",
+      "slice": "all",
+      "owner": "AIOrchestrator",
+      "command": "python3 harness/scripts/ai_orchestrator.py propose --no-checks",
+      "requiredEvidence": ["reports/orchestrator/latest-cycle.json", "docs/contracts/AIOrchestrator.md", "workspace/orchestrator/outbox/ORCH-CYCLE-*.json after approval"]
+    },
+    {
+      "id": "FIXTURES.SEED.TENANT_AB",
+      "title": "Tenant A/B seed data exists for isolation tests",
+      "slice": "mvp_0",
+      "owner": "BackendDeveloper",
+      "command": "python3 harness/scripts/validate_predictability.py",
+      "requiredEvidence": ["fixtures/seeds/tenant-ab.json"]
+    },
+    {
+      "id": "FIXTURES.AI_PAYLOAD.CORPUS",
+      "title": "AI payload safety corpus exists",
+      "slice": "mvp_1",
+      "owner": "AIFlowDeveloper",
+      "command": "python3 harness/scripts/validate_predictability.py",
+      "requiredEvidence": ["fixtures/ai-gateway/*.json"]
+    },
+    {
+      "id": "DEV.SCAFFOLD.BASELINE",
+      "title": "Monorepo baseline commands run without secrets",
+      "slice": "mvp_0",
+      "owner": "DevOps",
+      "command": "npm run check",
+      "requiredEvidence": ["workspace layout", "typecheck/test/lint command list", "no .env required"]
+    },
+    {
+      "id": "ARCH.CORE.NO_CEILING_TERMS",
+      "title": "packages/core has no ceiling-specific domain terms",
+      "slice": "mvp_0",
+      "owner": "SolutionArchitect",
+      "command": "rg -n \"ceiling|потол|полотно|багет\" packages/core || true",
+      "requiredEvidence": ["scan output or explicit not_applicable before scaffold"]
+    },
+    {
+      "id": "SECURITY.TENANT.RLS",
+      "title": "Tenant A cannot read or mutate tenant B",
+      "slice": "mvp_0",
+      "owner": "BackendDeveloper",
+      "command": "future:test:rls",
+      "requiredEvidence": ["tenant A/B access test", "withTenant path", "client tenantId ignored"]
+    },
+    {
+      "id": "SECURITY.PII.AUDIT",
+      "title": "Original PII access writes audit log",
+      "slice": "mvp_0",
+      "owner": "BackendDeveloper",
+      "command": "future:test:pii-audit",
+      "requiredEvidence": ["pii_access_log row for original PII read"]
+    },
+    {
+      "id": "CALC.DETERMINISM",
+      "title": "Calculation result is deterministic",
+      "slice": "mvp_0",
+      "owner": "EstimationEngineDeveloper",
+      "command": "future:test:calc",
+      "requiredEvidence": ["same input returns same resultHash 100 times", "old snapshot unchanged after price update"]
+    },
+    {
+      "id": "CALC.PARTIAL",
+      "title": "Missing data produces partial/unusable semantics",
+      "slice": "mvp_0",
+      "owner": "EstimationEngineDeveloper",
+      "command": "future:test:calc-partial",
+      "requiredEvidence": ["insufficient_data item", "finalTotal null for partial variant"]
+    },
+    {
+      "id": "AI.PAYLOAD.NO_PII_MONEY",
+      "title": "LLM payload contains no PII or money",
+      "slice": "mvp_1",
+      "owner": "AIFlowDeveloper",
+      "command": "future:test:ai-payload",
+      "requiredEvidence": ["sanitized payload fixtures", "money and PII detected before provider call"]
+    },
+    {
+      "id": "AI.OUTPUT.FORBIDDEN_FIELDS",
+      "title": "AI output forbidden price fields are rejected",
+      "slice": "mvp_1",
+      "owner": "AIFlowDeveloper",
+      "command": "future:test:ai-output-schema",
+      "requiredEvidence": ["price, discount, coefficientValue and total fields rejected"]
+    },
+    {
+      "id": "POLICY.DETERMINISTIC",
+      "title": "ApprovalPolicyService is deterministic and fail-closed",
+      "slice": "mvp_2",
+      "owner": "BackendDeveloper",
+      "command": "future:test:policy",
+      "requiredEvidence": ["policy matrix", "error path requires_review", "input hash and reason codes"]
+    },
+    {
+      "id": "PUBLICATION.GATED",
+      "title": "Client link/PDF only after approval or audited auto_publish",
+      "slice": "mvp_1",
+      "owner": "BackendDeveloper",
+      "command": "future:test:publication",
+      "requiredEvidence": ["human approval gate", "phone-gate respected", "legal phrase and versions present"]
+    },
+    {
+      "id": "UI.WIDGET.FLOW",
+      "title": "Widget follows consent, preview and phone-gate flow",
+      "slice": "mvp_1",
+      "owner": "FrontendDeveloper",
+      "command": "future:smoke:widget",
+      "requiredEvidence": ["desktop/mobile smoke", "blurred preview", "phone before full reveal"]
+    },
+    {
+      "id": "UI.OWNER.REVIEW",
+      "title": "Owner review shows risks and supports auditable decision",
+      "slice": "mvp_0",
+      "owner": "FrontendDeveloper",
+      "command": "future:smoke:owner-review",
+      "requiredEvidence": ["snapshot versions", "warnings", "missing blocks", "risk flags", "human review record"]
+    },
+    {
+      "id": "LINK.PDF.ANALYTICS",
+      "title": "Client link/PDF analytics are idempotent",
+      "slice": "mvp_1",
+      "owner": "BackendDeveloper",
+      "command": "future:test:link-analytics",
+      "requiredEvidence": ["opened", "reopened", "pdf_downloaded", "cta_clicked", "idempotency key"]
+    },
+    {
+      "id": "CI.NO_SECRETS_DEPLOY",
+      "title": "CI baseline has no secrets, deploy or publish",
+      "slice": "all",
+      "owner": "DevOps",
+      "command": "future:ci:baseline",
+      "requiredEvidence": ["CI workflow draft without deploy", "baseline checks do not read .env"]
+    }
+  ]
+}

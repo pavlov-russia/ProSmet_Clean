@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prosmet.local/contracts/price-input-request-v1.schema.json",
+  "title": "ProSmet Price Input Request v1",
+  "type": "object",
+  "required": [
+    "contractVersion",
+    "requestId",
+    "taskId",
+    "requestedByRole",
+    "status",
+    "reason",
+    "neededFor",
+    "requestedInputs",
+    "safety",
+    "nextActionForArchitect"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "contractVersion": { "const": "price-input-request.v1" },
+    "requestId": {
+      "type": "string",
+      "pattern": "^PRICE-REQUEST-[0-9]{8}-TASK-[0-9A-Z]+$"
+    },
+    "taskId": { "type": "string", "pattern": "^TASK-[0-9A-Z]+$" },
+    "requestedByRole": { "type": "string", "minLength": 1 },
+    "status": { "enum": ["open", "answered", "cancelled"] },
+    "reason": { "type": "string", "minLength": 1 },
+    "neededFor": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "enum": [
+          "real_price_book_snapshot",
+          "real_coefficient_snapshot",
+          "tenant_pricing_profile",
+          "markup_policy",
+          "pilot_ready_golden_estimates",
+          "price_import_mapping",
+          "publication_readiness",
+          "calibration"
+        ]
+      }
+    },
+    "requestedInputs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "required", "acceptedFormats", "notes"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "label": { "type": "string", "minLength": 1 },
+          "required": { "type": "boolean" },
+          "acceptedFormats": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "notes": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "safety": {
+      "type": "object",
+      "required": ["containsRealPii", "containsSecrets", "doNotSendToLlm", "syntheticFallbackAllowed"],
+      "properties": {
+        "containsRealPii": { "const": false },
+        "containsSecrets": { "const": false },
+        "doNotSendToLlm": { "const": true },
+        "syntheticFallbackAllowed": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "nextActionForArchitect": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": false
+}

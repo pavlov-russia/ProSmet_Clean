@@ -1,0 +1,15 @@
+{
+  "snapshotType": "markup_policy",
+  "markupPolicyId": "markup_synthetic_default",
+  "tenantId": "tenant_synthetic_a",
+  "version": "default-v1",
+  "hash": "sha256:synthetic-markup-policy-default-v1",
+  "capturedAt": "2026-05-23T00:00:00Z",
+  "globalMarkupBps": 0,
+  "categoryMarkupBps": {},
+  "marginFloorBps": null,
+  "discountPolicy": {
+    "manualDiscountAllowed": false,
+    "requiresHumanReview": true
+  }
+}

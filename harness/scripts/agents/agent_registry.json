@@ -1,0 +1,157 @@
+{
+  "canonical_flow": "entry -> consent -> params/chat -> blurred/partial preview -> phone -> immutable calculation snapshot -> policy/human review -> full link/PDF",
+  "roles": {
+    "AIOrchestrator": {
+      "slug": "ai-orchestrator",
+      "title": "AI Orchestrator",
+      "script": "harness/scripts/agents/ai_orchestrator_role.py",
+      "claude_profile": ".claude/agents/ai-orchestrator.md",
+      "codex_profile": ".codex/agents/roles/AIOrchestrator/profile.md",
+      "default_tasks": [
+        "TASK-011"
+      ]
+    },
+    "Architect": {
+      "slug": "architect",
+      "title": "Architect",
+      "script": "harness/scripts/agents/architect.py",
+      "claude_profile": ".claude/agents/architect.md",
+      "codex_profile": ".codex/agents/roles/Architect/profile.md",
+      "default_tasks": [
+        "TASK-001"
+      ]
+    },
+    "ProductAnalyst": {
+      "slug": "product-analyst",
+      "title": "Product Analyst",
+      "script": "harness/scripts/agents/product_analyst.py",
+      "claude_profile": ".claude/agents/product-analyst.md",
+      "codex_profile": ".codex/agents/roles/ProductAnalyst/profile.md",
+      "default_tasks": [
+        "TASK-007",
+        "TASK-008",
+        "TASK-009"
+      ]
+    },
+    "BusinessAnalyst": {
+      "slug": "business-analyst",
+      "title": "Business Analyst",
+      "script": "harness/scripts/agents/business_analyst.py",
+      "claude_profile": ".claude/agents/business-analyst.md",
+      "codex_profile": ".codex/agents/roles/BusinessAnalyst/profile.md",
+      "default_tasks": [
+        "TASK-007",
+        "TASK-008",
+        "TASK-009"
+      ]
+    },
+    "DomainAnalyst": {
+      "slug": "domain-analyst",
+      "title": "Domain Analyst",
+      "script": "harness/scripts/agents/domain_analyst.py",
+      "claude_profile": ".claude/agents/domain-analyst.md",
+      "codex_profile": ".codex/agents/roles/DomainAnalyst/profile.md",
+      "default_tasks": [
+        "TASK-004",
+        "TASK-005"
+      ]
+    },
+    "SeniorCeilingEstimator": {
+      "slug": "senior-ceiling-estimator",
+      "title": "Senior Ceiling Estimator",
+      "script": "harness/scripts/agents/senior_ceiling_estimator.py",
+      "claude_profile": ".claude/agents/senior-ceiling-estimator.md",
+      "codex_profile": ".codex/agents/roles/SeniorCeilingEstimator/profile.md",
+      "default_tasks": [
+        "TASK-004",
+        "TASK-006"
+      ]
+    },
+    "SolutionArchitect": {
+      "slug": "solution-architect",
+      "title": "Solution Architect",
+      "script": "harness/scripts/agents/solution_architect.py",
+      "claude_profile": ".claude/agents/solution-architect.md",
+      "codex_profile": ".codex/agents/roles/SolutionArchitect/profile.md",
+      "default_tasks": [
+        "TASK-001",
+        "TASK-003",
+        "TASK-006"
+      ]
+    },
+    "EstimationEngineDeveloper": {
+      "slug": "estimation-engineer",
+      "title": "Estimation Engine Developer",
+      "script": "harness/scripts/agents/estimation_engineer.py",
+      "claude_profile": ".claude/agents/estimation-engineer.md",
+      "codex_profile": ".codex/agents/roles/EstimationEngineDeveloper/profile.md",
+      "default_tasks": [
+        "TASK-004"
+      ]
+    },
+    "BackendDeveloper": {
+      "slug": "backend-developer",
+      "title": "Backend Developer",
+      "script": "harness/scripts/agents/backend_developer.py",
+      "claude_profile": ".claude/agents/backend-developer.md",
+      "codex_profile": ".codex/agents/roles/BackendDeveloper/profile.md",
+      "default_tasks": [
+        "TASK-003",
+        "TASK-006",
+        "TASK-009"
+      ]
+    },
+    "FrontendDeveloper": {
+      "slug": "frontend-developer",
+      "title": "Frontend Developer",
+      "script": "harness/scripts/agents/frontend_developer.py",
+      "claude_profile": ".claude/agents/frontend-developer.md",
+      "codex_profile": ".codex/agents/roles/FrontendDeveloper/profile.md",
+      "default_tasks": [
+        "TASK-007",
+        "TASK-008"
+      ]
+    },
+    "AIFlowDeveloper": {
+      "slug": "ai-flow-engineer",
+      "title": "AI Flow Developer",
+      "script": "harness/scripts/agents/ai_flow_engineer.py",
+      "claude_profile": ".claude/agents/ai-flow-engineer.md",
+      "codex_profile": ".codex/agents/roles/AIFlowDeveloper/profile.md",
+      "default_tasks": [
+        "TASK-005"
+      ]
+    },
+    "QAEngineer": {
+      "slug": "qa-engineer",
+      "title": "QA Engineer",
+      "script": "harness/scripts/agents/qa_engineer.py",
+      "claude_profile": ".claude/agents/qa-engineer.md",
+      "codex_profile": ".codex/agents/roles/QAEngineer/profile.md",
+      "default_tasks": [
+        "TASK-010"
+      ]
+    },
+    "DevOps": {
+      "slug": "devops",
+      "title": "DevOps",
+      "script": "harness/scripts/agents/devops.py",
+      "claude_profile": ".claude/agents/devops.md",
+      "codex_profile": ".codex/agents/roles/DevOps/profile.md",
+      "default_tasks": [
+        "TASK-002",
+        "TASK-010"
+      ]
+    },
+    "PPM": {
+      "slug": "ppm",
+      "title": "PPM",
+      "script": "harness/scripts/agents/ppm.py",
+      "claude_profile": ".claude/agents/ppm.md",
+      "codex_profile": ".codex/agents/roles/PPM/profile.md",
+      "default_tasks": [
+        "TASK-001"
+      ]
+    }
+  }
+}

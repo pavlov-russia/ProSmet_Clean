@@ -1,0 +1,50 @@
+task:
+  id: "TASK-002B"
+  title: "App and package placeholders"
+  role: "DevOps"
+  owner: "DevOps"
+  status: "ready"
+  slice: "mvp_0"
+  work_package: "TASK-002"
+  source_docs:
+    - "AGENTS.md"
+    - "docs/Architecture.md"
+    - "docs/SolutionDesign.md"
+    - "docs/Evals/GateMatrix.md"
+  goal: >
+    Создать пустые entrypoints for target apps/packages so implementation
+    roles have stable ownership boundaries.
+  inputs:
+    - "Monorepo layout from docs/Architecture.md."
+    - "Component boundaries from docs/SolutionDesign.md."
+  outputs:
+    - "apps/ceiling, apps/workers, apps/owner-bot placeholders."
+    - "packages/core, packages/ui, packages/widget-loader, packages/config placeholders."
+    - "Boundary note that packages/core is vertical-agnostic."
+  constraints:
+    - "Placeholders only; no provider calls and no real secrets."
+    - "Ceiling domain terms belong under apps/ceiling/domain."
+  forbidden:
+    - "Хардкодить потолочную предметку в packages/core."
+    - "Добавлять production deploy or external runtime calls."
+  quality_gates:
+    - "packages/core has no ceiling-specific terms."
+  gate_ids:
+    - "ARCH.CORE.NO_CEILING_TERMS"
+    - "DEV.SCAFFOLD.BASELINE"
+    - "AGENT.EVIDENCE.REPORT"
+  required_evidence:
+    - "Created path list."
+    - "Core boundary scan result or not_applicable before files exist."
+  required_reports:
+    - "reports/task-evidence/TASK-002B.json"
+  dependencies:
+    - "TASK-002A"
+  handoff_to:
+    - "BackendDeveloper"
+    - "FrontendDeveloper"
+    - "EstimationEngineDeveloper"
+    - "AIFlowDeveloper"
+  acceptance:
+    - "Implementation roles can add code inside stable app/package boundaries."
+    - "No ceiling terms are introduced into packages/core."

@@ -22,6 +22,27 @@
 
 AI-сотрудники не подменяют архитектора. Они готовят решения, варианты, риски, документы, тесты и реализацию.
 
+## AIOrchestrator
+
+AIOrchestrator является development-time процессным управляющим AI-команды.
+
+Он делает:
+
+- строит следующий orchestration cycle из dispatch plan;
+- проверяет open inbox, failed checks, dependencies and missing evidence;
+- предлагает архитектору-человеку next task/wave;
+- ждет явного approval;
+- после approval выпускает command packets в `workspace/orchestrator/outbox/`;
+- сообщает, что идет хорошо, что нужно учесть и где план стоит скорректировать.
+
+Он не делает:
+
+- не является runtime-агентом продукта;
+- не запускает AI-сотрудников без отдельного tool/runtime approval;
+- не меняет Scope, task cards, deploy, legal promises или real pilot data сам;
+- не читает `.env`, credentials, реальные ПД или реальные прайсы;
+- не считает сметы, скидки, коэффициенты и не принимает решение публикации клиенту.
+
 ## 2. Architect
 
 Держит целостность документов и решений.
@@ -203,6 +224,7 @@ Senior AI-сметчик по натяжным потолкам является
 - RLS;
 - approval policy;
 - client link/PDF analytics;
+- task evidence reports and gate matrix;
 - РФ deployment gate перед real PII.
 
 ## 13. DevOps
@@ -226,6 +248,7 @@ Senior AI-сметчик по натяжным потолкам является
 
 - task breakdown;
 - handoff;
+- evidence reports;
 - reports;
 - Focus/Backlog;
 - open decisions list;
