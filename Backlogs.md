@@ -41,6 +41,7 @@
 - Добавить `--check` или `--no-write` mode в `harness/scripts/validate_predictability.py`.
 - Усилить dependency closure: dependency закрыта только accepted/done status plus valid evidence report или explicit Architect override.
 - Защитить `ai_orchestrator.py approve` от stale proposal через input hashes or rerun validations.
+- Добавить machine-readable `ArchitectDecisionResponse` / decision ledger для закрытия `ARCH-REQUEST-*` и фиксации выбранного option, статуса, примененной правки and required follow-up.
 - После workspace baseline заменить regex parsing task cards на YAML parser или зафиксировать строгий YAML subset.
 - Добавить безопасный scanner reports/evidence/payload fixtures на secrets/PII/money patterns без чтения `.env`.
 

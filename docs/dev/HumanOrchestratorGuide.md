@@ -5,15 +5,79 @@
 
 ## 1. Твоя роль
 
-Ты управляешь не "чатом с агентами", а локальным development-time control plane:
+Ты управляешь не "чатом с агентами", а локальным development-time control plane.
+
+Практически это означает: ты в основном коммуницируешь с AIOrchestrator/Architect loop, а не вручную микроменеджишь каждого AI-сотрудника.
+
+AIOrchestrator должен:
+
+- предложить следующий цикл;
+- показать blockers, corrections and watch points;
+- после твоего approval выпустить command packets;
+- проверить inbox, dependencies, gates and evidence;
+- остановить процесс, если появился блокер.
+
+Ты нужен не как ручной диспетчер задач, а как владелец решений, которые AI не имеет права принимать сам:
 
 - принимаешь решения, которые AI не имеет права принимать сам;
 - утверждаешь orchestration cycles;
-- запускаешь или поручаешь micro-tasks AI-сотрудникам;
-- проверяешь evidence reports;
-- не даешь команде обходить Scope, tenant isolation, deterministic calculation, AI payload safety, human review and publication gates.
+- подтверждаешь, что предложенный цикл можно выполнять;
+- принимаешь или отклоняешь architect/price requests;
+- смотришь итоговую evidence summary по задаче или wave;
+- не разрешаешь обходить Scope, tenant isolation, deterministic calculation, AI payload safety, human review and publication gates.
 
-AIOrchestrator помогает выбрать следующий шаг, но не заменяет твое approval.
+AIOrchestrator не заменяет твое approval, но именно он должен быть основным интерфейсом управления процессом.
+
+## 1.1. Где живут решения
+
+Решения не должны оставаться только в переписке.
+
+Операционные решения цикла:
+
+```text
+reports/orchestrator/latest-cycle.json
+reports/orchestrator/ORCH-CYCLE-*.json
+reports/orchestrator/ORCH-CYCLE-*-approved.json
+workspace/orchestrator/approvals/
+```
+
+Что смотреть:
+
+- `selectedTasks`: что AIOrchestrator предлагает делать;
+- `feedback.planCorrections`: что надо применить или исправить;
+- `feedback.watchPoints`: риски текущего цикла;
+- `consent`: кто и с какой заметкой утвердил цикл;
+- `commandPackets`: какие задания выпущены после approval.
+
+Решения, которые AI не имеет права принимать сам:
+
+```text
+workspace/architect-inbox/requests/ARCH-REQUEST-*.json
+reports/price-requests/PRICE-REQUEST-*.json
+```
+
+Что с ними делать:
+
+- выбрать option или дать короткое решение;
+- если решение архитектурное, закрепить его в ADR или contract-doc;
+- если решение меняет план, обновить task card, `Backlogs.md`, `Focus.md` or `docs/dev/ImplementationPlan.md`;
+- после выполнения зависимой части убедиться, что evidence report ссылается на принятое решение.
+
+Текущий gap: отдельного `ArchitectDecisionResponse` контракта пока нет. До его появления решение считается примененным только если оно закреплено в ADR, contract-doc, task card, backlog/focus update or evidence report. Если нужен строгий machine-readable close для requests, это отдельная harness-hardening задача.
+
+Долгоживущие решения:
+
+```text
+docs/ADR/
+docs/contracts/
+docs/dev/ImplementationPlan.md
+Focus.md
+Backlogs.md
+tasks/TASK-*.yml
+reports/task-evidence/TASK-ID.json
+```
+
+Правило: если решение влияет на архитектуру, Scope boundary, gates, dependencies or product behavior, оно должно стать документным контрактом, task change, ADR, backlog item or evidence. Иначе команда не сможет воспроизводимо его применить.
 
 ## 2. Базовый цикл управления
 
@@ -66,6 +130,16 @@ reports/task-evidence/TASK-ID.json
 
 ## 4. Как выдавать работу AI-сотруднику
 
+В текущей версии harness AIOrchestrator выпускает command packets, но сам не spawn-ит внешних AI-агентов. Это намеренное ограничение v1: запуск другого AI/CLI имеет побочные эффекты, поэтому пока требует явного человеческого approval.
+
+Целевая рабочая модель:
+
+```text
+ты -> AIOrchestrator/Architect -> approved command packets -> AI-сотрудники -> evidence -> AIOrchestrator
+```
+
+То есть ты не должен придумывать задачи каждому сотруднику. Ты утверждаешь цикл и используешь packet, который подготовил AIOrchestrator.
+
 Открой markdown command packet:
 
 ```text
@@ -84,7 +158,11 @@ workspace/orchestrator/outbox/ORCH-CYCLE-*-TASK-*-role.md
 
 Не давай сотруднику широкую формулировку вроде "сделай MVP". Давай только конкретную micro-task из outbox.
 
+Если работа идет внутри одного Codex/Claude сеанса, можно сказать: "выполни command packet для TASK-XXX". Это все равно считается запуском через AIOrchestrator, потому что источником задания является approved packet, а не свободная формулировка.
+
 ## 5. Как принимать работу
+
+AIOrchestrator должен подсветить missing evidence and blockers, но финальное доверие к задаче строится на machine-readable evidence.
 
 После работы AI-сотрудника проверь:
 
@@ -107,9 +185,15 @@ python3 harness/scripts/ai_orchestrator.py status
 
 Если evidence нет, задача не done.
 
+Если хочешь не читать каждый report вручную, проси AIOrchestrator/Architect сделать acceptance summary по новой evidence. Но summary не заменяет сам файл `reports/task-evidence/TASK-ID.json`.
+
 ## 6. Когда останавливать команду
 
-Останавливай зависимую работу, если появился любой из блокеров:
+AIOrchestrator обязан блокировать approval при failed validations, open blocking inbox requests, price requests without synthetic fallback and missing dependencies.
+
+Ты вмешиваешься только если AIOrchestrator просит решение или если видишь, что команда пытается обойти стоп-правило.
+
+Стоп-блокеры:
 
 - нужен реальный прайс, коэффициенты, скидки, минимальный заказ or expert-approved golden totals;
 - нужны реальные ПД, pilot data, secrets or external service;
@@ -183,4 +267,3 @@ python3 harness/scripts/ai_orchestrator.py propose
 
 Если да - запускай через command packet.  
 Если нет - сначала чинить task card, gate, contract, inbox decision or evidence.
-
