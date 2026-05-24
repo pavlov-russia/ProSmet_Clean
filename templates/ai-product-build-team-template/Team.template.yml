@@ -1,0 +1,181 @@
+team:
+  name: "AI Product Build Team"
+  methodology: "AI_M_MSF"
+  mission: "Подготовить и реализовать проверяемый MVP продукта через архитектуру, маленькие задачи, quality gates and evidence."
+
+  standard_docs:
+    - "AGENTS.md"
+    - "Vision.md"
+    - "Scope.md"
+    - "docs/ConceptualDesign.md"
+    - "docs/SolutionDesign.md"
+    - "docs/Architecture.md"
+    - "docs/Evals/QualityGates.md"
+    - "docs/dev/TaskAndEvidenceProtocol.md"
+
+  invariants:
+    - "Vision шире Scope."
+    - "Scope сильнее желания добавить полезную фичу."
+    - "Сначала документный контракт, потом код."
+    - "Реальные данные, ПД, деньги, юридические и медицинские обещания требуют решения человека."
+    - "AI-сотрудник выполняет micro-task, а не широкий work package."
+    - "Задача считается завершенной только после evidence report."
+
+  roles:
+    AIOrchestrator:
+      owns:
+        - "следующий цикл работы"
+        - "dependency graph"
+        - "command packets"
+        - "process feedback"
+      primary_outputs:
+        - "orchestration proposal"
+        - "approved command packets"
+        - "status summary"
+
+    Architect:
+      owns:
+        - "Vision/Scope/Architecture/ADR consistency"
+        - "architecture decisions"
+        - "scope guardrails"
+      primary_outputs:
+        - "ADR"
+        - "architecture decisions"
+        - "architecture acceptance"
+
+    ProductAnalyst:
+      owns:
+        - "ценность продукта"
+        - "пользовательские сценарии"
+        - "метрики успеха"
+      primary_outputs:
+        - "product brief"
+        - "journey map"
+        - "acceptance criteria"
+
+    BusinessAnalyst:
+      owns:
+        - "бизнес-процессы"
+        - "статусы"
+        - "операционные требования"
+        - "legal/consent assumptions"
+      primary_outputs:
+        - "process map"
+        - "lifecycle/status model"
+        - "requirements"
+
+    DomainAnalyst:
+      owns:
+        - "предметная модель"
+        - "параметры"
+        - "термины"
+        - "edge cases"
+      primary_outputs:
+        - "domain model"
+        - "glossary"
+        - "edge case catalog"
+
+    DomainExpert:
+      owns:
+        - "экспертная правильность предметной области"
+        - "реальные кейсы"
+        - "риск-флаги"
+        - "golden examples"
+      primary_outputs:
+        - "expert review notes"
+        - "risk flag catalog"
+        - "golden examples"
+
+    SolutionArchitect:
+      owns:
+        - "компоненты"
+        - "API"
+        - "data model"
+        - "security boundaries"
+        - "integration boundaries"
+      primary_outputs:
+        - "SolutionDesign updates"
+        - "API contracts"
+        - "data contracts"
+
+    RulesEngineDeveloper:
+      owns:
+        - "детерминированные правила"
+        - "business rules"
+        - "calculation/decision engine when needed"
+        - "regression tests"
+      primary_outputs:
+        - "rules module"
+        - "rule tests"
+        - "golden regression set"
+
+    BackendDeveloper:
+      owns:
+        - "server API"
+        - "database schema"
+        - "repositories/services"
+        - "workers"
+        - "server-side authorization"
+      primary_outputs:
+        - "backend implementation"
+        - "migration drafts"
+        - "service tests"
+
+    FrontendDeveloper:
+      owns:
+        - "user interfaces"
+        - "design system usage"
+        - "dashboard/workflows"
+        - "responsive states"
+      primary_outputs:
+        - "frontend implementation"
+        - "UX states"
+        - "browser smoke checks"
+
+    AIFlowDeveloper:
+      owns:
+        - "AI gateway"
+        - "structured extraction"
+        - "prompt boundaries"
+        - "PII/sensitive data redaction"
+        - "AI payload audit"
+      primary_outputs:
+        - "AI flow implementation"
+        - "schema guards"
+        - "AI safety tests"
+
+    QAEngineer:
+      owns:
+        - "quality gates"
+        - "test plan"
+        - "regression tests"
+        - "security tests"
+        - "acceptance reports"
+      primary_outputs:
+        - "quality report"
+        - "test plan"
+        - "gate results"
+
+    DevOps:
+      owns:
+        - "local/dev environments"
+        - "CI"
+        - "secrets policy"
+        - "observability"
+        - "deployment plan"
+      primary_outputs:
+        - "environment plan"
+        - "CI gates"
+        - "deployment checklist"
+
+    PPM:
+      owns:
+        - "task breakdown"
+        - "handoffs"
+        - "Focus/Backlogs hygiene"
+        - "progress reporting"
+      primary_outputs:
+        - "task cards"
+        - "handoff notes"
+        - "progress reports"
+

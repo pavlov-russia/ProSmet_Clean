@@ -1,0 +1,26 @@
+task:
+  id: "TASK-000"
+  title: ""
+  role: ""
+  owner: ""
+  status: "draft"
+  slice: ""
+  work_package: ""
+  source_docs:
+    - "AGENTS.md"
+    - "Vision.md"
+    - "Scope.md"
+  goal: ""
+  inputs: []
+  outputs: []
+  constraints: []
+  forbidden: []
+  gate_ids: []
+  quality_gates: []
+  required_evidence: []
+  required_reports:
+    - "reports/task-evidence/TASK-000.json"
+  dependencies: []
+  handoff_to: []
+  acceptance: []
+
