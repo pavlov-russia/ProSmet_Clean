@@ -1,0 +1,59 @@
+task:
+  id: "TASK-012A"
+  title: "Visual identity and marketing message brief"
+  role: "ProductAnalyst"
+  owner: "ProductAnalyst"
+  status: "ready"
+  slice: "all"
+  work_package: "TASK-012"
+  source_docs:
+    - "AGENTS.md"
+    - "Vision.md"
+    - "Scope.md"
+    - "docs/Visual/2026-05-06-2766a0.md"
+    - "docs/Visual/vision.md"
+    - "docs/Visual/vision-long-term-platform.md"
+    - "docs/Context/2026-05-24-visual-and-marketing-site-input.md"
+    - "docs/contracts/VisualIdentityAndMarketingSite.md"
+  goal: >
+    Подготовить краткий product/UX brief: кому продаем ProSmet, какой
+    главный оффер сайта, какие UX-принципы и цвета применяем, какие
+    обещания нельзя давать без данных.
+  inputs:
+    - "Visual conversation summary and image reference."
+    - "Current Vision and Scope."
+  outputs:
+    - "Marketing audience and value proposition brief."
+    - "Landing page section outline."
+    - "Visual token confirmation or change request."
+    - "Shared UI application rules for marketing, admin/settings, owner dashboard, widget, review UI and client link."
+  constraints:
+    - "Не расширять MVP расчетного продукта."
+    - "Сайт рекламирует ProSmet, а не генерирует сайты подрядчиков."
+    - "Обещания должны быть проверяемыми and not legal/pricing promises."
+  forbidden:
+    - "Придумывать тарифы, скидки, ROI or legal guarantees."
+    - "Использовать реальные отзывы, реальные сметы or pilot screenshots без approval."
+  quality_gates:
+    - "Visual identity tokens and UX principles are documented."
+    - "Marketing claims are separated from product/runtime guarantees."
+  gate_ids:
+    - "UI.VISUAL.IDENTITY"
+    - "AGENT.EVIDENCE.REPORT"
+    - "ARCHITECT.INTERVENTION.REQUEST_PROTOCOL"
+  required_evidence:
+    - "Visual/product brief path."
+    - "Marketing claims risk list."
+    - "Decision on whether palette needs architect approval."
+  required_reports:
+    - "reports/task-evidence/TASK-012A.json"
+  dependencies:
+    - "TASK-001"
+  handoff_to:
+    - "FrontendDeveloper"
+    - "BusinessAnalyst"
+    - "QAEngineer"
+  acceptance:
+    - "FrontendDeveloper can implement marketing UI without guessing palette, audience or page structure."
+    - "FrontendDeveloper can implement admin/dashboard/widget/review surfaces from the same visual foundation."
+    - "Any unresolved legal/pricing/real-material claim is moved to Architect Inbox."

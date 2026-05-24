@@ -9,6 +9,7 @@ task:
   source_docs:
     - "AGENTS.md"
     - "docs/contracts/API.md"
+    - "docs/contracts/VisualIdentityAndMarketingSite.md"
     - "docs/SolutionDesign.md"
   goal: >
     Implement public widget/Avito entry session and consent flow with
@@ -29,6 +30,7 @@ task:
   quality_gates:
     - "Consent before PII."
   gate_ids:
+    - "UI.VISUAL.IDENTITY"
     - "UI.WIDGET.FLOW"
     - "SECURITY.TENANT.RLS"
     - "AGENT.EVIDENCE.REPORT"

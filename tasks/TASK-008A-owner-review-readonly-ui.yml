@@ -9,6 +9,7 @@ task:
   source_docs:
     - "AGENTS.md"
     - "docs/contracts/API.md"
+    - "docs/contracts/VisualIdentityAndMarketingSite.md"
     - "docs/contracts/CalculationEngineV1.md"
   goal: >
     Implement owner lead/review read-only screens showing calculation snapshot,
@@ -28,6 +29,7 @@ task:
   quality_gates:
     - "Owner sees warnings and risk flags."
   gate_ids:
+    - "UI.VISUAL.IDENTITY"
     - "UI.OWNER.REVIEW"
     - "SECURITY.TENANT.RLS"
     - "CALC.PARTIAL"
@@ -40,10 +42,12 @@ task:
   dependencies:
     - "TASK-003B"
     - "TASK-004C"
+    - "TASK-012A"
   handoff_to:
     - "FrontendDeveloper"
     - "BackendDeveloper"
     - "QAEngineer"
   acceptance:
     - "Review screen exposes all calculation risk context to owner."
+    - "Review UI uses shared visual tokens and does not introduce a separate admin/dashboard style."
     - "Read-only view does not publish link/PDF."

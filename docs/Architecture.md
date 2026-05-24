@@ -2,7 +2,7 @@
 
 Дата: 2026-05-19  
 Статус: clean target architecture, обновлено по autonomous MVP feedback  
-Связано: `Vision.md`, `Scope.md`, `docs/ConceptualDesign.md`, `docs/SolutionDesign.md`, `docs/Domain/CeilingEstimateModel.md`, `docs/Evals/QualityGates.md`, `docs/ADR/ADR-007-autonomous-offer-mode.md`, `docs/ADR/ADR-008-approval-policy-protocol.md`, `docs/ADR/ADR-013-senior-ceiling-estimator-build-role.md`, `docs/ADR/ADR-014-partial-estimate-and-phone-gated-reveal.md`, `docs/ADR/ADR-015-rf-data-residency-and-deployment-path.md`
+Связано: `Vision.md`, `Scope.md`, `docs/ConceptualDesign.md`, `docs/SolutionDesign.md`, `docs/Domain/CeilingEstimateModel.md`, `docs/Evals/QualityGates.md`, `docs/contracts/VisualIdentityAndMarketingSite.md`, `docs/ADR/ADR-007-autonomous-offer-mode.md`, `docs/ADR/ADR-008-approval-policy-protocol.md`, `docs/ADR/ADR-013-senior-ceiling-estimator-build-role.md`, `docs/ADR/ADR-014-partial-estimate-and-phone-gated-reveal.md`, `docs/ADR/ADR-015-rf-data-residency-and-deployment-path.md`, `docs/ADR/ADR-016-visual-identity-and-marketing-site.md`
 
 ## 1. Архитектурный тезис
 
@@ -13,9 +13,21 @@ ProSmet строится как модульная мульти-тенантна
 ## 2. Целевая схема
 
 ```text
+Сайт ProSmet
+  -> apps/marketing
+  -> public marketing site for B2B buyers
+  -> demo/pilot request with consent
+  -> no tenant/customer runtime data
+
 Сайт бригады / Авито
   -> loader.js с CDN prosmet.tech
   -> iframe widget.prosmet.tech / промежуточная страница ProSmet
+
+apps/marketing
+  -> Next.js App Router
+  -> главная, вертикальная landing page, demo request, legal pages
+  -> synthetic screenshots and marketing analytics
+  -> использует только публичные компоненты @prosmet/ui
 
 apps/ceiling
   -> Next.js App Router
@@ -67,6 +79,13 @@ RF production
 
 ```text
 apps/
+  marketing/
+    app/
+      page.tsx
+      potolki/
+      demo/
+      privacy/
+      legal/
   ceiling/
     app/
       (widget)/
@@ -101,6 +120,13 @@ packages/
     queues/
     telemetry/
   ui/
+    visual-tokens/
+    marketing/
+    admin/
+    dashboard/
+    widget/
+    client-link/
+    primitives/
   widget-loader/
   config/
 ```
@@ -190,6 +216,14 @@ packages/
 - `deployment_environments`.
 
 Все чувствительные таблицы получают прямой `tenant_id`, даже когда tenant выводится через внешний ключ. Это упрощает RLS, индексы, фоновые задачи и аудит.
+
+Отдельный public marketing контур ProSmet может добавить:
+
+- `marketing_leads`;
+- `marketing_events`;
+- `marketing_consent_records`.
+
+Эти таблицы не являются tenant/customer data. Они не дают доступа к сметам, клиентским ссылкам, прайсам или данным пилотов. Если marketing lead содержит phone/email/name, consent обязателен до записи контакта, а доступ к данным ограничивается admin/system role.
 
 ## 6. RLS
 

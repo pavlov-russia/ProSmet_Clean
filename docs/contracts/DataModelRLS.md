@@ -30,6 +30,7 @@
 | `worker_job` | PDF, events, notifications, price import | Job создан сервером и содержит tenant scope; worker сверяет tenant job с tenant сущности. |
 | `bot_callback_token` | bot quick actions | Tenant берется из signed callback token или server-side channel binding. |
 | `admin_system` | migrations/admin maintenance | Только controlled admin path; не используется web/API request handlers. |
+| `public_marketing` | ProSmet marketing site | Tenant отсутствует; доступ только к public marketing content and consented marketing lead write path. |
 
 `tenant_id` из body/query/header/localStorage/postMessage не является источником tenant.
 
@@ -125,6 +126,9 @@ async function withTenant<T>(
 | `coefficients` | Да | OW; WK calculation | OW admin/import worker | membership, job | `coefficient.updated` | A/B blocked; coefficient values never chosen by LLM |
 | `regions` | Нет | PA/OW/WK readonly reference | ADM/migration only | global reference | migration/admin audit | public can read active regions; non-admin cannot write |
 | `deployment_environments` | Нет | ADM; readiness service safe projection | ADM only | admin_system | `deployment_environment.changed` | no public read of sensitive infra fields; non-admin cannot write |
+| `marketing_leads` | Нет | ADM/controlled ProSmet owner view only | public_marketing after consent; ADM | public_marketing, admin_system | `marketing.demo_requested`, `marketing_consent.accepted` | consent before phone/email/name; no tenant/customer access; no LLM payload |
+| `marketing_events` | Нет | ADM aggregate/safe projection | public_marketing event API | public_marketing | `marketing.*` idempotent | no raw PII in metadata; no tenant/customer ids |
+| `marketing_consent_records` | Нет | ADM/controlled ProSmet owner view only | public_marketing consent service | public_marketing | `marketing_consent.accepted` | exact legal version stored before contact data |
 | `legal_documents` | Да | PA public active docs; OW; WK policy | OW admin/ADM | session, membership, job | `legal_document.changed` | A/B blocked; consent stores exact version |
 | `legal_packs` | Да | PA public active pack metadata; OW; WK policy | OW admin/ADM | session, membership, job | `legal_pack.changed` | A/B blocked; publication blocked without active pack |
 | `notifications` | Да | OW; WK sender | notification service/WK; owner test endpoint | membership, job | `notification.enqueued/sent/failed` | A/B blocked; bot payload contains no forbidden PII/price |

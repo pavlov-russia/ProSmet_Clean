@@ -2,7 +2,7 @@
   "status": "ready",
   "canonical_flow": "entry -> consent -> params/chat -> blurred/partial preview -> phone -> immutable calculation snapshot -> policy/human review -> full link/PDF",
   "generated_by": "harness/scripts/agents/dispatch_tasks.py",
-  "tasks_total": 31,
+  "tasks_total": 35,
   "roles_total": 14,
   "available_now": [
     {
@@ -326,6 +326,9 @@
         ],
         "TASK-010A": [
           "TASK-001"
+        ],
+        "TASK-012A": [
+          "TASK-001"
         ]
       }
     },
@@ -613,11 +616,162 @@
             "TASK-010"
           ],
           "dispatch_prompt": "Ты QAEngineer AI Build Team ProSmet. Возьми TASK-010A (Baseline QA harness). Slice: all; work package: TASK-010. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, docs/Evals/QualityGates.md, docs/contracts/CalculationEngineV1.md, docs/contracts/AIGateway.md, docs/contracts/DataModelRLS.md, docs/contracts/PublicationPolicy.md, tasks/TASK-010-ci-quality-gates.yml, docs/Evals/GateMatrix.md, docs/contracts/AgentTaskEvidence.md, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md. Task card: tasks/TASK-010A-baseline-qa-harness.yml. Запусти helper `harness/scripts/agents/qa_engineer.py` для контекста роли. Gate ids: AGENT.TASK_CARD.READY, AGENT.EVIDENCE.REPORT, ARCHITECT.INTERVENTION.REQUEST_PROTOCOL, CI.NO_SECRETS_DEPLOY. Required reports: reports/task-evidence/TASK-010A.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
+        },
+        {
+          "id": "TASK-012A",
+          "title": "Visual identity and marketing message brief",
+          "role": "ProductAnalyst",
+          "owner": "ProductAnalyst",
+          "status": "ready",
+          "slice": "all",
+          "work_package": "TASK-012",
+          "path": "tasks/TASK-012A-visual-identity-brief.yml",
+          "source_docs": [
+            "AGENTS.md",
+            "Vision.md",
+            "Scope.md",
+            "docs/Visual/2026-05-06-2766a0.md",
+            "docs/Visual/vision.md",
+            "docs/Visual/vision-long-term-platform.md",
+            "docs/Context/2026-05-24-visual-and-marketing-site-input.md",
+            "docs/contracts/VisualIdentityAndMarketingSite.md"
+          ],
+          "dependencies": [
+            "TASK-001"
+          ],
+          "dependency_notes": {},
+          "handoff_to": [
+            "FrontendDeveloper",
+            "BusinessAnalyst",
+            "QAEngineer"
+          ],
+          "quality_gates": [
+            "Visual identity tokens and UX principles are documented.",
+            "Marketing claims are separated from product/runtime guarantees."
+          ],
+          "gate_ids": [
+            "UI.VISUAL.IDENTITY",
+            "AGENT.EVIDENCE.REPORT",
+            "ARCHITECT.INTERVENTION.REQUEST_PROTOCOL"
+          ],
+          "required_evidence": [
+            "Visual/product brief path.",
+            "Marketing claims risk list.",
+            "Decision on whether palette needs architect approval."
+          ],
+          "required_reports": [
+            "reports/task-evidence/TASK-012A.json"
+          ],
+          "acceptance": [
+            "FrontendDeveloper can implement marketing UI without guessing palette, audience or page structure.",
+            "FrontendDeveloper can implement admin/dashboard/widget/review surfaces from the same visual foundation.",
+            "Any unresolved legal/pricing/real-material claim is moved to Architect Inbox."
+          ],
+          "micro_tasks": [],
+          "launch_owner": "ProductAnalyst",
+          "advisory_roles": [
+            "FrontendDeveloper",
+            "BusinessAnalyst",
+            "QAEngineer"
+          ],
+          "employee": {
+            "role": "ProductAnalyst",
+            "slug": "product-analyst",
+            "title": "Product Analyst",
+            "soul": "Голос клиента и владельца в команде: живой, практичный, внимательный к моменту, где продукт перестает быть полезным.",
+            "claude_profile": ".claude/agents/product-analyst.md",
+            "codex_profile": ".codex/agents/roles/ProductAnalyst/profile.md",
+            "helper": "harness/scripts/agents/product_analyst.py",
+            "read_first": [
+              "AGENTS.md",
+              "EntryPointForTask.md",
+              "docs/AI_M_MSF.md",
+              "Focus.md",
+              "Team.yml",
+              "docs/Context/2026-05-19-autonomous-mvp-feedback.md",
+              "Scope.md",
+              "docs/dev/ImplementationPlan.md",
+              "docs/dev/PredictableAIWork.md",
+              "Vision.md",
+              "docs/ConceptualDesign.md",
+              "docs/contracts/API.md",
+              "docs/contracts/PublicationPolicy.md"
+            ],
+            "contracts": [
+              "docs/contracts/README.md",
+              "docs/contracts/ContractManifest.json",
+              "docs/contracts/AgentTaskEvidence.md",
+              "docs/contracts/ArchitectInterventionRequest.md",
+              "docs/contracts/PriceInputRequest.md",
+              "docs/Evals/QualityGates.md",
+              "docs/Evals/GateMatrix.md",
+              "docs/contracts/API.md",
+              "docs/contracts/PublicationPolicy.md"
+            ],
+            "default_tasks": [
+              "TASK-007",
+              "TASK-008",
+              "TASK-009"
+            ],
+            "forbidden": [
+              "Vision шире Scope; реализация идет по Scope.",
+              "AI не считает деньги, не выбирает коэффициенты и не создает строки сметы с суммами.",
+              "Calculation engine является pure deterministic module.",
+              "LLM payload не содержит ПД, деньги, прайсы и PDF.",
+              "Tenant определяется сервером; tenantId из клиента недоверен.",
+              "RLS и withTenant обязательны с первого дня.",
+              "Публикация возможна только после human approval или audited auto_publish.",
+              "Любое архитектурное отклонение фиксируется через ADR до кода.",
+              "Ослаблять legal/phone/policy gates ради конверсии.",
+              "Добавлять marketplace или тяжелую CRM вне Scope.",
+              "Менять формулы, прайсы или коэффициенты."
+            ],
+            "quality_gates": [
+              "Клиентский путь ведет к понятной ссылке/PDF.",
+              "Владелец видит лид, статус, события и next action.",
+              "Preview не вводит клиента в заблуждение."
+            ],
+            "dispatch_command": "python3 harness/scripts/agents/product_analyst.py --json"
+          },
+          "must_read": [
+            "AGENTS.md",
+            "EntryPointForTask.md",
+            "docs/AI_M_MSF.md",
+            "Focus.md",
+            "Team.yml",
+            "docs/Context/2026-05-19-autonomous-mvp-feedback.md",
+            "Scope.md",
+            "docs/dev/ImplementationPlan.md",
+            "docs/dev/PredictableAIWork.md",
+            "Vision.md",
+            "docs/ConceptualDesign.md",
+            "docs/contracts/API.md",
+            "docs/contracts/PublicationPolicy.md",
+            "docs/Visual/2026-05-06-2766a0.md",
+            "docs/Visual/vision.md",
+            "docs/Visual/vision-long-term-platform.md",
+            "docs/Context/2026-05-24-visual-and-marketing-site-input.md",
+            "docs/contracts/VisualIdentityAndMarketingSite.md",
+            "docs/contracts/README.md",
+            "docs/contracts/ContractManifest.json",
+            "docs/contracts/AgentTaskEvidence.md",
+            "docs/contracts/ArchitectInterventionRequest.md",
+            "docs/contracts/PriceInputRequest.md",
+            "docs/Evals/QualityGates.md",
+            "docs/Evals/GateMatrix.md"
+          ],
+          "related_profile_tasks": [
+            "TASK-007",
+            "TASK-008",
+            "TASK-009"
+          ],
+          "dispatch_prompt": "Ты ProductAnalyst AI Build Team ProSmet. Возьми TASK-012A (Visual identity and marketing message brief). Slice: all; work package: TASK-012. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, Vision.md, docs/ConceptualDesign.md, docs/contracts/API.md, docs/contracts/PublicationPolicy.md, docs/Visual/2026-05-06-2766a0.md, docs/Visual/vision.md, docs/Visual/vision-long-term-platform.md, docs/Context/2026-05-24-visual-and-marketing-site-input.md, docs/contracts/VisualIdentityAndMarketingSite.md, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/QualityGates.md, docs/Evals/GateMatrix.md. Task card: tasks/TASK-012A-visual-identity-brief.yml. Запусти helper `harness/scripts/agents/product_analyst.py` для контекста роли. Gate ids: UI.VISUAL.IDENTITY, AGENT.EVIDENCE.REPORT, ARCHITECT.INTERVENTION.REQUEST_PROTOCOL. Required reports: reports/task-evidence/TASK-012A.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
         }
       ],
       "unlocks": {
         "TASK-002B": [
-          "TASK-002A"
+          "TASK-002A",
+          "TASK-012A"
         ]
       }
     },
@@ -638,10 +792,12 @@
             "AGENTS.md",
             "docs/Architecture.md",
             "docs/SolutionDesign.md",
+            "docs/contracts/VisualIdentityAndMarketingSite.md",
             "docs/Evals/GateMatrix.md"
           ],
           "dependencies": [
-            "TASK-002A"
+            "TASK-002A",
+            "TASK-012A"
           ],
           "dependency_notes": {},
           "handoff_to": [
@@ -656,6 +812,7 @@
           "gate_ids": [
             "ARCH.CORE.NO_CEILING_TERMS",
             "DEV.SCAFFOLD.BASELINE",
+            "UI.VISUAL.IDENTITY",
             "AGENT.EVIDENCE.REPORT"
           ],
           "required_evidence": [
@@ -667,6 +824,7 @@
           ],
           "acceptance": [
             "Implementation roles can add code inside stable app/package boundaries.",
+            "Frontend surfaces have a shared visual-token boundary before UI implementation.",
             "No ceiling terms are introduced into packages/core."
           ],
           "micro_tasks": [],
@@ -751,6 +909,7 @@
             "tasks/TASK-002-monorepo-scaffold.yml",
             "tasks/TASK-010-ci-quality-gates.yml",
             "docs/SolutionDesign.md",
+            "docs/contracts/VisualIdentityAndMarketingSite.md",
             "docs/Evals/GateMatrix.md",
             "docs/contracts/README.md",
             "docs/contracts/ContractManifest.json",
@@ -765,7 +924,7 @@
             "TASK-002",
             "TASK-010"
           ],
-          "dispatch_prompt": "Ты DevOps AI Build Team ProSmet. Возьми TASK-002B (App and package placeholders). Slice: mvp_0; work package: TASK-002. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, docs/ADR/ADR-015-rf-data-residency-and-deployment-path.md, docs/Architecture.md, tasks/TASK-002-monorepo-scaffold.yml, tasks/TASK-010-ci-quality-gates.yml, docs/SolutionDesign.md, docs/Evals/GateMatrix.md, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/QualityGates.md, docs/contracts/DataModelRLS.md, docs/contracts/API.md. Task card: tasks/TASK-002B-app-package-placeholders.yml. Запусти helper `harness/scripts/agents/devops.py` для контекста роли. Gate ids: ARCH.CORE.NO_CEILING_TERMS, DEV.SCAFFOLD.BASELINE, AGENT.EVIDENCE.REPORT. Required reports: reports/task-evidence/TASK-002B.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
+          "dispatch_prompt": "Ты DevOps AI Build Team ProSmet. Возьми TASK-002B (App and package placeholders). Slice: mvp_0; work package: TASK-002. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, docs/ADR/ADR-015-rf-data-residency-and-deployment-path.md, docs/Architecture.md, tasks/TASK-002-monorepo-scaffold.yml, tasks/TASK-010-ci-quality-gates.yml, docs/SolutionDesign.md, docs/contracts/VisualIdentityAndMarketingSite.md, docs/Evals/GateMatrix.md, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/QualityGates.md, docs/contracts/DataModelRLS.md, docs/contracts/API.md. Task card: tasks/TASK-002B-app-package-placeholders.yml. Запусти helper `harness/scripts/agents/devops.py` для контекста роли. Gate ids: ARCH.CORE.NO_CEILING_TERMS, DEV.SCAFFOLD.BASELINE, UI.VISUAL.IDENTITY, AGENT.EVIDENCE.REPORT. Required reports: reports/task-evidence/TASK-002B.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
         }
       ],
       "unlocks": {
@@ -1676,6 +1835,7 @@
           "source_docs": [
             "AGENTS.md",
             "docs/contracts/API.md",
+            "docs/contracts/VisualIdentityAndMarketingSite.md",
             "docs/SolutionDesign.md"
           ],
           "dependencies": [
@@ -1692,6 +1852,7 @@
             "Consent before PII."
           ],
           "gate_ids": [
+            "UI.VISUAL.IDENTITY",
             "UI.WIDGET.FLOW",
             "SECURITY.TENANT.RLS",
             "AGENT.EVIDENCE.REPORT"
@@ -1787,6 +1948,7 @@
             "docs/contracts/PublicationPolicy.md",
             "tasks/TASK-007-widget-intake-flow.yml",
             "tasks/TASK-008-owner-review-dashboard.yml",
+            "docs/contracts/VisualIdentityAndMarketingSite.md",
             "docs/SolutionDesign.md",
             "docs/contracts/README.md",
             "docs/contracts/ContractManifest.json",
@@ -1800,7 +1962,7 @@
             "TASK-007",
             "TASK-008"
           ],
-          "dispatch_prompt": "Ты FrontendDeveloper AI Build Team ProSmet. Возьми TASK-007A (Public entry and consent). Slice: mvp_1; work package: TASK-007. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, docs/contracts/API.md, docs/contracts/PublicationPolicy.md, tasks/TASK-007-widget-intake-flow.yml, tasks/TASK-008-owner-review-dashboard.yml, docs/SolutionDesign.md, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/QualityGates.md, docs/Evals/GateMatrix.md. Task card: tasks/TASK-007A-public-entry-consent.yml. Запусти helper `harness/scripts/agents/frontend_developer.py` для контекста роли. Gate ids: UI.WIDGET.FLOW, SECURITY.TENANT.RLS, AGENT.EVIDENCE.REPORT. Required reports: reports/task-evidence/TASK-007A.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
+          "dispatch_prompt": "Ты FrontendDeveloper AI Build Team ProSmet. Возьми TASK-007A (Public entry and consent). Slice: mvp_1; work package: TASK-007. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, docs/contracts/API.md, docs/contracts/PublicationPolicy.md, tasks/TASK-007-widget-intake-flow.yml, tasks/TASK-008-owner-review-dashboard.yml, docs/contracts/VisualIdentityAndMarketingSite.md, docs/SolutionDesign.md, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/QualityGates.md, docs/Evals/GateMatrix.md. Task card: tasks/TASK-007A-public-entry-consent.yml. Запусти helper `harness/scripts/agents/frontend_developer.py` для контекста роли. Gate ids: UI.VISUAL.IDENTITY, UI.WIDGET.FLOW, SECURITY.TENANT.RLS, AGENT.EVIDENCE.REPORT. Required reports: reports/task-evidence/TASK-007A.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
         },
         {
           "id": "TASK-004C",
@@ -2108,11 +2270,13 @@
           "source_docs": [
             "AGENTS.md",
             "docs/contracts/API.md",
+            "docs/contracts/VisualIdentityAndMarketingSite.md",
             "docs/contracts/CalculationEngineV1.md"
           ],
           "dependencies": [
             "TASK-003B",
-            "TASK-004C"
+            "TASK-004C",
+            "TASK-012A"
           ],
           "dependency_notes": {},
           "handoff_to": [
@@ -2124,6 +2288,7 @@
             "Owner sees warnings and risk flags."
           ],
           "gate_ids": [
+            "UI.VISUAL.IDENTITY",
             "UI.OWNER.REVIEW",
             "SECURITY.TENANT.RLS",
             "CALC.PARTIAL",
@@ -2138,6 +2303,7 @@
           ],
           "acceptance": [
             "Review screen exposes all calculation risk context to owner.",
+            "Review UI uses shared visual tokens and does not introduce a separate admin/dashboard style.",
             "Read-only view does not publish link/PDF."
           ],
           "micro_tasks": [],
@@ -2220,6 +2386,7 @@
             "docs/contracts/PublicationPolicy.md",
             "tasks/TASK-007-widget-intake-flow.yml",
             "tasks/TASK-008-owner-review-dashboard.yml",
+            "docs/contracts/VisualIdentityAndMarketingSite.md",
             "docs/contracts/CalculationEngineV1.md",
             "docs/contracts/README.md",
             "docs/contracts/ContractManifest.json",
@@ -2233,7 +2400,7 @@
             "TASK-007",
             "TASK-008"
           ],
-          "dispatch_prompt": "Ты FrontendDeveloper AI Build Team ProSmet. Возьми TASK-008A (Owner review read-only UI). Slice: mvp_0; work package: TASK-008. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, docs/contracts/API.md, docs/contracts/PublicationPolicy.md, tasks/TASK-007-widget-intake-flow.yml, tasks/TASK-008-owner-review-dashboard.yml, docs/contracts/CalculationEngineV1.md, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/QualityGates.md, docs/Evals/GateMatrix.md. Task card: tasks/TASK-008A-owner-review-readonly-ui.yml. Запусти helper `harness/scripts/agents/frontend_developer.py` для контекста роли. Gate ids: UI.OWNER.REVIEW, SECURITY.TENANT.RLS, CALC.PARTIAL, AGENT.EVIDENCE.REPORT. Required reports: reports/task-evidence/TASK-008A.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
+          "dispatch_prompt": "Ты FrontendDeveloper AI Build Team ProSmet. Возьми TASK-008A (Owner review read-only UI). Slice: mvp_0; work package: TASK-008. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, docs/contracts/API.md, docs/contracts/PublicationPolicy.md, tasks/TASK-007-widget-intake-flow.yml, tasks/TASK-008-owner-review-dashboard.yml, docs/contracts/VisualIdentityAndMarketingSite.md, docs/contracts/CalculationEngineV1.md, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/QualityGates.md, docs/Evals/GateMatrix.md. Task card: tasks/TASK-008A-owner-review-readonly-ui.yml. Запусти helper `harness/scripts/agents/frontend_developer.py` для контекста роли. Gate ids: UI.VISUAL.IDENTITY, UI.OWNER.REVIEW, SECURITY.TENANT.RLS, CALC.PARTIAL, AGENT.EVIDENCE.REPORT. Required reports: reports/task-evidence/TASK-008A.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
         }
       ],
       "unlocks": {
@@ -2261,6 +2428,7 @@
           "source_docs": [
             "AGENTS.md",
             "docs/contracts/API.md",
+            "docs/contracts/VisualIdentityAndMarketingSite.md",
             "docs/contracts/PublicationPolicy.md",
             "docs/contracts/AIGateway.md"
           ],
@@ -2280,6 +2448,7 @@
             "Phone is required before full reveal when tenant policy enables phone-gate."
           ],
           "gate_ids": [
+            "UI.VISUAL.IDENTITY",
             "UI.WIDGET.FLOW",
             "AI.PAYLOAD.NO_PII_MONEY",
             "PUBLICATION.GATED",
@@ -2377,6 +2546,7 @@
             "docs/contracts/PublicationPolicy.md",
             "tasks/TASK-007-widget-intake-flow.yml",
             "tasks/TASK-008-owner-review-dashboard.yml",
+            "docs/contracts/VisualIdentityAndMarketingSite.md",
             "docs/contracts/AIGateway.md",
             "docs/contracts/README.md",
             "docs/contracts/ContractManifest.json",
@@ -2390,7 +2560,7 @@
             "TASK-007",
             "TASK-008"
           ],
-          "dispatch_prompt": "Ты FrontendDeveloper AI Build Team ProSmet. Возьми TASK-007B (Params, preview and phone gate). Slice: mvp_1; work package: TASK-007. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, docs/contracts/API.md, docs/contracts/PublicationPolicy.md, tasks/TASK-007-widget-intake-flow.yml, tasks/TASK-008-owner-review-dashboard.yml, docs/contracts/AIGateway.md, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/QualityGates.md, docs/Evals/GateMatrix.md. Task card: tasks/TASK-007B-params-preview-phone.yml. Запусти helper `harness/scripts/agents/frontend_developer.py` для контекста роли. Gate ids: UI.WIDGET.FLOW, AI.PAYLOAD.NO_PII_MONEY, PUBLICATION.GATED, AGENT.EVIDENCE.REPORT. Required reports: reports/task-evidence/TASK-007B.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
+          "dispatch_prompt": "Ты FrontendDeveloper AI Build Team ProSmet. Возьми TASK-007B (Params, preview and phone gate). Slice: mvp_1; work package: TASK-007. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, docs/contracts/API.md, docs/contracts/PublicationPolicy.md, tasks/TASK-007-widget-intake-flow.yml, tasks/TASK-008-owner-review-dashboard.yml, docs/contracts/VisualIdentityAndMarketingSite.md, docs/contracts/AIGateway.md, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/QualityGates.md, docs/Evals/GateMatrix.md. Task card: tasks/TASK-007B-params-preview-phone.yml. Запусти helper `harness/scripts/agents/frontend_developer.py` для контекста роли. Gate ids: UI.VISUAL.IDENTITY, UI.WIDGET.FLOW, AI.PAYLOAD.NO_PII_MONEY, PUBLICATION.GATED, AGENT.EVIDENCE.REPORT. Required reports: reports/task-evidence/TASK-007B.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
         },
         {
           "id": "TASK-008B",
@@ -2403,6 +2573,7 @@
           "path": "tasks/TASK-008B-human-decision-actions.yml",
           "source_docs": [
             "AGENTS.md",
+            "docs/contracts/VisualIdentityAndMarketingSite.md",
             "docs/contracts/PublicationPolicy.md",
             "docs/contracts/API.md"
           ],
@@ -2420,6 +2591,7 @@
             "Human review record is auditable."
           ],
           "gate_ids": [
+            "UI.VISUAL.IDENTITY",
             "UI.OWNER.REVIEW",
             "PUBLICATION.GATED",
             "SECURITY.PII.AUDIT",
@@ -2516,6 +2688,7 @@
             "docs/contracts/PublicationPolicy.md",
             "tasks/TASK-007-widget-intake-flow.yml",
             "tasks/TASK-008-owner-review-dashboard.yml",
+            "docs/contracts/VisualIdentityAndMarketingSite.md",
             "docs/contracts/README.md",
             "docs/contracts/ContractManifest.json",
             "docs/contracts/AgentTaskEvidence.md",
@@ -2528,7 +2701,7 @@
             "TASK-007",
             "TASK-008"
           ],
-          "dispatch_prompt": "Ты FrontendDeveloper AI Build Team ProSmet. Возьми TASK-008B (Human decision actions). Slice: mvp_0; work package: TASK-008. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, docs/contracts/API.md, docs/contracts/PublicationPolicy.md, tasks/TASK-007-widget-intake-flow.yml, tasks/TASK-008-owner-review-dashboard.yml, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/QualityGates.md, docs/Evals/GateMatrix.md. Task card: tasks/TASK-008B-human-decision-actions.yml. Запусти helper `harness/scripts/agents/frontend_developer.py` для контекста роли. Gate ids: UI.OWNER.REVIEW, PUBLICATION.GATED, SECURITY.PII.AUDIT, AGENT.EVIDENCE.REPORT. Required reports: reports/task-evidence/TASK-008B.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
+          "dispatch_prompt": "Ты FrontendDeveloper AI Build Team ProSmet. Возьми TASK-008B (Human decision actions). Slice: mvp_0; work package: TASK-008. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, docs/contracts/API.md, docs/contracts/PublicationPolicy.md, tasks/TASK-007-widget-intake-flow.yml, tasks/TASK-008-owner-review-dashboard.yml, docs/contracts/VisualIdentityAndMarketingSite.md, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/QualityGates.md, docs/Evals/GateMatrix.md. Task card: tasks/TASK-008B-human-decision-actions.yml. Запусти helper `harness/scripts/agents/frontend_developer.py` для контекста роли. Gate ids: UI.VISUAL.IDENTITY, UI.OWNER.REVIEW, PUBLICATION.GATED, SECURITY.PII.AUDIT, AGENT.EVIDENCE.REPORT. Required reports: reports/task-evidence/TASK-008B.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
         }
       ],
       "unlocks": {
@@ -3336,7 +3509,8 @@
       "TASK-001"
     ],
     "TASK-002B": [
-      "TASK-002A"
+      "TASK-002A",
+      "TASK-012A"
     ],
     "TASK-003A": [
       "TASK-002B"
@@ -3384,7 +3558,8 @@
     ],
     "TASK-008A": [
       "TASK-003B",
-      "TASK-004C"
+      "TASK-004C",
+      "TASK-012A"
     ],
     "TASK-008B": [
       "TASK-008A",
@@ -3408,6 +3583,17 @@
       "TASK-005B",
       "TASK-006B",
       "TASK-009B"
+    ],
+    "TASK-012A": [
+      "TASK-001"
+    ],
+    "TASK-012B": [
+      "TASK-012A",
+      "TASK-002B"
+    ],
+    "TASK-012C": [
+      "TASK-012B",
+      "TASK-010A"
     ]
   },
   "blocked_by_status": {},
@@ -3421,7 +3607,8 @@
     "TASK-007",
     "TASK-008",
     "TASK-009",
-    "TASK-010"
+    "TASK-010",
+    "TASK-012"
   ],
   "cycle_or_blocked": [],
   "assignments_by_role": {
@@ -3465,12 +3652,18 @@
       "TASK-007B",
       "TASK-008",
       "TASK-008A",
-      "TASK-008B"
+      "TASK-008B",
+      "TASK-012B"
+    ],
+    "ProductAnalyst": [
+      "TASK-012",
+      "TASK-012A"
     ],
     "QAEngineer": [
       "TASK-010",
       "TASK-010A",
-      "TASK-010B"
+      "TASK-010B",
+      "TASK-012C"
     ]
   },
   "tasks": {
@@ -3921,10 +4114,12 @@
         "AGENTS.md",
         "docs/Architecture.md",
         "docs/SolutionDesign.md",
+        "docs/contracts/VisualIdentityAndMarketingSite.md",
         "docs/Evals/GateMatrix.md"
       ],
       "dependencies": [
-        "TASK-002A"
+        "TASK-002A",
+        "TASK-012A"
       ],
       "dependency_notes": {},
       "handoff_to": [
@@ -3939,6 +4134,7 @@
       "gate_ids": [
         "ARCH.CORE.NO_CEILING_TERMS",
         "DEV.SCAFFOLD.BASELINE",
+        "UI.VISUAL.IDENTITY",
         "AGENT.EVIDENCE.REPORT"
       ],
       "required_evidence": [
@@ -3950,6 +4146,7 @@
       ],
       "acceptance": [
         "Implementation roles can add code inside stable app/package boundaries.",
+        "Frontend surfaces have a shared visual-token boundary before UI implementation.",
         "No ceiling terms are introduced into packages/core."
       ],
       "micro_tasks": [],
@@ -4034,6 +4231,7 @@
         "tasks/TASK-002-monorepo-scaffold.yml",
         "tasks/TASK-010-ci-quality-gates.yml",
         "docs/SolutionDesign.md",
+        "docs/contracts/VisualIdentityAndMarketingSite.md",
         "docs/Evals/GateMatrix.md",
         "docs/contracts/README.md",
         "docs/contracts/ContractManifest.json",
@@ -4048,7 +4246,7 @@
         "TASK-002",
         "TASK-010"
       ],
-      "dispatch_prompt": "Ты DevOps AI Build Team ProSmet. Возьми TASK-002B (App and package placeholders). Slice: mvp_0; work package: TASK-002. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, docs/ADR/ADR-015-rf-data-residency-and-deployment-path.md, docs/Architecture.md, tasks/TASK-002-monorepo-scaffold.yml, tasks/TASK-010-ci-quality-gates.yml, docs/SolutionDesign.md, docs/Evals/GateMatrix.md, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/QualityGates.md, docs/contracts/DataModelRLS.md, docs/contracts/API.md. Task card: tasks/TASK-002B-app-package-placeholders.yml. Запусти helper `harness/scripts/agents/devops.py` для контекста роли. Gate ids: ARCH.CORE.NO_CEILING_TERMS, DEV.SCAFFOLD.BASELINE, AGENT.EVIDENCE.REPORT. Required reports: reports/task-evidence/TASK-002B.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
+      "dispatch_prompt": "Ты DevOps AI Build Team ProSmet. Возьми TASK-002B (App and package placeholders). Slice: mvp_0; work package: TASK-002. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, docs/ADR/ADR-015-rf-data-residency-and-deployment-path.md, docs/Architecture.md, tasks/TASK-002-monorepo-scaffold.yml, tasks/TASK-010-ci-quality-gates.yml, docs/SolutionDesign.md, docs/contracts/VisualIdentityAndMarketingSite.md, docs/Evals/GateMatrix.md, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/QualityGates.md, docs/contracts/DataModelRLS.md, docs/contracts/API.md. Task card: tasks/TASK-002B-app-package-placeholders.yml. Запусти helper `harness/scripts/agents/devops.py` для контекста роли. Gate ids: ARCH.CORE.NO_CEILING_TERMS, DEV.SCAFFOLD.BASELINE, UI.VISUAL.IDENTITY, AGENT.EVIDENCE.REPORT. Required reports: reports/task-evidence/TASK-002B.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
     },
     "TASK-003": {
       "id": "TASK-003",
@@ -6205,6 +6403,7 @@
       "source_docs": [
         "AGENTS.md",
         "docs/contracts/API.md",
+        "docs/contracts/VisualIdentityAndMarketingSite.md",
         "docs/SolutionDesign.md"
       ],
       "dependencies": [
@@ -6221,6 +6420,7 @@
         "Consent before PII."
       ],
       "gate_ids": [
+        "UI.VISUAL.IDENTITY",
         "UI.WIDGET.FLOW",
         "SECURITY.TENANT.RLS",
         "AGENT.EVIDENCE.REPORT"
@@ -6316,6 +6516,7 @@
         "docs/contracts/PublicationPolicy.md",
         "tasks/TASK-007-widget-intake-flow.yml",
         "tasks/TASK-008-owner-review-dashboard.yml",
+        "docs/contracts/VisualIdentityAndMarketingSite.md",
         "docs/SolutionDesign.md",
         "docs/contracts/README.md",
         "docs/contracts/ContractManifest.json",
@@ -6329,7 +6530,7 @@
         "TASK-007",
         "TASK-008"
       ],
-      "dispatch_prompt": "Ты FrontendDeveloper AI Build Team ProSmet. Возьми TASK-007A (Public entry and consent). Slice: mvp_1; work package: TASK-007. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, docs/contracts/API.md, docs/contracts/PublicationPolicy.md, tasks/TASK-007-widget-intake-flow.yml, tasks/TASK-008-owner-review-dashboard.yml, docs/SolutionDesign.md, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/QualityGates.md, docs/Evals/GateMatrix.md. Task card: tasks/TASK-007A-public-entry-consent.yml. Запусти helper `harness/scripts/agents/frontend_developer.py` для контекста роли. Gate ids: UI.WIDGET.FLOW, SECURITY.TENANT.RLS, AGENT.EVIDENCE.REPORT. Required reports: reports/task-evidence/TASK-007A.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
+      "dispatch_prompt": "Ты FrontendDeveloper AI Build Team ProSmet. Возьми TASK-007A (Public entry and consent). Slice: mvp_1; work package: TASK-007. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, docs/contracts/API.md, docs/contracts/PublicationPolicy.md, tasks/TASK-007-widget-intake-flow.yml, tasks/TASK-008-owner-review-dashboard.yml, docs/contracts/VisualIdentityAndMarketingSite.md, docs/SolutionDesign.md, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/QualityGates.md, docs/Evals/GateMatrix.md. Task card: tasks/TASK-007A-public-entry-consent.yml. Запусти helper `harness/scripts/agents/frontend_developer.py` для контекста роли. Gate ids: UI.VISUAL.IDENTITY, UI.WIDGET.FLOW, SECURITY.TENANT.RLS, AGENT.EVIDENCE.REPORT. Required reports: reports/task-evidence/TASK-007A.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
     },
     "TASK-007B": {
       "id": "TASK-007B",
@@ -6343,6 +6544,7 @@
       "source_docs": [
         "AGENTS.md",
         "docs/contracts/API.md",
+        "docs/contracts/VisualIdentityAndMarketingSite.md",
         "docs/contracts/PublicationPolicy.md",
         "docs/contracts/AIGateway.md"
       ],
@@ -6362,6 +6564,7 @@
         "Phone is required before full reveal when tenant policy enables phone-gate."
       ],
       "gate_ids": [
+        "UI.VISUAL.IDENTITY",
         "UI.WIDGET.FLOW",
         "AI.PAYLOAD.NO_PII_MONEY",
         "PUBLICATION.GATED",
@@ -6459,6 +6662,7 @@
         "docs/contracts/PublicationPolicy.md",
         "tasks/TASK-007-widget-intake-flow.yml",
         "tasks/TASK-008-owner-review-dashboard.yml",
+        "docs/contracts/VisualIdentityAndMarketingSite.md",
         "docs/contracts/AIGateway.md",
         "docs/contracts/README.md",
         "docs/contracts/ContractManifest.json",
@@ -6472,7 +6676,7 @@
         "TASK-007",
         "TASK-008"
       ],
-      "dispatch_prompt": "Ты FrontendDeveloper AI Build Team ProSmet. Возьми TASK-007B (Params, preview and phone gate). Slice: mvp_1; work package: TASK-007. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, docs/contracts/API.md, docs/contracts/PublicationPolicy.md, tasks/TASK-007-widget-intake-flow.yml, tasks/TASK-008-owner-review-dashboard.yml, docs/contracts/AIGateway.md, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/QualityGates.md, docs/Evals/GateMatrix.md. Task card: tasks/TASK-007B-params-preview-phone.yml. Запусти helper `harness/scripts/agents/frontend_developer.py` для контекста роли. Gate ids: UI.WIDGET.FLOW, AI.PAYLOAD.NO_PII_MONEY, PUBLICATION.GATED, AGENT.EVIDENCE.REPORT. Required reports: reports/task-evidence/TASK-007B.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
+      "dispatch_prompt": "Ты FrontendDeveloper AI Build Team ProSmet. Возьми TASK-007B (Params, preview and phone gate). Slice: mvp_1; work package: TASK-007. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, docs/contracts/API.md, docs/contracts/PublicationPolicy.md, tasks/TASK-007-widget-intake-flow.yml, tasks/TASK-008-owner-review-dashboard.yml, docs/contracts/VisualIdentityAndMarketingSite.md, docs/contracts/AIGateway.md, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/QualityGates.md, docs/Evals/GateMatrix.md. Task card: tasks/TASK-007B-params-preview-phone.yml. Запусти helper `harness/scripts/agents/frontend_developer.py` для контекста роли. Gate ids: UI.VISUAL.IDENTITY, UI.WIDGET.FLOW, AI.PAYLOAD.NO_PII_MONEY, PUBLICATION.GATED, AGENT.EVIDENCE.REPORT. Required reports: reports/task-evidence/TASK-007B.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
     },
     "TASK-008": {
       "id": "TASK-008",
@@ -6626,11 +6830,13 @@
       "source_docs": [
         "AGENTS.md",
         "docs/contracts/API.md",
+        "docs/contracts/VisualIdentityAndMarketingSite.md",
         "docs/contracts/CalculationEngineV1.md"
       ],
       "dependencies": [
         "TASK-003B",
-        "TASK-004C"
+        "TASK-004C",
+        "TASK-012A"
       ],
       "dependency_notes": {},
       "handoff_to": [
@@ -6642,6 +6848,7 @@
         "Owner sees warnings and risk flags."
       ],
       "gate_ids": [
+        "UI.VISUAL.IDENTITY",
         "UI.OWNER.REVIEW",
         "SECURITY.TENANT.RLS",
         "CALC.PARTIAL",
@@ -6656,6 +6863,7 @@
       ],
       "acceptance": [
         "Review screen exposes all calculation risk context to owner.",
+        "Review UI uses shared visual tokens and does not introduce a separate admin/dashboard style.",
         "Read-only view does not publish link/PDF."
       ],
       "micro_tasks": [],
@@ -6738,6 +6946,7 @@
         "docs/contracts/PublicationPolicy.md",
         "tasks/TASK-007-widget-intake-flow.yml",
         "tasks/TASK-008-owner-review-dashboard.yml",
+        "docs/contracts/VisualIdentityAndMarketingSite.md",
         "docs/contracts/CalculationEngineV1.md",
         "docs/contracts/README.md",
         "docs/contracts/ContractManifest.json",
@@ -6751,7 +6960,7 @@
         "TASK-007",
         "TASK-008"
       ],
-      "dispatch_prompt": "Ты FrontendDeveloper AI Build Team ProSmet. Возьми TASK-008A (Owner review read-only UI). Slice: mvp_0; work package: TASK-008. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, docs/contracts/API.md, docs/contracts/PublicationPolicy.md, tasks/TASK-007-widget-intake-flow.yml, tasks/TASK-008-owner-review-dashboard.yml, docs/contracts/CalculationEngineV1.md, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/QualityGates.md, docs/Evals/GateMatrix.md. Task card: tasks/TASK-008A-owner-review-readonly-ui.yml. Запусти helper `harness/scripts/agents/frontend_developer.py` для контекста роли. Gate ids: UI.OWNER.REVIEW, SECURITY.TENANT.RLS, CALC.PARTIAL, AGENT.EVIDENCE.REPORT. Required reports: reports/task-evidence/TASK-008A.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
+      "dispatch_prompt": "Ты FrontendDeveloper AI Build Team ProSmet. Возьми TASK-008A (Owner review read-only UI). Slice: mvp_0; work package: TASK-008. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, docs/contracts/API.md, docs/contracts/PublicationPolicy.md, tasks/TASK-007-widget-intake-flow.yml, tasks/TASK-008-owner-review-dashboard.yml, docs/contracts/VisualIdentityAndMarketingSite.md, docs/contracts/CalculationEngineV1.md, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/QualityGates.md, docs/Evals/GateMatrix.md. Task card: tasks/TASK-008A-owner-review-readonly-ui.yml. Запусти helper `harness/scripts/agents/frontend_developer.py` для контекста роли. Gate ids: UI.VISUAL.IDENTITY, UI.OWNER.REVIEW, SECURITY.TENANT.RLS, CALC.PARTIAL, AGENT.EVIDENCE.REPORT. Required reports: reports/task-evidence/TASK-008A.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
     },
     "TASK-008B": {
       "id": "TASK-008B",
@@ -6764,6 +6973,7 @@
       "path": "tasks/TASK-008B-human-decision-actions.yml",
       "source_docs": [
         "AGENTS.md",
+        "docs/contracts/VisualIdentityAndMarketingSite.md",
         "docs/contracts/PublicationPolicy.md",
         "docs/contracts/API.md"
       ],
@@ -6781,6 +6991,7 @@
         "Human review record is auditable."
       ],
       "gate_ids": [
+        "UI.VISUAL.IDENTITY",
         "UI.OWNER.REVIEW",
         "PUBLICATION.GATED",
         "SECURITY.PII.AUDIT",
@@ -6877,6 +7088,7 @@
         "docs/contracts/PublicationPolicy.md",
         "tasks/TASK-007-widget-intake-flow.yml",
         "tasks/TASK-008-owner-review-dashboard.yml",
+        "docs/contracts/VisualIdentityAndMarketingSite.md",
         "docs/contracts/README.md",
         "docs/contracts/ContractManifest.json",
         "docs/contracts/AgentTaskEvidence.md",
@@ -6889,7 +7101,7 @@
         "TASK-007",
         "TASK-008"
       ],
-      "dispatch_prompt": "Ты FrontendDeveloper AI Build Team ProSmet. Возьми TASK-008B (Human decision actions). Slice: mvp_0; work package: TASK-008. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, docs/contracts/API.md, docs/contracts/PublicationPolicy.md, tasks/TASK-007-widget-intake-flow.yml, tasks/TASK-008-owner-review-dashboard.yml, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/QualityGates.md, docs/Evals/GateMatrix.md. Task card: tasks/TASK-008B-human-decision-actions.yml. Запусти helper `harness/scripts/agents/frontend_developer.py` для контекста роли. Gate ids: UI.OWNER.REVIEW, PUBLICATION.GATED, SECURITY.PII.AUDIT, AGENT.EVIDENCE.REPORT. Required reports: reports/task-evidence/TASK-008B.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
+      "dispatch_prompt": "Ты FrontendDeveloper AI Build Team ProSmet. Возьми TASK-008B (Human decision actions). Slice: mvp_0; work package: TASK-008. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, docs/contracts/API.md, docs/contracts/PublicationPolicy.md, tasks/TASK-007-widget-intake-flow.yml, tasks/TASK-008-owner-review-dashboard.yml, docs/contracts/VisualIdentityAndMarketingSite.md, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/QualityGates.md, docs/Evals/GateMatrix.md. Task card: tasks/TASK-008B-human-decision-actions.yml. Запусти helper `harness/scripts/agents/frontend_developer.py` для контекста роли. Gate ids: UI.VISUAL.IDENTITY, UI.OWNER.REVIEW, PUBLICATION.GATED, SECURITY.PII.AUDIT, AGENT.EVIDENCE.REPORT. Required reports: reports/task-evidence/TASK-008B.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
     },
     "TASK-009": {
       "id": "TASK-009",
@@ -7922,6 +8134,581 @@
         "TASK-011"
       ],
       "dispatch_prompt": "Ты AIOrchestrator AI Build Team ProSmet. Возьми TASK-011 (Development-time AI Orchestrator). Slice: architecture_prep; work package: TASK-011. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, docs/contracts/AIOrchestrator.md, reports/agent-dispatch-plan.json, reports/orchestrator/, workspace/orchestrator/, workspace/architect-inbox/, docs/Evals/gates.json, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/QualityGates.md, docs/Evals/GateMatrix.md, docs/contracts/schemas/ai-orchestrator-cycle-v1.schema.json. Task card: tasks/TASK-011-ai-orchestrator.yml. Запусти helper `harness/scripts/agents/ai_orchestrator_role.py` для контекста роли. Gate ids: AGENT.ORCHESTRATOR.CYCLE, CONTRACT.MANIFEST.SCHEMAS, AGENT.EVIDENCE.REPORT. Required reports: reports/task-evidence/TASK-011.json, reports/orchestrator/latest-cycle.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
+    },
+    "TASK-012": {
+      "id": "TASK-012",
+      "title": "Visual identity and ProSmet marketing site",
+      "role": "ProductAnalyst",
+      "owner": "ProductAnalyst",
+      "status": "epic",
+      "slice": "all",
+      "work_package": "TASK-012",
+      "path": "tasks/TASK-012-visual-marketing-site.yml",
+      "source_docs": [
+        "AGENTS.md",
+        "docs/Context/2026-05-24-visual-and-marketing-site-input.md",
+        "docs/contracts/VisualIdentityAndMarketingSite.md",
+        "docs/dev/ImplementationPlan.md"
+      ],
+      "dependencies": [
+        "TASK-001"
+      ],
+      "dependency_notes": {},
+      "handoff_to": [
+        "ProductAnalyst",
+        "FrontendDeveloper",
+        "QAEngineer"
+      ],
+      "quality_gates": [
+        "Visual tokens are documented before UI implementation.",
+        "Marketing lead form has consent before contact fields."
+      ],
+      "gate_ids": [],
+      "required_evidence": [],
+      "required_reports": [],
+      "acceptance": [],
+      "micro_tasks": [
+        "TASK-012A",
+        "TASK-012B",
+        "TASK-012C"
+      ],
+      "launch_owner": "ProductAnalyst",
+      "advisory_roles": [
+        "ProductAnalyst",
+        "FrontendDeveloper",
+        "QAEngineer"
+      ],
+      "employee": {
+        "role": "ProductAnalyst",
+        "slug": "product-analyst",
+        "title": "Product Analyst",
+        "soul": "Голос клиента и владельца в команде: живой, практичный, внимательный к моменту, где продукт перестает быть полезным.",
+        "claude_profile": ".claude/agents/product-analyst.md",
+        "codex_profile": ".codex/agents/roles/ProductAnalyst/profile.md",
+        "helper": "harness/scripts/agents/product_analyst.py",
+        "read_first": [
+          "AGENTS.md",
+          "EntryPointForTask.md",
+          "docs/AI_M_MSF.md",
+          "Focus.md",
+          "Team.yml",
+          "docs/Context/2026-05-19-autonomous-mvp-feedback.md",
+          "Scope.md",
+          "docs/dev/ImplementationPlan.md",
+          "docs/dev/PredictableAIWork.md",
+          "Vision.md",
+          "docs/ConceptualDesign.md",
+          "docs/contracts/API.md",
+          "docs/contracts/PublicationPolicy.md"
+        ],
+        "contracts": [
+          "docs/contracts/README.md",
+          "docs/contracts/ContractManifest.json",
+          "docs/contracts/AgentTaskEvidence.md",
+          "docs/contracts/ArchitectInterventionRequest.md",
+          "docs/contracts/PriceInputRequest.md",
+          "docs/Evals/QualityGates.md",
+          "docs/Evals/GateMatrix.md",
+          "docs/contracts/API.md",
+          "docs/contracts/PublicationPolicy.md"
+        ],
+        "default_tasks": [
+          "TASK-007",
+          "TASK-008",
+          "TASK-009"
+        ],
+        "forbidden": [
+          "Vision шире Scope; реализация идет по Scope.",
+          "AI не считает деньги, не выбирает коэффициенты и не создает строки сметы с суммами.",
+          "Calculation engine является pure deterministic module.",
+          "LLM payload не содержит ПД, деньги, прайсы и PDF.",
+          "Tenant определяется сервером; tenantId из клиента недоверен.",
+          "RLS и withTenant обязательны с первого дня.",
+          "Публикация возможна только после human approval или audited auto_publish.",
+          "Любое архитектурное отклонение фиксируется через ADR до кода.",
+          "Ослаблять legal/phone/policy gates ради конверсии.",
+          "Добавлять marketplace или тяжелую CRM вне Scope.",
+          "Менять формулы, прайсы или коэффициенты."
+        ],
+        "quality_gates": [
+          "Клиентский путь ведет к понятной ссылке/PDF.",
+          "Владелец видит лид, статус, события и next action.",
+          "Preview не вводит клиента в заблуждение."
+        ],
+        "dispatch_command": "python3 harness/scripts/agents/product_analyst.py --json"
+      },
+      "must_read": [
+        "AGENTS.md",
+        "EntryPointForTask.md",
+        "docs/AI_M_MSF.md",
+        "Focus.md",
+        "Team.yml",
+        "docs/Context/2026-05-19-autonomous-mvp-feedback.md",
+        "Scope.md",
+        "docs/dev/ImplementationPlan.md",
+        "docs/dev/PredictableAIWork.md",
+        "Vision.md",
+        "docs/ConceptualDesign.md",
+        "docs/contracts/API.md",
+        "docs/contracts/PublicationPolicy.md",
+        "docs/Context/2026-05-24-visual-and-marketing-site-input.md",
+        "docs/contracts/VisualIdentityAndMarketingSite.md",
+        "docs/contracts/README.md",
+        "docs/contracts/ContractManifest.json",
+        "docs/contracts/AgentTaskEvidence.md",
+        "docs/contracts/ArchitectInterventionRequest.md",
+        "docs/contracts/PriceInputRequest.md",
+        "docs/Evals/QualityGates.md",
+        "docs/Evals/GateMatrix.md"
+      ],
+      "related_profile_tasks": [
+        "TASK-007",
+        "TASK-008",
+        "TASK-009"
+      ],
+      "dispatch_prompt": "Ты ProductAnalyst AI Build Team ProSmet. Возьми TASK-012 (Visual identity and ProSmet marketing site). Slice: all; work package: TASK-012. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, Vision.md, docs/ConceptualDesign.md, docs/contracts/API.md, docs/contracts/PublicationPolicy.md, docs/Context/2026-05-24-visual-and-marketing-site-input.md, docs/contracts/VisualIdentityAndMarketingSite.md, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/QualityGates.md, docs/Evals/GateMatrix.md. Task card: tasks/TASK-012-visual-marketing-site.yml. Запусти helper `harness/scripts/agents/product_analyst.py` для контекста роли. Gate ids: no gate_ids. Required reports: no required_reports. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
+    },
+    "TASK-012A": {
+      "id": "TASK-012A",
+      "title": "Visual identity and marketing message brief",
+      "role": "ProductAnalyst",
+      "owner": "ProductAnalyst",
+      "status": "ready",
+      "slice": "all",
+      "work_package": "TASK-012",
+      "path": "tasks/TASK-012A-visual-identity-brief.yml",
+      "source_docs": [
+        "AGENTS.md",
+        "Vision.md",
+        "Scope.md",
+        "docs/Visual/2026-05-06-2766a0.md",
+        "docs/Visual/vision.md",
+        "docs/Visual/vision-long-term-platform.md",
+        "docs/Context/2026-05-24-visual-and-marketing-site-input.md",
+        "docs/contracts/VisualIdentityAndMarketingSite.md"
+      ],
+      "dependencies": [
+        "TASK-001"
+      ],
+      "dependency_notes": {},
+      "handoff_to": [
+        "FrontendDeveloper",
+        "BusinessAnalyst",
+        "QAEngineer"
+      ],
+      "quality_gates": [
+        "Visual identity tokens and UX principles are documented.",
+        "Marketing claims are separated from product/runtime guarantees."
+      ],
+      "gate_ids": [
+        "UI.VISUAL.IDENTITY",
+        "AGENT.EVIDENCE.REPORT",
+        "ARCHITECT.INTERVENTION.REQUEST_PROTOCOL"
+      ],
+      "required_evidence": [
+        "Visual/product brief path.",
+        "Marketing claims risk list.",
+        "Decision on whether palette needs architect approval."
+      ],
+      "required_reports": [
+        "reports/task-evidence/TASK-012A.json"
+      ],
+      "acceptance": [
+        "FrontendDeveloper can implement marketing UI without guessing palette, audience or page structure.",
+        "FrontendDeveloper can implement admin/dashboard/widget/review surfaces from the same visual foundation.",
+        "Any unresolved legal/pricing/real-material claim is moved to Architect Inbox."
+      ],
+      "micro_tasks": [],
+      "launch_owner": "ProductAnalyst",
+      "advisory_roles": [
+        "FrontendDeveloper",
+        "BusinessAnalyst",
+        "QAEngineer"
+      ],
+      "employee": {
+        "role": "ProductAnalyst",
+        "slug": "product-analyst",
+        "title": "Product Analyst",
+        "soul": "Голос клиента и владельца в команде: живой, практичный, внимательный к моменту, где продукт перестает быть полезным.",
+        "claude_profile": ".claude/agents/product-analyst.md",
+        "codex_profile": ".codex/agents/roles/ProductAnalyst/profile.md",
+        "helper": "harness/scripts/agents/product_analyst.py",
+        "read_first": [
+          "AGENTS.md",
+          "EntryPointForTask.md",
+          "docs/AI_M_MSF.md",
+          "Focus.md",
+          "Team.yml",
+          "docs/Context/2026-05-19-autonomous-mvp-feedback.md",
+          "Scope.md",
+          "docs/dev/ImplementationPlan.md",
+          "docs/dev/PredictableAIWork.md",
+          "Vision.md",
+          "docs/ConceptualDesign.md",
+          "docs/contracts/API.md",
+          "docs/contracts/PublicationPolicy.md"
+        ],
+        "contracts": [
+          "docs/contracts/README.md",
+          "docs/contracts/ContractManifest.json",
+          "docs/contracts/AgentTaskEvidence.md",
+          "docs/contracts/ArchitectInterventionRequest.md",
+          "docs/contracts/PriceInputRequest.md",
+          "docs/Evals/QualityGates.md",
+          "docs/Evals/GateMatrix.md",
+          "docs/contracts/API.md",
+          "docs/contracts/PublicationPolicy.md"
+        ],
+        "default_tasks": [
+          "TASK-007",
+          "TASK-008",
+          "TASK-009"
+        ],
+        "forbidden": [
+          "Vision шире Scope; реализация идет по Scope.",
+          "AI не считает деньги, не выбирает коэффициенты и не создает строки сметы с суммами.",
+          "Calculation engine является pure deterministic module.",
+          "LLM payload не содержит ПД, деньги, прайсы и PDF.",
+          "Tenant определяется сервером; tenantId из клиента недоверен.",
+          "RLS и withTenant обязательны с первого дня.",
+          "Публикация возможна только после human approval или audited auto_publish.",
+          "Любое архитектурное отклонение фиксируется через ADR до кода.",
+          "Ослаблять legal/phone/policy gates ради конверсии.",
+          "Добавлять marketplace или тяжелую CRM вне Scope.",
+          "Менять формулы, прайсы или коэффициенты."
+        ],
+        "quality_gates": [
+          "Клиентский путь ведет к понятной ссылке/PDF.",
+          "Владелец видит лид, статус, события и next action.",
+          "Preview не вводит клиента в заблуждение."
+        ],
+        "dispatch_command": "python3 harness/scripts/agents/product_analyst.py --json"
+      },
+      "must_read": [
+        "AGENTS.md",
+        "EntryPointForTask.md",
+        "docs/AI_M_MSF.md",
+        "Focus.md",
+        "Team.yml",
+        "docs/Context/2026-05-19-autonomous-mvp-feedback.md",
+        "Scope.md",
+        "docs/dev/ImplementationPlan.md",
+        "docs/dev/PredictableAIWork.md",
+        "Vision.md",
+        "docs/ConceptualDesign.md",
+        "docs/contracts/API.md",
+        "docs/contracts/PublicationPolicy.md",
+        "docs/Visual/2026-05-06-2766a0.md",
+        "docs/Visual/vision.md",
+        "docs/Visual/vision-long-term-platform.md",
+        "docs/Context/2026-05-24-visual-and-marketing-site-input.md",
+        "docs/contracts/VisualIdentityAndMarketingSite.md",
+        "docs/contracts/README.md",
+        "docs/contracts/ContractManifest.json",
+        "docs/contracts/AgentTaskEvidence.md",
+        "docs/contracts/ArchitectInterventionRequest.md",
+        "docs/contracts/PriceInputRequest.md",
+        "docs/Evals/QualityGates.md",
+        "docs/Evals/GateMatrix.md"
+      ],
+      "related_profile_tasks": [
+        "TASK-007",
+        "TASK-008",
+        "TASK-009"
+      ],
+      "dispatch_prompt": "Ты ProductAnalyst AI Build Team ProSmet. Возьми TASK-012A (Visual identity and marketing message brief). Slice: all; work package: TASK-012. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, Vision.md, docs/ConceptualDesign.md, docs/contracts/API.md, docs/contracts/PublicationPolicy.md, docs/Visual/2026-05-06-2766a0.md, docs/Visual/vision.md, docs/Visual/vision-long-term-platform.md, docs/Context/2026-05-24-visual-and-marketing-site-input.md, docs/contracts/VisualIdentityAndMarketingSite.md, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/QualityGates.md, docs/Evals/GateMatrix.md. Task card: tasks/TASK-012A-visual-identity-brief.yml. Запусти helper `harness/scripts/agents/product_analyst.py` для контекста роли. Gate ids: UI.VISUAL.IDENTITY, AGENT.EVIDENCE.REPORT, ARCHITECT.INTERVENTION.REQUEST_PROTOCOL. Required reports: reports/task-evidence/TASK-012A.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
+    },
+    "TASK-012B": {
+      "id": "TASK-012B",
+      "title": "ProSmet marketing site shell",
+      "role": "FrontendDeveloper",
+      "owner": "FrontendDeveloper",
+      "status": "draft",
+      "slice": "all",
+      "work_package": "TASK-012",
+      "path": "tasks/TASK-012B-marketing-site-shell.yml",
+      "source_docs": [
+        "AGENTS.md",
+        "docs/contracts/VisualIdentityAndMarketingSite.md",
+        "docs/SolutionDesign.md",
+        "docs/Architecture.md",
+        "tasks/TASK-012A-visual-identity-brief.yml"
+      ],
+      "dependencies": [
+        "TASK-012A",
+        "TASK-002B"
+      ],
+      "dependency_notes": {},
+      "handoff_to": [
+        "QAEngineer",
+        "BusinessAnalyst",
+        "PPM"
+      ],
+      "quality_gates": [
+        "Marketing site route map exists.",
+        "Lead form consent precedes phone/email/name.",
+        "Mobile layout is primary."
+      ],
+      "gate_ids": [
+        "UI.MARKETING_SITE.PUBLIC",
+        "UI.VISUAL.IDENTITY",
+        "CI.NO_SECRETS_DEPLOY",
+        "AGENT.EVIDENCE.REPORT"
+      ],
+      "required_evidence": [
+        "Route map or implemented routes.",
+        "Consent before contact fields evidence.",
+        "No external/deploy confirmation."
+      ],
+      "required_reports": [
+        "reports/task-evidence/TASK-012B.json"
+      ],
+      "acceptance": [
+        "`apps/marketing` is clearly separated from `apps/ceiling` tenant runtime.",
+        "No real PII, real prices or real screenshots are required for the site shell."
+      ],
+      "micro_tasks": [],
+      "launch_owner": "FrontendDeveloper",
+      "advisory_roles": [
+        "QAEngineer",
+        "BusinessAnalyst",
+        "PPM"
+      ],
+      "employee": {
+        "role": "FrontendDeveloper",
+        "slug": "frontend-developer",
+        "title": "Frontend Developer",
+        "soul": "Интерфейсный инженер с уважением к рабочему дню пользователя: делает понятное действие видимым, а риск - не спрятанным.",
+        "claude_profile": ".claude/agents/frontend-developer.md",
+        "codex_profile": ".codex/agents/roles/FrontendDeveloper/profile.md",
+        "helper": "harness/scripts/agents/frontend_developer.py",
+        "read_first": [
+          "AGENTS.md",
+          "EntryPointForTask.md",
+          "docs/AI_M_MSF.md",
+          "Focus.md",
+          "Team.yml",
+          "docs/Context/2026-05-19-autonomous-mvp-feedback.md",
+          "Scope.md",
+          "docs/dev/ImplementationPlan.md",
+          "docs/dev/PredictableAIWork.md",
+          "docs/contracts/API.md",
+          "docs/contracts/PublicationPolicy.md",
+          "tasks/TASK-007-widget-intake-flow.yml",
+          "tasks/TASK-008-owner-review-dashboard.yml"
+        ],
+        "contracts": [
+          "docs/contracts/README.md",
+          "docs/contracts/ContractManifest.json",
+          "docs/contracts/AgentTaskEvidence.md",
+          "docs/contracts/ArchitectInterventionRequest.md",
+          "docs/contracts/PriceInputRequest.md",
+          "docs/Evals/QualityGates.md",
+          "docs/Evals/GateMatrix.md",
+          "docs/contracts/API.md",
+          "docs/contracts/PublicationPolicy.md"
+        ],
+        "default_tasks": [
+          "TASK-007",
+          "TASK-008"
+        ],
+        "forbidden": [
+          "Vision шире Scope; реализация идет по Scope.",
+          "AI не считает деньги, не выбирает коэффициенты и не создает строки сметы с суммами.",
+          "Calculation engine является pure deterministic module.",
+          "LLM payload не содержит ПД, деньги, прайсы и PDF.",
+          "Tenant определяется сервером; tenantId из клиента недоверен.",
+          "RLS и withTenant обязательны с первого дня.",
+          "Публикация возможна только после human approval или audited auto_publish.",
+          "Любое архитектурное отклонение фиксируется через ADR до кода.",
+          "Показывать full estimate до publication gates.",
+          "Передавать tenant authority через postMessage/localStorage.",
+          "Прятать warnings/risk flags/insufficient_data.",
+          "Создавать landing вместо рабочей first screen, если нужен app flow."
+        ],
+        "quality_gates": [
+          "Preview до телефона замылен/partial.",
+          "Phone-gate до full reveal/PDF.",
+          "Owner sees warnings and risk flags."
+        ],
+        "dispatch_command": "python3 harness/scripts/agents/frontend_developer.py --json"
+      },
+      "must_read": [
+        "AGENTS.md",
+        "EntryPointForTask.md",
+        "docs/AI_M_MSF.md",
+        "Focus.md",
+        "Team.yml",
+        "docs/Context/2026-05-19-autonomous-mvp-feedback.md",
+        "Scope.md",
+        "docs/dev/ImplementationPlan.md",
+        "docs/dev/PredictableAIWork.md",
+        "docs/contracts/API.md",
+        "docs/contracts/PublicationPolicy.md",
+        "tasks/TASK-007-widget-intake-flow.yml",
+        "tasks/TASK-008-owner-review-dashboard.yml",
+        "docs/contracts/VisualIdentityAndMarketingSite.md",
+        "docs/SolutionDesign.md",
+        "docs/Architecture.md",
+        "tasks/TASK-012A-visual-identity-brief.yml",
+        "docs/contracts/README.md",
+        "docs/contracts/ContractManifest.json",
+        "docs/contracts/AgentTaskEvidence.md",
+        "docs/contracts/ArchitectInterventionRequest.md",
+        "docs/contracts/PriceInputRequest.md",
+        "docs/Evals/QualityGates.md",
+        "docs/Evals/GateMatrix.md"
+      ],
+      "related_profile_tasks": [
+        "TASK-007",
+        "TASK-008"
+      ],
+      "dispatch_prompt": "Ты FrontendDeveloper AI Build Team ProSmet. Возьми TASK-012B (ProSmet marketing site shell). Slice: all; work package: TASK-012. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, docs/contracts/API.md, docs/contracts/PublicationPolicy.md, tasks/TASK-007-widget-intake-flow.yml, tasks/TASK-008-owner-review-dashboard.yml, docs/contracts/VisualIdentityAndMarketingSite.md, docs/SolutionDesign.md, docs/Architecture.md, tasks/TASK-012A-visual-identity-brief.yml, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/QualityGates.md, docs/Evals/GateMatrix.md. Task card: tasks/TASK-012B-marketing-site-shell.yml. Запусти helper `harness/scripts/agents/frontend_developer.py` для контекста роли. Gate ids: UI.MARKETING_SITE.PUBLIC, UI.VISUAL.IDENTITY, CI.NO_SECRETS_DEPLOY, AGENT.EVIDENCE.REPORT. Required reports: reports/task-evidence/TASK-012B.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
+    },
+    "TASK-012C": {
+      "id": "TASK-012C",
+      "title": "Marketing site browser and consent QA",
+      "role": "QAEngineer",
+      "owner": "QAEngineer",
+      "status": "draft",
+      "slice": "all",
+      "work_package": "TASK-012",
+      "path": "tasks/TASK-012C-marketing-site-qa.yml",
+      "source_docs": [
+        "AGENTS.md",
+        "docs/Evals/QualityGates.md",
+        "docs/Evals/gates.json",
+        "docs/contracts/VisualIdentityAndMarketingSite.md"
+      ],
+      "dependencies": [
+        "TASK-012B",
+        "TASK-010A"
+      ],
+      "dependency_notes": {},
+      "handoff_to": [
+        "PPM",
+        "Architect",
+        "FrontendDeveloper"
+      ],
+      "quality_gates": [
+        "Marketing page renders on desktop/mobile.",
+        "Contact fields are behind consent.",
+        "No real data fixtures are required."
+      ],
+      "gate_ids": [
+        "UI.MARKETING_SITE.PUBLIC",
+        "UI.VISUAL.IDENTITY",
+        "CI.NO_SECRETS_DEPLOY",
+        "AGENT.EVIDENCE.REPORT"
+      ],
+      "required_evidence": [
+        "Smoke check results or not_run reason.",
+        "Consent/no-real-data checklist."
+      ],
+      "required_reports": [
+        "reports/task-evidence/TASK-012C.json"
+      ],
+      "acceptance": [
+        "QA can state what is passed, failed or not_run for marketing site readiness.",
+        "No deploy or external service is required for QA."
+      ],
+      "micro_tasks": [],
+      "launch_owner": "QAEngineer",
+      "advisory_roles": [
+        "PPM",
+        "Architect",
+        "FrontendDeveloper"
+      ],
+      "employee": {
+        "role": "QAEngineer",
+        "slug": "qa-engineer",
+        "title": "QA Engineer",
+        "soul": "Недоверчивый союзник качества: не портит темп, но не дает красивому демо пройти вместо проверяемой системы.",
+        "claude_profile": ".claude/agents/qa-engineer.md",
+        "codex_profile": ".codex/agents/roles/QAEngineer/profile.md",
+        "helper": "harness/scripts/agents/qa_engineer.py",
+        "read_first": [
+          "AGENTS.md",
+          "EntryPointForTask.md",
+          "docs/AI_M_MSF.md",
+          "Focus.md",
+          "Team.yml",
+          "docs/Context/2026-05-19-autonomous-mvp-feedback.md",
+          "Scope.md",
+          "docs/dev/ImplementationPlan.md",
+          "docs/dev/PredictableAIWork.md",
+          "docs/Evals/QualityGates.md",
+          "docs/contracts/CalculationEngineV1.md",
+          "docs/contracts/AIGateway.md",
+          "docs/contracts/DataModelRLS.md",
+          "docs/contracts/PublicationPolicy.md",
+          "tasks/TASK-010-ci-quality-gates.yml"
+        ],
+        "contracts": [
+          "docs/contracts/README.md",
+          "docs/contracts/ContractManifest.json",
+          "docs/contracts/AgentTaskEvidence.md",
+          "docs/contracts/ArchitectInterventionRequest.md",
+          "docs/contracts/PriceInputRequest.md",
+          "docs/Evals/QualityGates.md",
+          "docs/Evals/GateMatrix.md",
+          "docs/contracts/CalculationEngineV1.md",
+          "docs/contracts/AIGateway.md",
+          "docs/contracts/DataModelRLS.md",
+          "docs/contracts/PublicationPolicy.md"
+        ],
+        "default_tasks": [
+          "TASK-010"
+        ],
+        "forbidden": [
+          "Vision шире Scope; реализация идет по Scope.",
+          "AI не считает деньги, не выбирает коэффициенты и не создает строки сметы с суммами.",
+          "Calculation engine является pure deterministic module.",
+          "LLM payload не содержит ПД, деньги, прайсы и PDF.",
+          "Tenant определяется сервером; tenantId из клиента недоверен.",
+          "RLS и withTenant обязательны с первого дня.",
+          "Публикация возможна только после human approval или audited auto_publish.",
+          "Любое архитектурное отклонение фиксируется через ADR до кода.",
+          "Писать, что проверка пройдена, если она не запускалась.",
+          "Ослаблять deterministic/RLS/AI safety gates ради скорости.",
+          "Читать .env или credential files."
+        ],
+        "quality_gates": [
+          "Calculation, AI, Security, PDF/link, Autonomous and Architecture gates mapped.",
+          "Failures have owner role.",
+          "Unrun checks are explicitly marked."
+        ],
+        "dispatch_command": "python3 harness/scripts/agents/qa_engineer.py --json"
+      },
+      "must_read": [
+        "AGENTS.md",
+        "EntryPointForTask.md",
+        "docs/AI_M_MSF.md",
+        "Focus.md",
+        "Team.yml",
+        "docs/Context/2026-05-19-autonomous-mvp-feedback.md",
+        "Scope.md",
+        "docs/dev/ImplementationPlan.md",
+        "docs/dev/PredictableAIWork.md",
+        "docs/Evals/QualityGates.md",
+        "docs/contracts/CalculationEngineV1.md",
+        "docs/contracts/AIGateway.md",
+        "docs/contracts/DataModelRLS.md",
+        "docs/contracts/PublicationPolicy.md",
+        "tasks/TASK-010-ci-quality-gates.yml",
+        "docs/Evals/gates.json",
+        "docs/contracts/VisualIdentityAndMarketingSite.md",
+        "docs/contracts/README.md",
+        "docs/contracts/ContractManifest.json",
+        "docs/contracts/AgentTaskEvidence.md",
+        "docs/contracts/ArchitectInterventionRequest.md",
+        "docs/contracts/PriceInputRequest.md",
+        "docs/Evals/GateMatrix.md"
+      ],
+      "related_profile_tasks": [
+        "TASK-010"
+      ],
+      "dispatch_prompt": "Ты QAEngineer AI Build Team ProSmet. Возьми TASK-012C (Marketing site browser and consent QA). Slice: all; work package: TASK-012. Сначала прочитай полный must_read список: AGENTS.md, EntryPointForTask.md, docs/AI_M_MSF.md, Focus.md, Team.yml, docs/Context/2026-05-19-autonomous-mvp-feedback.md, Scope.md, docs/dev/ImplementationPlan.md, docs/dev/PredictableAIWork.md, docs/Evals/QualityGates.md, docs/contracts/CalculationEngineV1.md, docs/contracts/AIGateway.md, docs/contracts/DataModelRLS.md, docs/contracts/PublicationPolicy.md, tasks/TASK-010-ci-quality-gates.yml, docs/Evals/gates.json, docs/contracts/VisualIdentityAndMarketingSite.md, docs/contracts/README.md, docs/contracts/ContractManifest.json, docs/contracts/AgentTaskEvidence.md, docs/contracts/ArchitectInterventionRequest.md, docs/contracts/PriceInputRequest.md, docs/Evals/GateMatrix.md. Task card: tasks/TASK-012C-marketing-site-qa.yml. Запусти helper `harness/scripts/agents/qa_engineer.py` для контекста роли. Gate ids: UI.MARKETING_SITE.PUBLIC, UI.VISUAL.IDENTITY, CI.NO_SECRETS_DEPLOY, AGENT.EVIDENCE.REPORT. Required reports: reports/task-evidence/TASK-012C.json. Работай строго в Scope, не читай .env/credentials, не ослабляй tenant/AI-money/publication gates. В конце дай handoff и machine-readable evidence report with changed files, checks, gate results, blockers and next executor."
     }
   },
   "safety": {

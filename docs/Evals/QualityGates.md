@@ -103,7 +103,18 @@
 - Orchestrator proposal блокируется на failed validations, blocking inbox requests and missing process gates.
 - Orchestrator approval повторно проверяет Architect Inbox, чтобы новый blocker не обошел старым proposal.
 
-## 9. Edge Cases
+## 9. Visual and Marketing Site Gates
+
+- Visual tokens зафиксированы до реализации UI.
+- Основная палитра: белый, светло-голубой, мягкий фиолетовый accent, темный текст.
+- Marketing site ProSmet отделен от tenant/customer runtime data.
+- Marketing site использует только synthetic screenshots/demo data до отдельного approval на реальные материалы.
+- Demo/pilot lead form получает consent до phone/email/name.
+- Marketing payload не отправляется в LLM.
+- Marketing site не обещает точную цену, скидку, ROI or legal guarantees без подтвержденного contract/legal review.
+- Production deploy, external analytics and external form provider требуют отдельного ArchitectInterventionRequest.
+
+## 10. Edge Cases
 
 - площадь 0 или отрицательная;
 - углов меньше 4;

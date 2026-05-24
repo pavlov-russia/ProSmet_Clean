@@ -1,0 +1,43 @@
+task:
+  id: "TASK-012"
+  title: "Visual identity and ProSmet marketing site"
+  role: "ProductAnalyst"
+  owner: "ProductAnalyst"
+  status: "epic"
+  slice: "all"
+  work_package: "TASK-012"
+  micro_tasks:
+    - "TASK-012A"
+    - "TASK-012B"
+    - "TASK-012C"
+  source_docs:
+    - "AGENTS.md"
+    - "docs/Context/2026-05-24-visual-and-marketing-site-input.md"
+    - "docs/contracts/VisualIdentityAndMarketingSite.md"
+    - "docs/dev/ImplementationPlan.md"
+  goal: >
+    Зафиксировать визуальное направление ProSmet и public marketing site
+    для рекламы сервиса потолочным компаниям без доступа к tenant/customer
+    runtime data.
+  inputs:
+    - "Visual materials from docs/Visual."
+    - "VisualIdentityAndMarketingSite contract."
+  outputs:
+    - "Visual identity and marketing message brief."
+    - "apps/marketing architecture/route plan."
+    - "Browser/consent QA plan."
+  constraints:
+    - "Marketing site не является генератором сайтов подрядчиков."
+    - "No production deploy or external analytics without architect approval."
+  forbidden:
+    - "Using real pilot screenshots, real PII, real prices or real estimates without approval."
+  quality_gates:
+    - "Visual tokens are documented before UI implementation."
+    - "Marketing lead form has consent before contact fields."
+  dependencies:
+    - "TASK-001"
+  handoff_to:
+    - "ProductAnalyst"
+    - "FrontendDeveloper"
+    - "QAEngineer"
+

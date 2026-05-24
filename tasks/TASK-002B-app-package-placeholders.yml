@@ -10,6 +10,7 @@ task:
     - "AGENTS.md"
     - "docs/Architecture.md"
     - "docs/SolutionDesign.md"
+    - "docs/contracts/VisualIdentityAndMarketingSite.md"
     - "docs/Evals/GateMatrix.md"
   goal: >
     Создать пустые entrypoints for target apps/packages so implementation
@@ -20,6 +21,7 @@ task:
   outputs:
     - "apps/ceiling, apps/workers, apps/owner-bot placeholders."
     - "packages/core, packages/ui, packages/widget-loader, packages/config placeholders."
+    - "packages/ui visual-token placeholder for all frontend surfaces."
     - "Boundary note that packages/core is vertical-agnostic."
   constraints:
     - "Placeholders only; no provider calls and no real secrets."
@@ -32,6 +34,7 @@ task:
   gate_ids:
     - "ARCH.CORE.NO_CEILING_TERMS"
     - "DEV.SCAFFOLD.BASELINE"
+    - "UI.VISUAL.IDENTITY"
     - "AGENT.EVIDENCE.REPORT"
   required_evidence:
     - "Created path list."
@@ -40,6 +43,7 @@ task:
     - "reports/task-evidence/TASK-002B.json"
   dependencies:
     - "TASK-002A"
+    - "TASK-012A"
   handoff_to:
     - "BackendDeveloper"
     - "FrontendDeveloper"
@@ -47,4 +51,5 @@ task:
     - "AIFlowDeveloper"
   acceptance:
     - "Implementation roles can add code inside stable app/package boundaries."
+    - "Frontend surfaces have a shared visual-token boundary before UI implementation."
     - "No ceiling terms are introduced into packages/core."

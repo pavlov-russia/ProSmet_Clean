@@ -1,0 +1,59 @@
+task:
+  id: "TASK-012B"
+  title: "ProSmet marketing site shell"
+  role: "FrontendDeveloper"
+  owner: "FrontendDeveloper"
+  status: "draft"
+  slice: "all"
+  work_package: "TASK-012"
+  source_docs:
+    - "AGENTS.md"
+    - "docs/contracts/VisualIdentityAndMarketingSite.md"
+    - "docs/SolutionDesign.md"
+    - "docs/Architecture.md"
+    - "tasks/TASK-012A-visual-identity-brief.yml"
+  goal: >
+    Реализовать или подготовить implementation shell для `apps/marketing`:
+    public ProSmet site, route map, shared visual tokens, responsive layout
+    and demo request form boundary.
+  inputs:
+    - "TASK-012A visual/product brief."
+    - "Workspace baseline from TASK-002B."
+  outputs:
+    - "apps/marketing route/component plan or implementation."
+    - "Shared UI token usage plan."
+    - "Demo request consent boundary."
+  constraints:
+    - "Marketing app separated from tenant/customer runtime."
+    - "Synthetic screenshots/demo data only."
+    - "No production deploy, no external provider calls."
+  forbidden:
+    - "Reading tenant/customer data from marketing pages."
+    - "Sending marketing contact data to LLM."
+    - "Adding external analytics/form provider without ArchitectInterventionRequest."
+  quality_gates:
+    - "Marketing site route map exists."
+    - "Lead form consent precedes phone/email/name."
+    - "Mobile layout is primary."
+  gate_ids:
+    - "UI.MARKETING_SITE.PUBLIC"
+    - "UI.VISUAL.IDENTITY"
+    - "CI.NO_SECRETS_DEPLOY"
+    - "AGENT.EVIDENCE.REPORT"
+  required_evidence:
+    - "Route map or implemented routes."
+    - "Consent before contact fields evidence."
+    - "No external/deploy confirmation."
+  required_reports:
+    - "reports/task-evidence/TASK-012B.json"
+  dependencies:
+    - "TASK-012A"
+    - "TASK-002B"
+  handoff_to:
+    - "QAEngineer"
+    - "BusinessAnalyst"
+    - "PPM"
+  acceptance:
+    - "`apps/marketing` is clearly separated from `apps/ceiling` tenant runtime."
+    - "No real PII, real prices or real screenshots are required for the site shell."
+

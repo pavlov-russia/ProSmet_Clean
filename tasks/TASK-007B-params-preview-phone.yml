@@ -9,6 +9,7 @@ task:
   source_docs:
     - "AGENTS.md"
     - "docs/contracts/API.md"
+    - "docs/contracts/VisualIdentityAndMarketingSite.md"
     - "docs/contracts/PublicationPolicy.md"
     - "docs/contracts/AIGateway.md"
   goal: >
@@ -31,6 +32,7 @@ task:
   quality_gates:
     - "Phone is required before full reveal when tenant policy enables phone-gate."
   gate_ids:
+    - "UI.VISUAL.IDENTITY"
     - "UI.WIDGET.FLOW"
     - "AI.PAYLOAD.NO_PII_MONEY"
     - "PUBLICATION.GATED"

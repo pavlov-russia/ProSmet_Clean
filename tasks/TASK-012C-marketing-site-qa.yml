@@ -1,0 +1,55 @@
+task:
+  id: "TASK-012C"
+  title: "Marketing site browser and consent QA"
+  role: "QAEngineer"
+  owner: "QAEngineer"
+  status: "draft"
+  slice: "all"
+  work_package: "TASK-012"
+  source_docs:
+    - "AGENTS.md"
+    - "docs/Evals/QualityGates.md"
+    - "docs/Evals/gates.json"
+    - "docs/contracts/VisualIdentityAndMarketingSite.md"
+  goal: >
+    Проверить marketing site по browser smoke, mobile layout, consent
+    boundary, no-real-data and no-deploy constraints.
+  inputs:
+    - "TASK-012B output."
+    - "VisualIdentityAndMarketingSite contract."
+  outputs:
+    - "Marketing site QA report."
+    - "Browser/mobile smoke status."
+    - "No real PII/prices/screenshots confirmation."
+  constraints:
+    - "Tests use synthetic data only."
+    - "Cannot mark future browser gates passed without executed smoke checks."
+  forbidden:
+    - "Reading `.env` or credential files."
+    - "Running production deploy."
+    - "Sending real lead data to external services."
+  quality_gates:
+    - "Marketing page renders on desktop/mobile."
+    - "Contact fields are behind consent."
+    - "No real data fixtures are required."
+  gate_ids:
+    - "UI.MARKETING_SITE.PUBLIC"
+    - "UI.VISUAL.IDENTITY"
+    - "CI.NO_SECRETS_DEPLOY"
+    - "AGENT.EVIDENCE.REPORT"
+  required_evidence:
+    - "Smoke check results or not_run reason."
+    - "Consent/no-real-data checklist."
+  required_reports:
+    - "reports/task-evidence/TASK-012C.json"
+  dependencies:
+    - "TASK-012B"
+    - "TASK-010A"
+  handoff_to:
+    - "PPM"
+    - "Architect"
+    - "FrontendDeveloper"
+  acceptance:
+    - "QA can state what is passed, failed or not_run for marketing site readiness."
+    - "No deploy or external service is required for QA."
+

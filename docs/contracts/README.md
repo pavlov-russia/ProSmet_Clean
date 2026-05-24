@@ -36,6 +36,7 @@ entry
 - `PriceInputRequest.md` — формат запроса реального прайса у архитектора, когда synthetic fixtures недостаточны.
 - `ArchitectInterventionRequest.md` — формат запроса вмешательства архитектора для Scope, ADR, legal, deploy, external service, PII and product decisions.
 - `AIOrchestrator.md` — контракт development-time AI-оркестратора: proposal, approval, command packets and feedback loop.
+- `VisualIdentityAndMarketingSite.md` — визуальное направление, стартовая палитра, UX-границы и public marketing site ProSmet.
 
 ## Правило использования
 

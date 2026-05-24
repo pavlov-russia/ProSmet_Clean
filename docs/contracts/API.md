@@ -49,6 +49,7 @@ entry
 | Context | Где используется | Источник tenant | Правило доступа |
 | --- | --- | --- | --- |
 | `public anonymous` | widget, Avito entry, consent, lead intake, preview | server-resolved `tenant_domains`, public slug, signed entry token, anonymous server session | Доступ только к текущей anonymous session и ее lead/calculation до публикации. |
+| `public marketing` | ProSmet marketing site, demo/pilot request | no tenant; public ProSmet site context | Доступ только к public marketing content and consented marketing lead write path. |
 | `signed link` | `GET /api/client-links/:token`, unlock, PDF download, link events | raw token -> `token_hash` -> `client_estimate_links.tenant_id` | Token не раскрывает `tenant_id`; доступ только к link-bound lead/calculation. |
 | `owner session` | dashboard, settings, human review, owner downloads | authenticated user -> active `memberships.tenant_id` | RBAC поверх RLS; чтение original PII пишет `pii_access_log`. |
 | `worker` | PDF, events ingest, notifications, price import, AI audit flush, bot callbacks | server-created job/callback binding with tenant scope | Worker обязан открыть `withTenant`; idempotency key обязателен для повторяемых side effects. |
@@ -66,6 +67,7 @@ type MinorMoney = { amountMinor: MinorUnitAmount; currency: "RUB" };
 type IdempotencyKey = string;
 
 type ApiContext =
+  | "public_marketing"
   | "public_anonymous"
   | "signed_link"
   | "owner_session"
@@ -128,6 +130,8 @@ type PageResponse<T> = {
 
 | Endpoint | Context | Tenant resolution | Request | Response | Idempotency | Audit events |
 | --- | --- | --- | --- | --- | --- | --- |
+| `POST /api/marketing/leads` | public marketing | no tenant | `CreateMarketingLeadRequest` | `CreateMarketingLeadResponse` | required | `marketing.demo_requested`, `marketing_consent.accepted` |
+| `POST /api/marketing/events` | public marketing | no tenant | `RecordMarketingEventRequest` | `RecordMarketingEventResponse` | event key required | `marketing.page_viewed`, `marketing.hero_cta_clicked`, `marketing.vertical_interest_clicked` |
 | `POST /api/session` | public anonymous | origin/domain/public slug/entry token | `CreateSessionRequest` | `CreateSessionResponse` | optional | `session.created`, `entry.resolved` |
 | `POST /api/consent` | public anonymous | anonymous session | `RecordConsentRequest` | `RecordConsentResponse` | required | `consent.accepted` |
 | `POST /api/leads` | public anonymous, owner session | anonymous session or owner membership | `CreateLeadRequest` | `CreateLeadResponse` | required | `lead.created`, `deal.created` |
@@ -165,7 +169,62 @@ type PageResponse<T> = {
 | `POST /api/bot/max/webhook` | worker | provider signature and channel binding | `BotWebhookRequest` | `BotWebhookResponse` | provider update id | `bot.webhook_received` |
 | `POST /api/bot/actions` | worker, owner session | signed callback token; approval requires owner auth | `BotActionRequest` | `BotActionResponse` | required | `bot.action_received`, action-specific audit |
 
-## 6. Public Intake Contracts
+## 6. Marketing Site Contracts
+
+Marketing site рекламирует ProSmet как сервис. Он не является tenant runtime and не имеет доступа к клиентским сметам, прайсам или данным пилотов.
+
+```ts
+type CreateMarketingLeadRequest = {
+  consent: {
+    accepted: true;
+    legalDocumentId: UUID;
+    legalDocumentVersion: string;
+  };
+  contact: {
+    name?: string;
+    phone?: string;
+    email?: string;
+    company?: string;
+  };
+  interest: {
+    vertical: "ceilings" | "other";
+    sourcePage: string;
+    message?: string;
+  };
+  utm?: Record<string, string>;
+  idempotencyKey: IdempotencyKey;
+};
+
+type CreateMarketingLeadResponse = {
+  marketingLeadId: UUID;
+  status: "received";
+};
+
+type RecordMarketingEventRequest = {
+  event:
+    | "page_viewed"
+    | "hero_cta_clicked"
+    | "demo_requested"
+    | "vertical_interest_clicked";
+  sourcePage: string;
+  metadata?: Record<string, string | number | boolean>;
+  idempotencyKey: IdempotencyKey;
+};
+
+type RecordMarketingEventResponse = {
+  eventId: UUID;
+  accepted: true;
+};
+```
+
+Rules:
+
+- consent is required before phone/email/name;
+- marketing payload is not sent to LLM;
+- real testimonials, screenshots, prices and pilot data require architect approval;
+- external CRM/analytics provider requires ArchitectInterventionRequest.
+
+## 7. Public Intake Contracts
 
 ```ts
 type CreateSessionRequest = {
@@ -280,7 +339,7 @@ type CollectParamsResponse = {
 
 AI output schema validator обязан отклонить `price`, `priceRub`, `finalPrice`, `discount`, `margin`, `coefficientValue`, `estimateLineAmount`, `total` и любые производные price-поля.
 
-## 7. Calculation And Policy Contracts
+## 8. Calculation And Policy Contracts
 
 ```ts
 type CreatePreviewCalculationRequest = {
@@ -385,7 +444,7 @@ type RunPolicyDecisionResponse = {
 
 `POST /api/calculations` не принимает `priceBookId`, price item, coefficient value, formula body, discount или manual total из клиента. Эти значения выбирает сервер из tenant pricing profile и immutable snapshots.
 
-## 8. Client Link And Event Contracts
+## 9. Client Link And Event Contracts
 
 ```ts
 type UnlockClientLinkRequest = {
@@ -452,7 +511,7 @@ type RecordClientLinkEventResponse = {
 
 `metadata` не содержит raw phone, name, email, address, tenant private identifiers, price snapshots или AI payload. IP и user-agent хешируются сервером.
 
-## 9. Owner Dashboard Contracts
+## 10. Owner Dashboard Contracts
 
 ```ts
 type SignInRequest = {
@@ -573,7 +632,7 @@ type ManualAdjustmentResponse = {
 
 Manual adjustment не меняет существующий immutable snapshot. Если adjustment влияет на расчетные суммы, создается новый calculation snapshot или заявка остается в review/measurement.
 
-## 10. Settings, Analytics, PDF And Bot Contracts
+## 11. Settings, Analytics, PDF And Bot Contracts
 
 ```ts
 type ListClientEventsRequest = PageRequest & {
@@ -722,7 +781,7 @@ type BotActionResponse = {
 
 Bot API не доверяет tenant из callback payload. Tenant выводится из provider binding или signed callback token. Действие `approve` допустимо только после owner auth и полного review context; иначе возвращается deep link в dashboard.
 
-## 11. Publication And Unlock Gates
+## 12. Publication And Unlock Gates
 
 ### 11.1. Publication Gates
 
@@ -767,7 +826,7 @@ Full unlock signed link выполняется только если:
 
 До выполнения unlock gates endpoint возвращает `state = "locked"` и только разрешенный preview.
 
-## 12. Idempotency Contract
+## 13. Idempotency Contract
 
 Для mutating endpoints используется заголовок `Idempotency-Key` или поле `eventIdempotencyKey`.
 
@@ -780,7 +839,7 @@ Full unlock signed link выполняется только если:
 - worker jobs используют job id как часть idempotency scope;
 - link events дополнительно имеют unique constraint на `client_estimate_link_id + event_idempotency_key`.
 
-## 13. Error Semantics
+## 14. Error Semantics
 
 HTTP mapping:
 
@@ -796,7 +855,7 @@ HTTP mapping:
 
 Ошибки публичного и signed-link контекста не раскрывают существование tenant, lead, calculation или client, если текущий контекст не имеет права это знать.
 
-## 14. Audit Contract
+## 15. Audit Contract
 
 Audit events пишутся без raw PII и без secret tokens. Для чувствительных payload сохраняется hash, reason codes и entity refs.
 

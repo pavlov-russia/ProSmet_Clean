@@ -17,6 +17,7 @@
 - `Backlogs.md`
 - `Team.yml`
 - `docs/Context/2026-05-19-autonomous-mvp-feedback.md`
+- `docs/Context/2026-05-24-visual-and-marketing-site-input.md`
 - `harness/build-team.md`
 - `docs/SolutionDesign.md`
 - `docs/Architecture.md`
@@ -84,7 +85,7 @@ entry
 | BackendDeveloper | SolutionArchitect, DevOps, EstimationEngineDeveloper | FrontendDeveloper, AIFlowDeveloper, QAEngineer | Route handlers, schema, services, workers, tenant context |
 | EstimationEngineDeveloper | DomainAnalyst, SeniorCeilingEstimator, SolutionArchitect | BackendDeveloper, FrontendDeveloper, QAEngineer | Pure calculation module, formula registry, audit trail |
 | AIFlowDeveloper | BusinessAnalyst, DomainAnalyst, BackendDeveloper | FrontendDeveloper, BackendDeveloper, QAEngineer | Safe extraction, redaction, AI audit, confidence/risk fields |
-| FrontendDeveloper | ProductAnalyst, BackendDeveloper, AIFlowDeveloper | QAEngineer, ProductAnalyst, BusinessAnalyst | Widget, dashboard, review UI, client link UI |
+| FrontendDeveloper | ProductAnalyst, BackendDeveloper, AIFlowDeveloper | QAEngineer, ProductAnalyst, BusinessAnalyst | Widget, dashboard, review UI, client link UI, marketing site UI |
 | QAEngineer | Все роли | DevOps, Architect, PPM | Quality gates, regression reports, release readiness |
 
 ## 5. Slice Order
@@ -92,6 +93,7 @@ entry
 | Slice | Цель | Основные задачи | Primary roles | Что разблокирует |
 | --- | --- | --- | --- | --- |
 | Architecture prep | Свести документы, роли и implementation cards в единый контракт | `TASK-001` | Architect, SolutionArchitect, PPM | Безопасный старт кода |
+| Pre-launch visual/marketing | Зафиксировать визуальное направление и сайт ProSmet для рекламы сервиса без доступа к tenant/customer data | `TASK-012` | ProductAnalyst, FrontendDeveloper, BusinessAnalyst, QAEngineer | Публичную презентацию продукта и будущий acquisition контур |
 | MVP-0 | Внутренний deterministic estimate под human review | `TASK-002`, `TASK-003`, `TASK-004`, старт `TASK-008`, baseline `TASK-010` | DevOps, BackendDeveloper, EstimationEngineDeveloper, FrontendDeveloper, QAEngineer | Проверяемое ядро расчета и ручная приемка |
 | MVP-1 | Публичный reviewed flow: entry -> consent -> params/chat -> blurred/partial preview -> phone -> human review -> full link/PDF | `TASK-005`, `TASK-007`, `TASK-008`, `TASK-009`, расширение `TASK-010` | AIFlowDeveloper, FrontendDeveloper, BackendDeveloper, QAEngineer | Пилотный клиентский путь без auto_publish |
 | MVP-2 | Autonomous offer mode через deterministic policy | `TASK-006`, финал `TASK-010` | BackendDeveloper, SolutionArchitect, QAEngineer, DevOps | `auto_publish` только после policy/audit gates |
@@ -109,6 +111,18 @@ Done, когда:
 - Канонический поток зафиксирован как обязательный путь MVP-1/MVP-2.
 - Открытые вопросы из backlog не блокируют MVP-0, либо отмечены как explicit blocker.
 - Любое найденное архитектурное отклонение вынесено в ADR/handoff до кода.
+
+### 6.1.1. Pre-launch Visual/Marketing
+
+Done, когда:
+
+- Visual direction зафиксирован в `docs/contracts/VisualIdentityAndMarketingSite.md`.
+- Палитра, mobile-first принцип, единое окно/dashboard and marketing site boundary не конфликтуют с MVP-интерфейсами.
+- `packages/ui` принимает visual tokens как foundation до реализации owner dashboard, admin/settings, widget, review UI and client link UI.
+- `apps/marketing` описан как отдельный public site ProSmet, а не tenant/customer runtime.
+- Demo/pilot lead form требует consent до phone/email/name.
+- Marketing site не использует реальные ПД, реальные сметы, реальные прайсы or real pilot screenshots без отдельного Architect approval.
+- Нет production deploy, external analytics provider or external forms без ArchitectInterventionRequest.
 
 ### 6.2. MVP-0
 
@@ -176,6 +190,7 @@ Done, когда:
 - `TASK-009A` / `TASK-009B`: signed client link and PDF/analytics substrate.
 - `TASK-010A` / `TASK-010B`: baseline QA harness and incremental quality gates.
 - `TASK-011`: development-time AIOrchestrator harness, proposal/approval cycle and command packets.
+- `TASK-012A` / `TASK-012B` / `TASK-012C`: visual identity, ProSmet marketing site boundary and browser/consent QA.
 
 Each executable task must reference `gate_ids` from `docs/Evals/gates.json` and produce `reports/task-evidence/TASK-ID.json`.
 

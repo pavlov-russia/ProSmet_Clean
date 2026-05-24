@@ -1,7 +1,7 @@
 {
   "$schema": "schemas/contract-manifest-v1.schema.json",
   "contractVersion": "contract-manifest.v1",
-  "updatedAt": "2026-05-23",
+  "updatedAt": "2026-05-24",
   "status": "active",
   "contracts": [
     {
@@ -57,6 +57,12 @@
       "doc": "AIOrchestrator.md",
       "schema": "schemas/ai-orchestrator-cycle-v1.schema.json",
       "fixtures": ["../../reports/orchestrator/README.md", "../../workspace/orchestrator/README.md"]
+    },
+    {
+      "id": "visual-identity-marketing-site.v1",
+      "doc": "VisualIdentityAndMarketingSite.md",
+      "schema": "schemas/visual-identity-marketing-site-v1.schema.json",
+      "fixtures": ["VisualIdentityAndMarketingSite.md", "../Context/2026-05-24-visual-and-marketing-site-input.md"]
     }
   ]
 }

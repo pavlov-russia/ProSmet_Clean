@@ -14,17 +14,20 @@
 - Определить список risk flags для `auto_publish`.
 - Определить порог AI confidence для autonomous offer mode.
 - Проверить, нужен ли голос до первого автономного текстового пилота.
+- Подготовить marketing message для сайта ProSmet: главный оффер, аудитория, CTA, ограничения обещаний.
 
 ## Architecture Backlog
 
 - Доработать ADR-003/ADR-007 в связке human review vs autonomous offer mode.
 - Подготовить отдельный ADR или appendix, если canonical flow будет меняться после пилота.
+- Уточнить, когда `apps/marketing` становится ready-to-implement task, чтобы не отвлекать MVP calculation path до TASK-001/TASK-002B.
 - Добавить RACI/conflict-resolution matrix для AI-команды реализации: Architect, SolutionArchitect, PPM, AIOrchestrator, QAEngineer, DomainAnalyst, SeniorCeilingEstimator, BackendDeveloper, EstimationEngineDeveloper.
 - Добавить machine-readable slice acceptance reports для `architecture_prep`, `mvp_0`, `mvp_1`, `mvp_2`.
 
 ## Engineering Backlog
 
 - Scaffold монорепо.
+- После workspace baseline создать `apps/marketing` для public ProSmet site, если TASK-012B переведен из draft в ready.
 - Настроить strict TypeScript.
 - Настроить Drizzle и миграции.
 - Реализовать `withTenant`.

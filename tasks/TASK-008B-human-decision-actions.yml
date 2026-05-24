@@ -8,6 +8,7 @@ task:
   work_package: "TASK-008"
   source_docs:
     - "AGENTS.md"
+    - "docs/contracts/VisualIdentityAndMarketingSite.md"
     - "docs/contracts/PublicationPolicy.md"
     - "docs/contracts/API.md"
   goal: >
@@ -29,6 +30,7 @@ task:
   quality_gates:
     - "Human review record is auditable."
   gate_ids:
+    - "UI.VISUAL.IDENTITY"
     - "UI.OWNER.REVIEW"
     - "PUBLICATION.GATED"
     - "SECURITY.PII.AUDIT"

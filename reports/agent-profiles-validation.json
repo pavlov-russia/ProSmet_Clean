@@ -107,12 +107,14 @@
       "owner": "DevOps",
       "status": "ready",
       "dependencies": [
-        "TASK-002A"
+        "TASK-002A",
+        "TASK-012A"
       ],
       "micro_tasks": [],
       "gate_ids": [
         "ARCH.CORE.NO_CEILING_TERMS",
         "DEV.SCAFFOLD.BASELINE",
+        "UI.VISUAL.IDENTITY",
         "AGENT.EVIDENCE.REPORT"
       ]
     },
@@ -408,6 +410,7 @@
       ],
       "micro_tasks": [],
       "gate_ids": [
+        "UI.VISUAL.IDENTITY",
         "UI.WIDGET.FLOW",
         "SECURITY.TENANT.RLS",
         "AGENT.EVIDENCE.REPORT"
@@ -427,6 +430,7 @@
       ],
       "micro_tasks": [],
       "gate_ids": [
+        "UI.VISUAL.IDENTITY",
         "UI.WIDGET.FLOW",
         "AI.PAYLOAD.NO_PII_MONEY",
         "PUBLICATION.GATED",
@@ -461,10 +465,12 @@
       "status": "ready",
       "dependencies": [
         "TASK-003B",
-        "TASK-004C"
+        "TASK-004C",
+        "TASK-012A"
       ],
       "micro_tasks": [],
       "gate_ids": [
+        "UI.VISUAL.IDENTITY",
         "UI.OWNER.REVIEW",
         "SECURITY.TENANT.RLS",
         "CALC.PARTIAL",
@@ -484,6 +490,7 @@
       ],
       "micro_tasks": [],
       "gate_ids": [
+        "UI.VISUAL.IDENTITY",
         "UI.OWNER.REVIEW",
         "PUBLICATION.GATED",
         "SECURITY.PII.AUDIT",
@@ -620,6 +627,78 @@
       "gate_ids": [
         "AGENT.ORCHESTRATOR.CYCLE",
         "CONTRACT.MANIFEST.SCHEMAS",
+        "AGENT.EVIDENCE.REPORT"
+      ]
+    },
+    "TASK-012": {
+      "path": "tasks/TASK-012-visual-marketing-site.yml",
+      "id": "TASK-012",
+      "title": "Visual identity and ProSmet marketing site",
+      "role": "ProductAnalyst",
+      "owner": "ProductAnalyst",
+      "status": "epic",
+      "dependencies": [
+        "TASK-001"
+      ],
+      "micro_tasks": [
+        "TASK-012A",
+        "TASK-012B",
+        "TASK-012C"
+      ],
+      "gate_ids": []
+    },
+    "TASK-012A": {
+      "path": "tasks/TASK-012A-visual-identity-brief.yml",
+      "id": "TASK-012A",
+      "title": "Visual identity and marketing message brief",
+      "role": "ProductAnalyst",
+      "owner": "ProductAnalyst",
+      "status": "ready",
+      "dependencies": [
+        "TASK-001"
+      ],
+      "micro_tasks": [],
+      "gate_ids": [
+        "UI.VISUAL.IDENTITY",
+        "AGENT.EVIDENCE.REPORT",
+        "ARCHITECT.INTERVENTION.REQUEST_PROTOCOL"
+      ]
+    },
+    "TASK-012B": {
+      "path": "tasks/TASK-012B-marketing-site-shell.yml",
+      "id": "TASK-012B",
+      "title": "ProSmet marketing site shell",
+      "role": "FrontendDeveloper",
+      "owner": "FrontendDeveloper",
+      "status": "draft",
+      "dependencies": [
+        "TASK-012A",
+        "TASK-002B"
+      ],
+      "micro_tasks": [],
+      "gate_ids": [
+        "UI.MARKETING_SITE.PUBLIC",
+        "UI.VISUAL.IDENTITY",
+        "CI.NO_SECRETS_DEPLOY",
+        "AGENT.EVIDENCE.REPORT"
+      ]
+    },
+    "TASK-012C": {
+      "path": "tasks/TASK-012C-marketing-site-qa.yml",
+      "id": "TASK-012C",
+      "title": "Marketing site browser and consent QA",
+      "role": "QAEngineer",
+      "owner": "QAEngineer",
+      "status": "draft",
+      "dependencies": [
+        "TASK-012B",
+        "TASK-010A"
+      ],
+      "micro_tasks": [],
+      "gate_ids": [
+        "UI.MARKETING_SITE.PUBLIC",
+        "UI.VISUAL.IDENTITY",
+        "CI.NO_SECRETS_DEPLOY",
         "AGENT.EVIDENCE.REPORT"
       ]
     }

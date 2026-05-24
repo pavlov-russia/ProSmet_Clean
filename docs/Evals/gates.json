@@ -1,7 +1,7 @@
 {
   "$schema": "../contracts/schemas/gate-matrix-v1.schema.json",
   "contractVersion": "gate-matrix.v1",
-  "updatedAt": "2026-05-23",
+  "updatedAt": "2026-05-24",
   "gates": [
     {
       "id": "AGENT.TASK_CARD.READY",
@@ -170,6 +170,22 @@
       "owner": "FrontendDeveloper",
       "command": "future:smoke:owner-review",
       "requiredEvidence": ["snapshot versions", "warnings", "missing blocks", "risk flags", "human review record"]
+    },
+    {
+      "id": "UI.VISUAL.IDENTITY",
+      "title": "Visual identity tokens and UX principles are documented",
+      "slice": "all",
+      "owner": "ProductAnalyst",
+      "command": "future:review:visual-identity",
+      "requiredEvidence": ["docs/contracts/VisualIdentityAndMarketingSite.md", "palette tokens", "mobile-first single-window UX principles"]
+    },
+    {
+      "id": "UI.MARKETING_SITE.PUBLIC",
+      "title": "ProSmet marketing site is separated from tenant runtime data",
+      "slice": "all",
+      "owner": "FrontendDeveloper",
+      "command": "future:smoke:marketing-site",
+      "requiredEvidence": ["apps/marketing route map or implementation plan", "consent before demo lead contact", "synthetic screenshots only", "no production deploy"]
     },
     {
       "id": "LINK.PDF.ANALYTICS",

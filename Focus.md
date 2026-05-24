@@ -1,6 +1,6 @@
 # Focus.md
 
-Дата: 2026-05-23
+Дата: 2026-05-24
 Текущий фокус: перейти от архитектурного clean-пакета к реализации по task cards AI-сотрудников.
 
 ## Сейчас
@@ -15,7 +15,9 @@
 - Реализован AIOrchestrator с Python brain: proposal -> architect approval -> command packets -> evidence -> next cycle.
 - Закрыт pre-start hardening после Claude/subagent review: `qa-evaluator` удален, autonomous context обязателен во всех профилях, dispatcher учитывает только workable статусы.
 - Добавлен predictability слой для AI-сотрудников: `docs/dev/PredictableAIWork.md`, `docs/Evals/gates.json`, `docs/contracts/ContractManifest.json`, JSON Schemas, synthetic golden fixtures, tenant A/B seed, AI payload corpus and `harness/scripts/validate_predictability.py`.
+- Принята visual/marketing вводная из `docs/Visual`: светлый mobile-first UX, бело-голубая палитра с violet accents, single-window dashboard and public ProSmet marketing site as separate `apps/marketing` boundary.
 - `TASK-002`...`TASK-010` переведены в work packages; исполняемые карточки раздроблены на `TASK-002A`...`TASK-010B`.
+- Добавлен work package `TASK-012` для Visual Identity and ProSmet Marketing Site. `TASK-012A` стал ранней ready-задачей, чтобы фирменный стиль лег в `packages/ui` до реализации admin/settings, owner dashboard, widget, review UI and client link.
 - Добавлен протокол `PriceInputRequest`: когда AI-сотруднику потребуется реальный прайс, он создает запрос в `reports/price-requests/` и явно уведомляет архитектора.
 - Добавлен `Architect Inbox`: AI-сотрудники создают запросы вмешательства в `workspace/architect-inbox/requests/`, просмотр через `python3 harness/scripts/architect_inbox.py`.
 - Зафиксирован контекст review архитектуры AI-команды реализации в `docs/Context/2026-05-23-ai-team-implementation-architecture.md`: сильные стороны harness, риски evidence self-attestation, dependency closure, stale approval, regex YAML parsing, slice acceptance and RACI.
@@ -33,6 +35,7 @@ python3 harness/scripts/ai_orchestrator.py propose
 Затем взять `TASK-001-architecture-contract-alignment.yml` как финальную приемку prep-slice. После закрытия `TASK-001` переходить к micro-tasks:
 
 - `TASK-002A-workspace-baseline.yml`;
+- `TASK-012A-visual-identity-brief.yml`;
 - `TASK-002B-app-package-placeholders.yml`;
 - `TASK-010A-baseline-qa-harness.yml`;
 - затем `TASK-003A` / `TASK-004A` по dependency graph dispatcher.
